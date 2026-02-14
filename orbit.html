@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Planner - SAT-DISCOVERY</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <header>
+        <h1>🛰️ SAT-DISCOVERY</h1>
+        <nav>
+            <ul>
+                <li><a href="/app.html#/">Dashboard</a></li>
+                <li><a href="/app.html#sources">Sources</a></li>
+                <li><a href="/app.html#orbit">Orbit Planner</a></li>
+                <li><a href="/app.html#delivery">Data Delivery</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="detail-container">
+            <div class="detail-header">
+                <a href="/app.html" class="btn btn-small">← Back to Dashboard</a>
+                <h2>🛰️ Orbit & Pass Planning</h2>
+                <p style="color: rgba(255, 215, 0, 0.7); margin-top: 0.5rem;">
+                    Predict satellite passes and plan observation windows
+                </p>
+            </div>
+
+            <div class="info-box" style="margin-bottom: 2rem; border-left-color: #f4d03f;">
+                <div class="info-box-title">🚧 Feature Under Development</div>
+                <div class="info-box-content">
+                    <p>The Orbit Planner is currently under development. This feature will include:</p>
+                    <ul style="margin-top: 0.5rem; margin-left: 1.5rem; line-height: 1.8;">
+                        <li>Satellite pass predictions for specific locations</li>
+                        <li>Visibility windows calculation</li>
+                        <li>TLE (Two-Line Element) data integration</li>
+                        <li>Ground track visualization</li>
+                        <li>Area of Interest coverage analysis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="detail-content">
+                <div>
+                    <div class="card">
+                        <div class="card-title">Select Satellite</div>
+                        <div class="card-content">
+                            <div class="input-group">
+                                <label class="input-label">Satellite</label>
+                                <select id="satelliteSelect" class="input-field">
+                                    <option value="">Loading satellites...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-title">Location</div>
+                        <div class="card-content">
+                            <div class="input-group">
+                                <label class="input-label">Latitude</label>
+                                <input type="number" id="latitude" class="input-field" placeholder="e.g., 40.7128" step="0.0001">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Longitude</label>
+                                <input type="number" id="longitude" class="input-field" placeholder="e.g., -74.0060" step="0.0001">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-title">Prediction Parameters</div>
+                        <div class="card-content">
+                            <div class="input-group">
+                                <label class="input-label">Duration (days)</label>
+                                <input type="number" id="duration" class="input-field" value="7" min="1" max="30">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Minimum Elevation (degrees)</label>
+                                <input type="number" id="minElevation" class="input-field" value="10" min="0" max="90">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="predictBtn" class="btn btn-primary btn-block" style="margin-top: 1rem;" disabled>
+                        Predict Passes (Coming Soon)
+                    </button>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <div class="card-title">Predicted Passes</div>
+                        <div class="card-content">
+                            <div id="passResults" class="empty-state">
+                                <div class="empty-state-icon">📡</div>
+                                <div class="empty-state-text">Configure parameters and predict passes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-title">Orbital Parameters</div>
+                        <div class="card-content">
+                            <div id="orbitalParams">
+                                <p style="color: rgba(255, 215, 0, 0.6);">Select a satellite to view orbital parameters</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 215, 0, 0.2);">
+                <div class="info-box">
+                    <div class="info-box-title">About Orbit Planning</div>
+                    <div class="info-box-content">
+                        <p>Orbit planning helps you understand when satellites will pass over your area of interest. 
+                        This information is useful for:</p>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem; line-height: 1.8;">
+                            <li>Planning data acquisition campaigns</li>
+                            <li>Understanding satellite revisit patterns</li>
+                            <li>Identifying optimal observation windows</li>
+                            <li>Coordinating with satellite operators for tasking</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">
+                            <strong>Note:</strong> Actual satellite availability and data acquisition depend on various factors 
+                            including weather, satellite health, and operational priorities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>SAT-DISCOVERY - Open Satellite Observation Capability Index | Reference Only | No Data Hosted</p>
+    </footer>
+
+    <script src="/js/storage.js"></script>
+    <script src="/js/dataLoader.js"></script>
+    <script src="/js/indexer.js"></script>
+    <script src="/js/orbit_stub.js"></script>
+
+    <script>
+        async function init() {
+            try {
+                // Load data
+                await DataLoader.loadAll();
+                await Indexer.buildIndex();
+                
+                OrbitPlanner.init();
+
+                // Populate satellite dropdown
+                const satellites = Indexer.getAll();
+                const select = document.getElementById('satelliteSelect');
+                
+                select.innerHTML = '<option value="">Select a satellite...</option>';
+                satellites.forEach(sat => {
+                    const option = document.createElement('option');
+                    option.value = sat.name;
+                    option.textContent = `${sat.name} (${sat.operator})`;
+                    select.appendChild(option);
+                });
+
+                // Handle satellite selection
+                select.addEventListener('change', (e) => {
+                    if (e.target.value) {
+                        displayOrbitalParams(e.target.value);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error initializing orbit planner:', error);
+            }
+        }
+
+        function displayOrbitalParams(satelliteName) {
+            const params = OrbitPlanner.getOrbitalParameters(satelliteName);
+            
+            const html = `
+                <div class="property-list">
+                    <div class="property-label">Altitude:</div>
+                    <div class="property-value">${params.altitude.toFixed(1)} km</div>
+                    
+                    <div class="property-label">Inclination:</div>
+                    <div class="property-value">${params.inclination.toFixed(2)}°</div>
+                    
+                    <div class="property-label">Period:</div>
+                    <div class="property-value">${params.period.toFixed(1)} min</div>
+                    
+                    <div class="property-label">Eccentricity:</div>
+                    <div class="property-value">${params.eccentricity.toFixed(4)}</div>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255, 215, 0, 0.6);">
+                    * Simulated values for demonstration
+                </p>
+            `;
+            
+            document.getElementById('orbitalParams').innerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
+</html>

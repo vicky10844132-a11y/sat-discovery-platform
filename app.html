@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT-DISCOVERY - Satellite Discovery Platform</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <header>
+        <h1>🛰️ SAT-DISCOVERY</h1>
+        <nav>
+            <ul>
+                <li><a href="#/">Dashboard</a></li>
+                <li><a href="#sources">Sources</a></li>
+                <li><a href="#orbit">Orbit Planner</a></li>
+                <li><a href="#delivery">Data Delivery</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sidebar with filters -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Search</h3>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="input-field" 
+                        placeholder="Search satellites..."
+                    >
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Sensor Type</h3>
+                <div class="checkbox-group" id="typeFilters">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Archive</h3>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="archiveAll" name="archive" value="all" checked>
+                        <label for="archiveAll">All</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="archiveYes" name="archive" value="yes">
+                        <label for="archiveYes">Public Archive</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="archiveNo" name="archive" value="no">
+                        <label for="archiveNo">No Archive</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Tasking</h3>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="taskingAll" name="tasking" value="all" checked>
+                        <label for="taskingAll">All</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="taskingYes" name="tasking" value="yes">
+                        <label for="taskingYes">Available</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="taskingNo" name="tasking" value="no">
+                        <label for="taskingNo">Not Available</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <button class="btn btn-block" id="clearFiltersBtn">Clear Filters</button>
+            </div>
+        </aside>
+
+        <!-- Main content area -->
+        <div class="content">
+            <!-- Map panel (70%) -->
+            <div class="map-panel">
+                <div id="map"></div>
+            </div>
+
+            <!-- Results panel (30%) -->
+            <div class="results-panel">
+                <div class="results-header">
+                    <div class="results-count" id="resultsCount">0 satellites found</div>
+                </div>
+                <div class="filter-chips" id="filterChips"></div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>SAT-DISCOVERY - Open Satellite Observation Capability Index | Reference Only | No Data Hosted</p>
+    </footer>
+
+    <!-- Load JavaScript modules -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/dataLoader.js"></script>
+    <script src="/js/indexer.js"></script>
+    <script src="/js/filters.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/map.js"></script>
+    <script src="/js/router.js"></script>
+
+    <script>
+        // Initialize the application
+        async function init() {
+            try {
+                // Show loading state
+                UI.showLoading(document.getElementById('resultsGrid'));
+
+                // Load data and build index
+                await DataLoader.loadAll();
+                await Indexer.buildIndex();
+
+                // Initialize map
+                MapManager.init('map');
+
+                // Load saved AOI
+                const savedAOI = Storage.loadAOI();
+                if (savedAOI) {
+                    MapManager.setAOI(savedAOI);
+                }
+
+                // Populate type filters
+                const types = Indexer.getUniqueTypes();
+                const typeFiltersContainer = document.getElementById('typeFilters');
+                types.forEach(type => {
+                    const div = document.createElement('div');
+                    div.className = 'checkbox-item';
+                    div.innerHTML = `
+                        <input type="checkbox" id="type${type}" value="${type}">
+                        <label for="type${type}">${type}</label>
+                    `;
+                    typeFiltersContainer.appendChild(div);
+
+                    div.querySelector('input').addEventListener('change', (e) => {
+                        Filters.toggleType(type);
+                    });
+                });
+
+                // Setup search input
+                const searchInput = document.getElementById('searchInput');
+                let searchTimeout;
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        Filters.setSearch(e.target.value);
+                        if (e.target.value.trim()) {
+                            Storage.addRecentSearch(e.target.value.trim());
+                        }
+                    }, 300);
+                });
+
+                // Setup archive filter
+                document.querySelectorAll('input[name="archive"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        if (e.target.value === 'all') {
+                            Filters.setArchive(null);
+                        } else if (e.target.value === 'yes') {
+                            Filters.setArchive(true);
+                        } else {
+                            Filters.setArchive(false);
+                        }
+                    });
+                });
+
+                // Setup tasking filter
+                document.querySelectorAll('input[name="tasking"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        if (e.target.value === 'all') {
+                            Filters.setTasking(null);
+                        } else if (e.target.value === 'yes') {
+                            Filters.setTasking(true);
+                        } else {
+                            Filters.setTasking(false);
+                        }
+                    });
+                });
+
+                // Setup clear filters button
+                document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+                    Filters.clearAll();
+                    searchInput.value = '';
+                    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                    document.getElementById('archiveAll').checked = true;
+                    document.getElementById('taskingAll').checked = true;
+                });
+
+                // Listen for filter changes
+                Filters.onChange(() => {
+                    updateResults();
+                    Storage.saveFilters(Filters.getActive());
+                });
+
+                // Initial render
+                updateResults();
+
+                // Load saved filters
+                const savedFilters = Storage.loadFilters();
+                if (savedFilters) {
+                    // Restore filters (simplified for now)
+                    if (savedFilters.search) {
+                        searchInput.value = savedFilters.search;
+                        Filters.setSearch(savedFilters.search);
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                document.getElementById('resultsGrid').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <div class="empty-state-text">Error loading application</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Update results display
+        function updateResults() {
+            const allSatellites = Indexer.getAll();
+            const filtered = Filters.apply(allSatellites);
+
+            UI.renderCards(filtered, document.getElementById('resultsGrid'));
+            UI.updateResultsCount(filtered.length, document.getElementById('resultsCount'));
+            UI.renderFilterChips(document.getElementById('filterChips'));
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>

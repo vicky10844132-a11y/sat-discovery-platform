@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satellite Details - SAT-DISCOVERY</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <header>
+        <h1>🛰️ SAT-DISCOVERY</h1>
+        <nav>
+            <ul>
+                <li><a href="/app.html#/">Dashboard</a></li>
+                <li><a href="/app.html#sources">Sources</a></li>
+                <li><a href="/app.html#orbit">Orbit Planner</a></li>
+                <li><a href="/app.html#delivery">Data Delivery</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="detail-container">
+            <div class="detail-header">
+                <a href="/app.html" class="btn btn-small">← Back to Dashboard</a>
+                <h2 id="satelliteName">Loading...</h2>
+            </div>
+
+            <div id="satelliteDetails">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>SAT-DISCOVERY - Open Satellite Observation Capability Index | Reference Only | No Data Hosted</p>
+    </footer>
+
+    <script src="/js/storage.js"></script>
+    <script src="/js/dataLoader.js"></script>
+    <script src="/js/indexer.js"></script>
+
+    <script>
+        async function init() {
+            try {
+                // Get satellite name from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const satelliteName = urlParams.get('name');
+
+                if (!satelliteName) {
+                    window.location.href = '/app.html';
+                    return;
+                }
+
+                // Load data
+                await DataLoader.loadAll();
+                await Indexer.buildIndex();
+
+                // Find satellite
+                const satellite = Indexer.getByName(decodeURIComponent(satelliteName));
+
+                if (!satellite) {
+                    document.getElementById('satelliteName').textContent = 'Satellite not found';
+                    document.getElementById('satelliteDetails').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">❌</div>
+                            <div class="empty-state-text">Satellite not found</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Display satellite details
+                displaySatellite(satellite);
+
+            } catch (error) {
+                console.error('Error loading satellite:', error);
+                document.getElementById('satelliteDetails').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <div class="empty-state-text">Error loading satellite details</div>
+                    </div>
+                `;
+            }
+        }
+
+        function displaySatellite(sat) {
+            document.getElementById('satelliteName').textContent = sat.name;
+            document.title = `${sat.name} - SAT-DISCOVERY`;
+
+            const badges = [];
+            if (sat.type) {
+                badges.push(`<span class="badge badge-${sat.type.toLowerCase()}">${sat.type}</span>`);
+            }
+            if (sat.publicArchive === true) {
+                badges.push('<span class="badge badge-archive">Public Archive</span>');
+            }
+            if (sat.programming) {
+                badges.push('<span class="badge badge-tasking">Tasking Available</span>');
+            }
+            if (sat.commercial) {
+                badges.push('<span class="badge badge-commercial">Commercial</span>');
+            } else {
+                badges.push('<span class="badge badge-public">Public</span>');
+            }
+
+            const html = `
+                <div style="margin-bottom: 2rem;">
+                    ${badges.join(' ')}
+                </div>
+
+                <div class="detail-content">
+                    <div>
+                        <div class="info-box">
+                            <div class="info-box-title">Basic Information</div>
+                            <div class="info-box-content">
+                                <div class="property-list">
+                                    <div class="property-label">Operator:</div>
+                                    <div class="property-value">${sat.operator || 'N/A'}</div>
+                                    
+                                    <div class="property-label">Type:</div>
+                                    <div class="property-value">${sat.type || 'N/A'}</div>
+                                    
+                                    <div class="property-label">Group:</div>
+                                    <div class="property-value">${sat.groupLabel || 'N/A'}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-box-title">Coverage & Capability</div>
+                            <div class="info-box-content">
+                                <div class="property-list">
+                                    <div class="property-label">Coverage:</div>
+                                    <div class="property-value">${sat.coverage || 'N/A'}</div>
+                                    
+                                    <div class="property-label">Revisit Time:</div>
+                                    <div class="property-value">${sat.revisitDays ? `${sat.revisitDays} days` : 'N/A'}</div>
+                                    
+                                    <div class="property-label">Programming:</div>
+                                    <div class="property-value">${sat.programming ? 'Available' : 'Not Available'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="info-box">
+                            <div class="info-box-title">Archive Information</div>
+                            <div class="info-box-content">
+                                <div class="property-list">
+                                    <div class="property-label">Public Archive:</div>
+                                    <div class="property-value">${sat.publicArchive === true ? 'Yes' : sat.publicArchive === 'Partial' ? 'Partial' : 'No'}</div>
+                                    
+                                    ${sat.archiveSince ? `
+                                        <div class="property-label">Archive Since:</div>
+                                        <div class="property-value">${sat.archiveSince}</div>
+                                    ` : ''}
+                                    
+                                    <div class="property-label">Commercial:</div>
+                                    <div class="property-value">${sat.commercial ? 'Yes' : 'No'}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${sat.queryUrl ? `
+                            <div class="info-box">
+                                <div class="info-box-title">Data Access</div>
+                                <div class="info-box-content">
+                                    <p style="margin-bottom: 1rem;">Access data through the official platform:</p>
+                                    <a href="${sat.queryUrl}" target="_blank" class="btn btn-primary">
+                                        Visit Data Portal →
+                                    </a>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 215, 0, 0.2);">
+                    <div class="info-box">
+                        <div class="info-box-title">About This Information</div>
+                        <div class="info-box-content">
+                            <p>This information is for reference only and is based on publicly available data. 
+                            Access to satellite data is subject to the policies and availability of the respective data providers. 
+                            This tool does not host, store, or distribute any imagery.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('satelliteDetails').innerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
+</html>

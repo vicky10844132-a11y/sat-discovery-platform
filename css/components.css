@@ -1,0 +1,363 @@
+/* Component styles for SAT-DISCOVERY dashboard */
+
+/* Buttons */
+.btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--yellow);
+    background-color: transparent;
+    color: var(--yellow);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: var(--yellow);
+    color: var(--dark-blue);
+}
+
+.btn-primary {
+    background-color: var(--yellow);
+    color: var(--dark-blue);
+}
+
+.btn-primary:hover {
+    background-color: #ffed4e;
+}
+
+.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* Cards */
+.card {
+    background-color: rgba(10, 25, 41, 0.6);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 6px;
+    padding: 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: var(--yellow);
+    background-color: rgba(10, 25, 41, 0.8);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
+}
+
+.card-title {
+    color: var(--yellow);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    color: rgba(255, 215, 0, 0.7);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content {
+    color: rgba(255, 215, 0, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.card-footer {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-optical {
+    background-color: rgba(52, 152, 219, 0.3);
+    color: #5dade2;
+    border: 1px solid #5dade2;
+}
+
+.badge-sar {
+    background-color: rgba(155, 89, 182, 0.3);
+    color: #af7ac5;
+    border: 1px solid #af7ac5;
+}
+
+.badge-archive {
+    background-color: rgba(46, 204, 113, 0.3);
+    color: #58d68d;
+    border: 1px solid #58d68d;
+}
+
+.badge-tasking {
+    background-color: rgba(241, 196, 15, 0.3);
+    color: #f4d03f;
+    border: 1px solid #f4d03f;
+}
+
+.badge-commercial {
+    background-color: rgba(231, 76, 60, 0.3);
+    color: #ec7063;
+    border: 1px solid #ec7063;
+}
+
+.badge-public {
+    background-color: rgba(52, 152, 219, 0.3);
+    color: #5dade2;
+    border: 1px solid #5dade2;
+}
+
+/* Filter chips */
+.filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background-color: rgba(255, 215, 0, 0.15);
+    border: 1px solid var(--yellow);
+    border-radius: 16px;
+    color: var(--yellow);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chip:hover {
+    background-color: rgba(255, 215, 0, 0.25);
+}
+
+.chip.active {
+    background-color: var(--yellow);
+    color: var(--dark-blue);
+}
+
+.chip-remove {
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 0.25rem;
+}
+
+/* Input fields */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-label {
+    display: block;
+    color: var(--yellow);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: rgba(10, 25, 41, 0.5);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 4px;
+    color: var(--yellow);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--yellow);
+    background-color: rgba(10, 25, 41, 0.7);
+}
+
+.input-field::placeholder {
+    color: rgba(255, 215, 0, 0.4);
+}
+
+/* Checkbox and radio */
+.checkbox-group,
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.checkbox-item,
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-item input,
+.radio-item input {
+    cursor: pointer;
+}
+
+.checkbox-item label,
+.radio-item label {
+    color: rgba(255, 215, 0, 0.9);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal {
+    background-color: var(--dark-blue);
+    border: 2px solid var(--yellow);
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    color: var(--yellow);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--yellow);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #ffed4e;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Loading spinner */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-top-color: var(--yellow);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: rgba(255, 215, 0, 0.6);
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state-text {
+    font-size: 1.1rem;
+}
+
+/* Info boxes */
+.info-box {
+    padding: 1rem;
+    border-left: 3px solid var(--yellow);
+    background-color: rgba(255, 215, 0, 0.05);
+    margin-bottom: 1rem;
+}
+
+.info-box-title {
+    color: var(--yellow);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.info-box-content {
+    color: rgba(255, 215, 0, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Property list */
+.property-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.property-label {
+    color: rgba(255, 215, 0, 0.7);
+    font-size: 0.9rem;
+}
+
+.property-value {
+    color: var(--yellow);
+    font-size: 0.9rem;
+    font-weight: 500;
+}

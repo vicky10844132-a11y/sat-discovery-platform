@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Delivery - SAT-DISCOVERY</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <header>
+        <h1>🛰️ SAT-DISCOVERY</h1>
+        <nav>
+            <ul>
+                <li><a href="/app.html#/">Dashboard</a></li>
+                <li><a href="/app.html#sources">Sources</a></li>
+                <li><a href="/app.html#orbit">Orbit Planner</a></li>
+                <li><a href="/app.html#delivery">Data Delivery</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="detail-container">
+            <div class="detail-header">
+                <a href="/app.html" class="btn btn-small">← Back to Dashboard</a>
+                <h2>📦 Data Delivery & Format Selection</h2>
+                <p style="color: rgba(255, 215, 0, 0.7); margin-top: 0.5rem;">
+                    Understanding satellite data formats and delivery options
+                </p>
+            </div>
+
+            <div class="info-box" style="margin-bottom: 2rem;">
+                <div class="info-box-title">Important Notice</div>
+                <div class="info-box-content">
+                    <p>This page provides reference information about common satellite data formats and delivery methods. 
+                    SAT-DISCOVERY does not provide data delivery services. All data access must be obtained through the respective 
+                    satellite operators and data providers.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--yellow); margin-bottom: 1rem;">Common Data Formats</h3>
+            
+            <div class="results-grid" style="margin-bottom: 3rem;">
+                <div class="card">
+                    <div class="card-title">GeoTIFF</div>
+                    <div class="card-subtitle">Georeferenced Raster</div>
+                    <div class="card-content">
+                        <p>Standard format for georeferenced raster imagery. Includes spatial reference and coordinate information.</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Extension:</div>
+                            <div class="property-value">.tif, .tiff</div>
+                            
+                            <div class="property-label">Use Case:</div>
+                            <div class="property-value">Most common format</div>
+                            
+                            <div class="property-label">Applications:</div>
+                            <div class="property-value">GIS, Remote Sensing</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-archive">Widely Supported</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">HDF / NetCDF</div>
+                    <div class="card-subtitle">Scientific Data Format</div>
+                    <div class="card-content">
+                        <p>Hierarchical data formats used for scientific datasets with multiple variables and metadata.</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Extension:</div>
+                            <div class="property-value">.hdf, .h5, .nc</div>
+                            
+                            <div class="property-label">Use Case:</div>
+                            <div class="property-value">Multi-band, time-series</div>
+                            
+                            <div class="property-label">Applications:</div>
+                            <div class="property-value">Scientific analysis</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-optical">Sentinel Data</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">COG (Cloud Optimized GeoTIFF)</div>
+                    <div class="card-subtitle">Cloud-Native Format</div>
+                    <div class="card-content">
+                        <p>GeoTIFF optimized for cloud storage and streaming access without downloading entire files.</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Extension:</div>
+                            <div class="property-value">.tif</div>
+                            
+                            <div class="property-label">Use Case:</div>
+                            <div class="property-value">Cloud-based access</div>
+                            
+                            <div class="property-label">Applications:</div>
+                            <div class="property-value">Web mapping, APIs</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-tasking">Modern Standard</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">JPEG 2000</div>
+                    <div class="card-subtitle">Compressed Imagery</div>
+                    <div class="card-content">
+                        <p>Advanced compression format providing lossless or lossy compression for large imagery datasets.</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Extension:</div>
+                            <div class="property-value">.jp2, .j2k</div>
+                            
+                            <div class="property-label">Use Case:</div>
+                            <div class="property-value">Large files, compression</div>
+                            
+                            <div class="property-label">Applications:</div>
+                            <div class="property-value">Archival, distribution</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-commercial">Sentinel-2</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">SAFE Format</div>
+                    <div class="card-subtitle">Sentinel Product Format</div>
+                    <div class="card-content">
+                        <p>Standard Archive Format for Europe - used by Sentinel missions with XML metadata and imagery.</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Extension:</div>
+                            <div class="property-value">.SAFE (folder)</div>
+                            
+                            <div class="property-label">Use Case:</div>
+                            <div class="property-value">Sentinel data</div>
+                            
+                            <div class="property-label">Applications:</div>
+                            <div class="property-value">ESA missions</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-public">ESA Standard</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">STAC (SpatioTemporal Asset Catalog)</div>
+                    <div class="card-subtitle">Metadata Standard</div>
+                    <div class="card-content">
+                        <p>JSON-based metadata standard for describing geospatial data and enabling discovery.</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Extension:</div>
+                            <div class="property-value">.json</div>
+                            
+                            <div class="property-label">Use Case:</div>
+                            <div class="property-value">Data discovery, catalog</div>
+                            
+                            <div class="property-label">Applications:</div>
+                            <div class="property-value">APIs, search</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-tasking">Industry Standard</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">Delivery Methods</h3>
+            
+            <div class="results-grid" style="margin-bottom: 2rem;">
+                <div class="card">
+                    <div class="card-title">Direct Download</div>
+                    <div class="card-content">
+                        <p>Download complete data products directly from provider portals via HTTP/FTP.</p>
+                        <div style="margin-top: 0.75rem;">
+                            <strong>Pros:</strong> Simple, full control<br>
+                            <strong>Cons:</strong> Large file sizes, storage needed
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">API Access</div>
+                    <div class="card-content">
+                        <p>Programmatic access via REST APIs (STAC, OGC services) for automated workflows.</p>
+                        <div style="margin-top: 0.75rem;">
+                            <strong>Pros:</strong> Automated, scalable<br>
+                            <strong>Cons:</strong> Requires programming
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Cloud Storage</div>
+                    <div class="card-content">
+                        <p>Access data directly in cloud storage (AWS, Azure, Google Cloud) without downloading.</p>
+                        <div style="margin-top: 0.75rem;">
+                            <strong>Pros:</strong> No download, fast processing<br>
+                            <strong>Cons:</strong> Cloud platform required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Streaming Services</div>
+                    <div class="card-content">
+                        <p>Stream imagery tiles via WMS, WMTS, or XYZ services for visualization.</p>
+                        <div style="margin-top: 0.75rem;">
+                            <strong>Pros:</strong> No download, web-ready<br>
+                            <strong>Cons:</strong> Limited analysis capability
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 215, 0, 0.2);">
+                <div class="info-box">
+                    <div class="info-box-title">Processing Levels</div>
+                    <div class="info-box-content">
+                        <p>Satellite data is typically available at different processing levels:</p>
+                        <div class="property-list" style="margin-top: 1rem;">
+                            <div class="property-label">Level 0:</div>
+                            <div class="property-value">Raw sensor data</div>
+                            
+                            <div class="property-label">Level 1:</div>
+                            <div class="property-value">Radiometrically corrected</div>
+                            
+                            <div class="property-label">Level 2:</div>
+                            <div class="property-value">Geometrically corrected, georeferenced</div>
+                            
+                            <div class="property-label">Level 3:</div>
+                            <div class="property-value">Mosaicked, analysis-ready</div>
+                        </div>
+                        <p style="margin-top: 1rem;">
+                            Most users work with Level 1 or Level 2 products, which are georeferenced and suitable for analysis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>SAT-DISCOVERY - Open Satellite Observation Capability Index | Reference Only | No Data Hosted</p>
+    </footer>
+</body>
+</html>
