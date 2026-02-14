@@ -1,0 +1,12 @@
+/* Theme variables and color palette */
+:root {
+    --dark-blue: #020b16;
+    --yellow: #ffd700;
+}
+
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
