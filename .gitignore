@@ -1,0 +1,51 @@
+# SAT-DISCOVERY Platform .gitignore
+
+# Development
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+
+# Editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node (if used for testing)
+node_modules/
+package-lock.json
+
+# Python (if used for local server)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+
+# Build artifacts (none expected, but just in case)
+dist/
+build/
+*.map
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.cache
+
+# Test coverage (if added later)
+coverage/
+.nyc_output/
+
+# Local environment
+.env
+.env.local
