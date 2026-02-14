@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT-DISCOVERY - Test Page</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛰️ SAT-DISCOVERY - Component Test</h1>
+    </header>
+
+    <div class="test-container">
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">Color Scheme Test</h2>
+            <p>Background: <span style="background: var(--dark-blue); padding: 0.5rem;">Dark Blue (#020b16)</span></p>
+            <p>Foreground: <span style="color: var(--yellow); font-weight: bold;">Yellow (#ffd700)</span></p>
+        </div>
+
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">Buttons</h2>
+            <button class="btn">Default Button</button>
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-small">Small Button</button>
+        </div>
+
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">Badges</h2>
+            <span class="badge badge-optical">Optical</span>
+            <span class="badge badge-sar">SAR</span>
+            <span class="badge badge-archive">Archive</span>
+            <span class="badge badge-tasking">Tasking</span>
+            <span class="badge badge-commercial">Commercial</span>
+            <span class="badge badge-public">Public</span>
+        </div>
+
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">Card Component</h2>
+            <div class="card">
+                <div class="card-title">Sentinel-2</div>
+                <div class="card-subtitle">ESA Optical Mission</div>
+                <div class="card-content">
+                    Global coverage with 5-day revisit time. High-resolution multispectral imagery for land monitoring.
+                </div>
+                <div class="card-footer">
+                    <span class="badge badge-optical">Optical</span>
+                    <span class="badge badge-archive">Archive</span>
+                    <span class="badge badge-public">Public</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">Filter Chips</h2>
+            <div class="filter-chips">
+                <div class="chip active">Type: Optical <span class="chip-remove">×</span></div>
+                <div class="chip active">Archive: Yes <span class="chip-remove">×</span></div>
+                <div class="chip">Commercial: No</div>
+                <button class="btn btn-small">Clear All</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">Input Fields</h2>
+            <div class="input-group">
+                <label class="input-label">Search Satellites</label>
+                <input type="text" class="input-field" placeholder="Enter satellite name...">
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2 style="color: var(--yellow); margin-bottom: 1rem;">JavaScript Modules Test</h2>
+            <div id="moduleTest" style="color: var(--yellow);">
+                Testing JavaScript modules...
+            </div>
+            <button class="btn" onclick="testModules()">Test Modules</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>SAT-DISCOVERY Component Test Page</p>
+    </footer>
+
+    <script src="/js/storage.js"></script>
+    <script src="/js/dataLoader.js"></script>
+    <script src="/js/indexer.js"></script>
+    <script src="/js/filters.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/map.js"></script>
+    <script src="/js/router.js"></script>
+    <script src="/js/orbit_stub.js"></script>
+
+    <script>
+        async function testModules() {
+            const output = document.getElementById('moduleTest');
+            output.innerHTML = '<div class="loading"></div> Loading modules...';
+            
+            try {
+                // Test DataLoader
+                output.innerHTML += '<br>✓ DataLoader loaded';
+                
+                // Test Storage
+                Storage.savePreferences({ test: true });
+                const prefs = Storage.loadPreferences();
+                output.innerHTML += '<br>✓ Storage module working';
+                
+                // Test Filters
+                Filters.setSearch('test');
+                output.innerHTML += '<br>✓ Filters module working';
+                
+                // Test Router
+                Router.init();
+                output.innerHTML += '<br>✓ Router module working';
+                
+                // Test MapManager
+                output.innerHTML += '<br>✓ MapManager loaded';
+                
+                // Test OrbitPlanner
+                OrbitPlanner.init();
+                output.innerHTML += '<br>✓ OrbitPlanner loaded';
+                
+                output.innerHTML += '<br><br><strong style="color: #58d68d;">All modules loaded successfully!</strong>';
+                
+            } catch (error) {
+                output.innerHTML = '<strong style="color: #ec7063;">Error: ' + error.message + '</strong>';
+            }
+        }
+    </script>
+</body>
+</html>
