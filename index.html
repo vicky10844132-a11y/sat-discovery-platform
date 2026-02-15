@@ -3,47 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-DISCOVERY</title>
-    <link rel="stylesheet" href="theme.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="components.css">
+    <title>SAT-DISCOVERY Application</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #1E1E1E;
+            padding: 10px;
+            text-align: center;
+        }
+        header input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ffd700;
+            border-radius: 4px;
+        }
+        .sidebar {
+            float: left;
+            width: 20%;
+            background-color: #2b2b2b;
+            padding: 15px;
+        }
+        .map {
+            float: left;
+            width: 70%;
+            height: 600px;
+        }
+        .results {
+            clear: both;
+            background-color: #1E1E1E;
+            padding: 15px;
+        }
+        .filter {
+            margin-bottom: 10px;
+        }
+        .satellite {
+            border: 1px solid #ffd700;
+            margin: 5px;
+            padding: 10px;
+        }
+        footer {
+            clear: both;
+            background-color: #1E1E1E;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <header style="background-color: #4A90E2; padding: 20px;">
-        <div class="brand">🛰️ SAT-DISCOVERY</div>
-        <input type="text" placeholder="Search for satellites..." />
-        <div class="user-status">User Status</div>
+    <header>
+        <h1>SAT-DISCOVERY Application</h1>
+        <input type="text" placeholder="Search satellites...">
     </header>
-    <div style="display: flex;">
-        <aside style="width: 320px;">
-            <h2>DISCOVERY</h2>
-            <nav>
-                <button>Discovery</button>
-                <button>Sources</button>
-                <button>Orbit</button>
-                <button>Delivery</button>
-            </nav>
-            <div class="filters">
-                <h3>Filters</h3>
-                <!-- Filter options to be added here -->
-            </div>
-        </aside>
-        <main style="flex-grow: 1; display: flex;">
-            <div id="map" style="width: 70%; height: 100vh;"></div>
-            <div class="results-panel" style="width: 30%; height: 100vh;">
-                <div class="results-header">Results</div>
-                <div class="results-list">
-                    <!-- Results will be listed here -->
-                </div>
-            </div>
-        </main>
+    <div class="sidebar">
+        <h2>Navigation</h2>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Satellite Data</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <h2>Filters</h2>
+        <div class="filter">
+            <label for="date">Date:</label>
+            <input type="date" id="date">
+        </div>
+        <div class="filter">
+            <label for="satellite">Satellite:</label>
+            <select id="satellite">
+                <option value="sentinel-2">Sentinel-2</option>
+                <option value="landsat-8">Landsat-8</option>
+                <option value="planet-scope">PlanetScope</option>
+                <option value="sentinel-1">Sentinel-1</option>
+                <option value="iceye">ICEYE</option>
+            </select>
+        </div>
     </div>
-    <script src="dataLoader.js"></script>
-    <script src="indexer.js"></script>
-    <script src="filters.js"></script>
-    <script src="ui.js"></script>
-    <script src="map.js"></script>
-    <script src="router.js"></script>
-    <script src="storage.js"></script>
+    <div id="map" class="map"></div>
+    <div class="results">
+        <h2>Results</h2>
+        <div class="satellite">Satellite Data for Sentinel-2</div>
+        <div class="satellite">Satellite Data for Landsat-8</div>
+        <div class="satellite">Satellite Data for PlanetScope</div>
+        <div class="satellite">Satellite Data for Sentinel-1</div>
+        <div class="satellite">Satellite Data for ICEYE</div>
+    </div>
+    <footer>
+        <p>&copy; 2026 SAT-DISCOVERY Application</p>
+    </footer>
+    <script>
+        // Initialize the Leaflet map
+        var map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        // Add more functionalities here 
+    </script>
 </body>
 </html>
