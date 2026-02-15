@@ -1,24 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAT-DISCOVERY Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
 </head>
 <body>
-    <header>
+    <div id="dashboard">
         <h1>SAT-DISCOVERY Dashboard</h1>
-        <input type="text" id="search" placeholder="Search satellites...">
-        <button id="filter">Filter</button>
-    </header>
-    <main>
-        <div id="map"></div>
-        <div id="satellite-data"></div>
-    </main>
-    <footer>
-        <p>Data loaded from satellite discovery API</p>
-    </footer>
+        <div id="map">
+            <!-- Map component would go here -->
+        </div>
+        <div id="search">
+            <input type="text" placeholder="Search..." />
+            <button>Search</button>
+        </div>
+        <div id="filters">
+            <label for="filter">Filter:</label>
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="recent">Recent</option>
+                <option value="popular">Popular</option>
+                <option value="top-rated">Top Rated</option>
+            </select>
+        </div>
+        <div id="modules">
+            <div class="module">
+                <h2>Module 1</h2>
+                <p>Description of module 1...</p>
+            </div>
+            <div class="module">
+                <h2>Module 2</h2>
+                <p>Description of module 2...</p>
+            </div>
+            <!-- Additional modules can be added here -->
+        </div>
+    </div>
 </body>
 </html>
