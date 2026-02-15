@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-DISCOVERY</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SAT-DISCOVERY Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="login-container">
-        <h1>SAT-DISCOVERY</h1>
-        <form action="/login" method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-    </div>
+    <header>
+        <h1>SAT-DISCOVERY Dashboard</h1>
+        <input type="text" id="search" placeholder="Search satellites...">
+        <button id="filter">Filter</button>
+    </header>
+    <main>
+        <div id="map"></div>
+        <div id="satellite-data"></div>
+    </main>
+    <footer>
+        <p>Data loaded from satellite discovery API</p>
+    </footer>
 </body>
 </html>
