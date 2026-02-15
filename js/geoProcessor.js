@@ -183,7 +183,21 @@ class GeoProcessor {
   _approximateBounds(geom) {
     if (!geom || !geom.coordinates) return null;
 
-    const coords = geom.type === 'Polygon' ? geom.coordinates[0] : geom.coordinates;
+    let coords = [];
+    
+    // Handle different geometry types
+    if (geom.type === 'Point') {
+      coords = [geom.coordinates];
+    } else if (geom.type === 'LineString' || geom.type === 'MultiPoint') {
+      coords = geom.coordinates;
+    } else if (geom.type === 'Polygon') {
+      coords = geom.coordinates[0];
+    } else if (geom.type === 'MultiLineString' || geom.type === 'MultiPolygon') {
+      coords = geom.coordinates.flat(2);
+    } else {
+      coords = geom.coordinates;
+    }
+    
     if (!coords || coords.length === 0) return null;
 
     const lons = coords.map(c => c[0]);
