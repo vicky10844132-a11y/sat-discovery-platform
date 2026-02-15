@@ -1,39 +1,49 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>SAT-DISCOVERY Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT-DISCOVERY</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="components.css">
 </head>
 <body>
-    <div id="dashboard">
-        <h1>SAT-DISCOVERY Dashboard</h1>
-        <div id="map">
-            <!-- Map component would go here -->
-        </div>
-        <div id="search">
-            <input type="text" placeholder="Search..." />
-            <button>Search</button>
-        </div>
-        <div id="filters">
-            <label for="filter">Filter:</label>
-            <select id="filter">
-                <option value="all">All</option>
-                <option value="recent">Recent</option>
-                <option value="popular">Popular</option>
-                <option value="top-rated">Top Rated</option>
-            </select>
-        </div>
-        <div id="modules">
-            <div class="module">
-                <h2>Module 1</h2>
-                <p>Description of module 1...</p>
+    <header style="background-color: #4A90E2; padding: 20px;">
+        <div class="brand">🛰️ SAT-DISCOVERY</div>
+        <input type="text" placeholder="Search for satellites..." />
+        <div class="user-status">User Status</div>
+    </header>
+    <div style="display: flex;">
+        <aside style="width: 320px;">
+            <h2>DISCOVERY</h2>
+            <nav>
+                <button>Discovery</button>
+                <button>Sources</button>
+                <button>Orbit</button>
+                <button>Delivery</button>
+            </nav>
+            <div class="filters">
+                <h3>Filters</h3>
+                <!-- Filter options to be added here -->
             </div>
-            <div class="module">
-                <h2>Module 2</h2>
-                <p>Description of module 2...</p>
+        </aside>
+        <main style="flex-grow: 1; display: flex;">
+            <div id="map" style="width: 70%; height: 100vh;"></div>
+            <div class="results-panel" style="width: 30%; height: 100vh;">
+                <div class="results-header">Results</div>
+                <div class="results-list">
+                    <!-- Results will be listed here -->
+                </div>
             </div>
-            <!-- Additional modules can be added here -->
-        </div>
+        </main>
     </div>
+    <script src="dataLoader.js"></script>
+    <script src="indexer.js"></script>
+    <script src="filters.js"></script>
+    <script src="ui.js"></script>
+    <script src="map.js"></script>
+    <script src="router.js"></script>
+    <script src="storage.js"></script>
 </body>
 </html>
