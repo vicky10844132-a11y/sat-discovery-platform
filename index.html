@@ -4,105 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAT-DISCOVERY Application</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        header {
-            background-color: #1E1E1E;
-            padding: 10px;
-            text-align: center;
-        }
-        header input[type="text"] {
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ffd700;
-            border-radius: 4px;
-        }
-        .sidebar {
-            float: left;
-            width: 20%;
-            background-color: #2b2b2b;
-            padding: 15px;
-        }
-        .map {
-            float: left;
-            width: 70%;
-            height: 600px;
-        }
-        .results {
-            clear: both;
-            background-color: #1E1E1E;
-            padding: 15px;
-        }
-        .filter {
-            margin-bottom: 10px;
-        }
-        .satellite {
-            border: 1px solid #ffd700;
-            margin: 5px;
-            padding: 10px;
-        }
-        footer {
-            clear: both;
-            background-color: #1E1E1E;
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <header>
-        <h1>SAT-DISCOVERY Application</h1>
-        <input type="text" placeholder="Search satellites...">
+        <h1>SAT-DISCOVERY</h1>
+        <input type="text" id="search" placeholder="Search...">
     </header>
-    <div class="sidebar">
-        <h2>Navigation</h2>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Satellite Data</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-        </nav>
-        <h2>Filters</h2>
-        <div class="filter">
-            <label for="date">Date:</label>
-            <input type="date" id="date">
-        </div>
-        <div class="filter">
-            <label for="satellite">Satellite:</label>
-            <select id="satellite">
-                <option value="sentinel-2">Sentinel-2</option>
-                <option value="landsat-8">Landsat-8</option>
-                <option value="planet-scope">PlanetScope</option>
-                <option value="sentinel-1">Sentinel-1</option>
-                <option value="iceye">ICEYE</option>
-            </select>
-        </div>
+    <div class="container">
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="#">Discovery</a></li>
+                    <li><a href="#">Sources</a></li>
+                    <li><a href="#">Orbit</a></li>
+                    <li><a href="#">Delivery</a></li>
+                </ul>
+            </nav>
+            <div class="filters">
+                <select id="sensorFilter">
+                    <option value="">All Sensor Types</option>
+                    <option value="Sentinel-2">Sentinel-2</option>
+                    <option value="Landsat-8">Landsat-8</option>
+                    <option value="PlanetScope">PlanetScope</option>
+                    <option value="Sentinel-1">Sentinel-1</option>
+                    <option value="ICEYE">ICEYE</option>
+                </select>
+                <select id="stacFilter">
+                    <option value="">Select STAC Source</option>
+                </select>
+            </div>
+        </aside>
+        <main>
+            <div id="map" style="height: 70%;"></div>
+            <div class="results-panel" style="height: 30%;">
+                <div id="satelliteCards"></div>
+            </div>
+        </main>
     </div>
-    <div id="map" class="map"></div>
-    <div class="results">
-        <h2>Results</h2>
-        <div class="satellite">Satellite Data for Sentinel-2</div>
-        <div class="satellite">Satellite Data for Landsat-8</div>
-        <div class="satellite">Satellite Data for PlanetScope</div>
-        <div class="satellite">Satellite Data for Sentinel-1</div>
-        <div class="satellite">Satellite Data for ICEYE</div>
-    </div>
-    <footer>
-        <p>&copy; 2026 SAT-DISCOVERY Application</p>
-    </footer>
+    <script src="app.js"></script>
     <script>
-        // Initialize the Leaflet map
-        var map = L.map('map').setView([0, 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-        // Add more functionalities here 
+        // Initialize Leaflet map
+        const map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+        // Fetch satellite data
+        fetch('satellites.json')
+            .then(response => response.json())
+            .then(data => {
+                // Functionality to populate satellite cards
+                const cardsContainer = document.getElementById('satelliteCards');
+                data.forEach(satellite => {
+                    const card = document.createElement('div');
+                    card.innerHTML = `<h3>${satellite.name}</h3><p>Operator: ${satellite.operator}</p><p>Sensor Type: ${satellite.sensorType}</p>`;
+                    cardsContainer.appendChild(card);
+                });
+            });
     </script>
 </body>
 </html>
