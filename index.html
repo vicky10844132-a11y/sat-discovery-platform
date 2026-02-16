@@ -3,65 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-DISCOVERY Application</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Discovery Platform</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            flex-shrink: 1; /* Allow items to shrink */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>SAT-DISCOVERY</h1>
-        <input type="text" id="search" placeholder="Search...">
-    </header>
-    <div class="container">
-        <aside>
-            <nav>
-                <ul>
-                    <li><a href="#">Discovery</a></li>
-                    <li><a href="#">Sources</a></li>
-                    <li><a href="#">Orbit</a></li>
-                    <li><a href="#">Delivery</a></li>
-                </ul>
-            </nav>
-            <div class="filters">
-                <select id="sensorFilter">
-                    <option value="">All Sensor Types</option>
-                    <option value="Sentinel-2">Sentinel-2</option>
-                    <option value="Landsat-8">Landsat-8</option>
-                    <option value="PlanetScope">PlanetScope</option>
-                    <option value="Sentinel-1">Sentinel-1</option>
-                    <option value="ICEYE">ICEYE</option>
-                </select>
-                <select id="stacFilter">
-                    <option value="">Select STAC Source</option>
-                </select>
-            </div>
-        </aside>
-        <main>
-            <div id="map" style="height: 70%;"></div>
-            <div class="results-panel" style="height: 30%;">
-                <div id="satelliteCards"></div>
-            </div>
-        </main>
+    <div class="flex-container">
+        <div class="item">
+            <h1>Safe Content</h1>
+            <p>This content is safe from XSS attacks.</p>
+        </div>
     </div>
-    <script src="app.js"></script>
     <script>
-        // Initialize Leaflet map
-        const map = L.map('map').setView([0, 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+        // Function to validate elements
+        function validateElement(element) {
+            if (!element || typeof element !== 'object') {
+                throw new Error('Invalid element');
+            }
+        }
 
-        // Fetch satellite data
-        fetch('satellites.json')
-            .then(response => response.json())
-            .then(data => {
-                // Functionality to populate satellite cards
-                const cardsContainer = document.getElementById('satelliteCards');
-                data.forEach(satellite => {
-                    const card = document.createElement('div');
-                    card.innerHTML = `<h3>${satellite.name}</h3><p>Operator: ${satellite.operator}</p><p>Sensor Type: ${satellite.sensorType}</p>`;
-                    cardsContainer.appendChild(card);
-                });
-            });
+        // Function to handle errors
+        function errorHandler(error) {
+            console.error('Error occurred:', error);
+            alert('An error occurred: ' + error.message);
+        }
+
+        // Example usage with error handling
+        try {
+            const item = document.querySelector('.item');
+            validateElement(item);
+        } catch (error) {
+            errorHandler(error);
+        }
     </script>
 </body>
 </html>
