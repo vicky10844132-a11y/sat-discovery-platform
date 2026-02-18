@@ -4,25 +4,60 @@ import assert from 'node:assert/strict';
 import { bootstrapWorkbenchShell } from '../src/bootstrap/workbenchShellBootstrap.js';
 
 function createRootElementStub() {
-  const root = {
-    dataset: {},
-    attributes: new Map(),
-    children: [],
-    innerHTML: '',
-    appendChild(child) {
-      this.children.push(child);
-      return child;
-    },
+  const attrs = new Map();
+  const children = [];
+
+  const toDataAttr = (key) =>
+    `data-${String(key).replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())}`;
+
+  const el = {
+    children,
+
+    dataset: new Proxy(
+      {},
+      {
+        get(_t, key) {
+          return attrs.get(toDataAttr(key));
+        },
+        set(_t, key, value) {
+          attrs.set(toDataAttr(key), String(value));
+          return true;
+        },
+      }
+    ),
+
     setAttribute(name, value) {
-      this.attributes.set(name, value);
+      attrs.set(String(name), String(value));
+    },
+    getAttribute(name) {
+      const k = String(name);
+      return attrs.has(k) ? attrs.get(k) : null;
+    },
+    hasAttribute(name) {
+      return attrs.has(String(name));
     },
     removeAttribute(name) {
-      this.attributes.delete(name);
+      attrs.delete(String(name));
+    },
+
+    appendChild(node) {
+      children.push(node);
+      return node;
+    },
+    removeChild(node) {
+      const idx = children.indexOf(node);
+      if (idx >= 0) children.splice(idx, 1);
+      return node;
+    },
+    querySelector() {
+      return null;
     },
   };
 
-  return root;
+  return el;
 }
+
+
 
 function installDocumentStub() {
   const createElement = (tagName) => ({
@@ -69,7 +104,7 @@ test('bootstrapWorkbenchShell mounts shell and activates plugins', () => {
     assert.deepEqual(activations, ['shell.test.plugin']);
 
     runtime.dispose();
-    assert.equal(rootElement.dataset.workbench, undefined);
+    assert.equal(rootElement.hasAttribute('data-workbench'), false);
   } finally {
     restoreDocument();
   }
