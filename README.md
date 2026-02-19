@@ -2,6 +2,14 @@
 
 **遥感数据处理平台** - 无存储算法处理 · 整合全球资源
 
+## 🌐 在线演示
+
+**生产环境**: 👉 **[https://www.sat-index.online/](https://www.sat-index.online/)** 🚀
+
+**Vercel域名**: [https://sat-discovery-platform.vercel.app/](https://sat-discovery-platform.vercel.app/)
+
+---
+
 ## 🎯 项目定位
 
 SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Service），类似于 Google Earth Engine 和 Sentinel Hub：
