@@ -3,35 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-DISCOVERY</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <title>SAT-DISCOVERY - Satellite Discovery Platform</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
     <style>
-        body {
-            background-color: #001f3f; /* Dark blue background */
-            color: #ffcc00; /* Yellow text */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            text-align: center;
+            padding: 2rem;
         }
-        a {
-            color: #ffcc00; /* Yellow links */
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--yellow);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 215, 0, 0.8);
+            max-width: 600px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .feature {
+            background-color: rgba(10, 25, 41, 0.6);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .feature:hover {
+            border-color: var(--yellow);
+            background-color: rgba(10, 25, 41, 0.8);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .feature h3 {
+            color: var(--yellow);
+            margin-bottom: 0.5rem;
+        }
+        .feature p {
+            color: rgba(255, 215, 0, 0.7);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to SAT Discovery</h1>
+        <h1>🛰️ SAT-DISCOVERY</h1>
         <nav>
             <ul>
-                <li><a href="app.html">App</a></li>
-                <!-- Add other navigation links here -->
+                <li><a href="#/">Home</a></li>
+                <li><a href="app.html">Dashboard</a></li>
+                <li><a href="sources.html">Data Sources</a></li>
+                <li><a href="about.html">About</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <!-- Main content goes here -->
+        <div class="hero">
+            <h1>🌍 Satellite Discovery Platform</h1>
+            <p>Explore and discover satellite remote sensing capabilities. Search through missions, filter by sensor type, and access data from providers worldwide.</p>
+            <div class="hero-buttons">
+                <a href="app.html" class="btn btn-primary">Launch Dashboard</a>
+                <a href="sources.html" class="btn">View Data Sources</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Search & Filter</h3>
+                <p>Search satellites by name or operator. Filter by sensor type, archive availability, and tasking capability.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🗺️</div>
+                <h3>Interactive Dashboard</h3>
+                <p>Browse satellite missions with an intuitive card-based interface and detailed specifications.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Data Sources</h3>
+                <p>Access commercial and public data providers, STAC APIs, and discovery portals.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🛰️</div>
+                <h3>Orbit Planning</h3>
+                <p>Plan satellite passes and calculate visibility windows for your area of interest.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">💾</div>
+                <h3>State Persistence</h3>
+                <p>Your searches and filters are saved locally for quick access next time.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Responsive</h3>
+                <p>Works seamlessly on desktop, tablet, and mobile devices.</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="max-width: 800px; margin: 3rem auto 2rem auto;">
+            <div class="info-box-title">Important Notice</div>
+            <div class="info-box-content">
+                <p>This tool provides reference information only. No imagery is hosted, stored, or distributed. 
+                Access to external sites is subject to the policies and availability of respective data providers.</p>
+            </div>
+        </div>
     </main>
+
     <footer>
-        <!-- Footer content goes here -->
+        <p>SAT-DISCOVERY - Open Satellite Observation Capability Index | Reference Only | No Data Hosted</p>
     </footer>
 </body>
 </html>
