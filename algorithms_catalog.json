@@ -1,0 +1,448 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-02-19",
+  "description": "遥感数据处理算法目录 - 无需本地存储，云端处理",
+  "categories": {
+    "spectral_indices": {
+      "name": "光谱指数",
+      "description": "基于光谱波段计算的植被、水体、土壤等指数",
+      "algorithms": [
+        {
+          "id": "ndvi",
+          "name": "NDVI (归一化植被指数)",
+          "description": "监测植被健康和覆盖度",
+          "formula": "(NIR - Red) / (NIR + Red)",
+          "inputBands": ["NIR", "Red"],
+          "outputType": "单波段栅格 (-1 to 1)",
+          "applications": ["农业监测", "森林健康", "植被覆盖"],
+          "dataSources": ["Sentinel-2", "Landsat 8/9", "MODIS"],
+          "processingTime": "< 30秒",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"],
+          "codeExample": "ndvi = (nir - red) / (nir + red)"
+        },
+        {
+          "id": "ndwi",
+          "name": "NDWI (归一化水体指数)",
+          "description": "识别和监测水体",
+          "formula": "(Green - NIR) / (Green + NIR)",
+          "inputBands": ["Green", "NIR"],
+          "outputType": "单波段栅格 (-1 to 1)",
+          "applications": ["水体提取", "洪水监测", "湿地分析"],
+          "dataSources": ["Sentinel-2", "Landsat 8/9"],
+          "processingTime": "< 30秒",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"]
+        },
+        {
+          "id": "evi",
+          "name": "EVI (增强植被指数)",
+          "description": "改进的植被指数，减少土壤和大气影响",
+          "formula": "2.5 * ((NIR - Red) / (NIR + 6*Red - 7.5*Blue + 1))",
+          "inputBands": ["NIR", "Red", "Blue"],
+          "outputType": "单波段栅格",
+          "applications": ["高植被覆盖区监测", "热带雨林", "农业"],
+          "dataSources": ["Sentinel-2", "Landsat", "MODIS"],
+          "processingTime": "< 30秒",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"]
+        },
+        {
+          "id": "savi",
+          "name": "SAVI (土壤调节植被指数)",
+          "description": "减少土壤背景影响的植被指数",
+          "formula": "((NIR - Red) / (NIR + Red + L)) * (1 + L)",
+          "inputBands": ["NIR", "Red"],
+          "parameters": {"L": {"default": 0.5, "range": [0, 1], "description": "土壤亮度校正因子"}},
+          "outputType": "单波段栅格",
+          "applications": ["稀疏植被", "干旱区", "土壤暴露区"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "< 30秒",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"]
+        },
+        {
+          "id": "ndbi",
+          "name": "NDBI (归一化建筑指数)",
+          "description": "识别建筑用地和城市区域",
+          "formula": "(SWIR - NIR) / (SWIR + NIR)",
+          "inputBands": ["SWIR", "NIR"],
+          "outputType": "单波段栅格",
+          "applications": ["城市扩张", "建筑提取", "土地利用"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "< 30秒",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"]
+        }
+      ]
+    },
+    "sar_processing": {
+      "name": "SAR 处理",
+      "description": "合成孔径雷达数据处理算法",
+      "algorithms": [
+        {
+          "id": "speckle_filter",
+          "name": "SAR 斑点滤波",
+          "description": "降噪处理，提高 SAR 图像质量",
+          "methods": ["Lee", "Frost", "Gamma MAP", "Refined Lee"],
+          "inputType": "单极化或双极化 SAR",
+          "outputType": "滤波后的 SAR",
+          "applications": ["SAR 预处理", "变化检测", "分类"],
+          "dataSources": ["Sentinel-1", "ALOS PALSAR", "TerraSAR-X"],
+          "processingTime": "1-3 分钟",
+          "cloudReady": true,
+          "libraries": ["SNAP", "pyroSAR"]
+        },
+        {
+          "id": "coherence",
+          "name": "SAR 相干性计算",
+          "description": "计算时间序列 SAR 图像间的相干性",
+          "inputType": "SLC SAR 图像对",
+          "outputType": "相干性图 (0-1)",
+          "applications": ["变形监测", "地表稳定性", "变化检测"],
+          "dataSources": ["Sentinel-1", "ALOS PALSAR"],
+          "processingTime": "2-5 分钟",
+          "cloudReady": true,
+          "libraries": ["SNAP", "ISCE"]
+        },
+        {
+          "id": "terrain_correction",
+          "name": "SAR 地形校正",
+          "description": "Range Doppler 地形校正",
+          "inputType": "SAR GRD + DEM",
+          "outputType": "地形校正后的 SAR",
+          "applications": ["山区 SAR 处理", "几何校正"],
+          "dataSources": ["Sentinel-1", "ALOS PALSAR"],
+          "demRequired": true,
+          "processingTime": "3-10 分钟",
+          "cloudReady": true,
+          "libraries": ["SNAP", "pyroSAR", "GAMMA"]
+        }
+      ]
+    },
+    "dem_analysis": {
+      "name": "DEM 地形分析",
+      "description": "数字高程模型分析工具",
+      "algorithms": [
+        {
+          "id": "slope",
+          "name": "坡度计算",
+          "description": "计算地表坡度（度或百分比）",
+          "inputType": "DEM 栅格",
+          "outputType": "坡度栅格",
+          "unit": "度 或 百分比",
+          "applications": ["地形分析", "侵蚀风险", "土地适宜性"],
+          "dataSources": ["SRTM", "ASTER GDEM", "Copernicus DEM"],
+          "processingTime": "< 1 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio", "richdem"]
+        },
+        {
+          "id": "aspect",
+          "name": "坡向计算",
+          "description": "计算坡面朝向",
+          "inputType": "DEM 栅格",
+          "outputType": "坡向栅格 (0-360度)",
+          "applications": ["日照分析", "生态建模", "地形分析"],
+          "dataSources": ["SRTM", "ASTER GDEM", "Copernicus DEM"],
+          "processingTime": "< 1 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio", "richdem"]
+        },
+        {
+          "id": "hillshade",
+          "name": "山体阴影",
+          "description": "生成地形可视化阴影效果",
+          "inputType": "DEM 栅格",
+          "outputType": "山体阴影栅格",
+          "parameters": {
+            "azimuth": {"default": 315, "range": [0, 360]},
+            "altitude": {"default": 45, "range": [0, 90]}
+          },
+          "applications": ["地形可视化", "地图制图"],
+          "dataSources": ["SRTM", "ASTER GDEM", "任何 DEM"],
+          "processingTime": "< 1 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio"]
+        },
+        {
+          "id": "tpi",
+          "name": "TPI (地形位置指数)",
+          "description": "相对地形高度，识别山脊和谷地",
+          "inputType": "DEM 栅格",
+          "outputType": "TPI 栅格",
+          "applications": ["地貌分类", "地形特征提取"],
+          "dataSources": ["任何 DEM"],
+          "processingTime": "1-2 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "richdem", "whitebox"]
+        }
+      ]
+    },
+    "change_detection": {
+      "name": "变化检测",
+      "description": "多时相影像变化分析",
+      "algorithms": [
+        {
+          "id": "image_differencing",
+          "name": "影像差值法",
+          "description": "两时相影像直接相减",
+          "inputType": "两幅配准影像",
+          "outputType": "差值影像",
+          "applications": ["快速变化检测", "灾害评估"],
+          "dataSources": ["任何光学或 SAR"],
+          "processingTime": "< 30秒",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"]
+        },
+        {
+          "id": "ndvi_differencing",
+          "name": "NDVI 差值法",
+          "description": "基于植被指数的变化检测",
+          "inputType": "两时相多光谱影像",
+          "outputType": "NDVI 差值",
+          "applications": ["植被变化", "森林砍伐", "农业监测"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "< 1 分钟",
+          "cloudReady": true,
+          "libraries": ["rasterio", "numpy"]
+        },
+        {
+          "id": "pca_change",
+          "name": "PCA 变化检测",
+          "description": "主成分分析变化检测",
+          "inputType": "多时相多波段影像",
+          "outputType": "变化图层",
+          "applications": ["多时相变化", "城市扩张"],
+          "dataSources": ["任何多光谱"],
+          "processingTime": "2-5 分钟",
+          "cloudReady": true,
+          "libraries": ["scikit-learn", "rasterio"]
+        }
+      ]
+    },
+    "image_processing": {
+      "name": "图像处理",
+      "description": "基础图像处理和增强",
+      "algorithms": [
+        {
+          "id": "cloud_mask",
+          "name": "云掩膜",
+          "description": "自动识别和移除云层",
+          "inputType": "多光谱影像",
+          "outputType": "云掩膜图层",
+          "methods": ["Fmask", "Sen2Cor", "机器学习"],
+          "applications": ["影像预处理", "时间序列分析"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "1-3 分钟",
+          "cloudReady": true,
+          "libraries": ["s2cloudless", "fmask"]
+        },
+        {
+          "id": "pansharpening",
+          "name": "全色融合",
+          "description": "提高多光谱影像空间分辨率",
+          "inputType": "多光谱 + 全色波段",
+          "outputType": "融合后高分辨率多光谱",
+          "methods": ["Brovey", "Gram-Schmidt", "PCA"],
+          "applications": ["分辨率增强", "详细分析"],
+          "dataSources": ["Landsat", "SPOT", "WorldView"],
+          "processingTime": "2-5 分钟",
+          "cloudReady": true,
+          "libraries": ["rasterio", "opencv"]
+        },
+        {
+          "id": "atmospheric_correction",
+          "name": "大气校正",
+          "description": "移除大气影响，获取地表反射率",
+          "inputType": "TOA 辐射率影像",
+          "outputType": "地表反射率",
+          "methods": ["6S", "DOS", "Sen2Cor"],
+          "applications": ["精确辐射测量", "时间序列分析"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "3-10 分钟",
+          "cloudReady": true,
+          "libraries": ["Py6S", "ACOLITE", "Sen2Cor"]
+        },
+        {
+          "id": "mosaic",
+          "name": "影像镶嵌",
+          "description": "拼接多景影像",
+          "inputType": "多景影像",
+          "outputType": "镶嵌影像",
+          "methods": ["最大值", "最小值", "平均值", "无缝拼接"],
+          "applications": ["区域制图", "大范围分析"],
+          "dataSources": ["任何影像"],
+          "processingTime": "5-30 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio"]
+        }
+      ]
+    },
+    "classification": {
+      "name": "分类与提取",
+      "description": "土地覆盖分类和特征提取",
+      "algorithms": [
+        {
+          "id": "supervised_classification",
+          "name": "监督分类",
+          "description": "基于训练样本的分类",
+          "inputType": "多光谱影像 + 训练样本",
+          "outputType": "分类结果",
+          "methods": ["Random Forest", "SVM", "Maximum Likelihood"],
+          "applications": ["土地覆盖", "作物分类", "城市分析"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "5-20 分钟",
+          "cloudReady": true,
+          "libraries": ["scikit-learn", "rasterio"]
+        },
+        {
+          "id": "unsupervised_classification",
+          "name": "非监督分类",
+          "description": "无需训练样本的聚类分类",
+          "inputType": "多光谱影像",
+          "outputType": "聚类结果",
+          "methods": ["K-means", "ISODATA"],
+          "applications": ["快速分类", "地物分组"],
+          "dataSources": ["任何多光谱"],
+          "processingTime": "3-10 分钟",
+          "cloudReady": true,
+          "libraries": ["scikit-learn", "scipy"]
+        },
+        {
+          "id": "water_extraction",
+          "name": "水体提取",
+          "description": "自动提取水体边界",
+          "inputType": "多光谱影像",
+          "outputType": "水体矢量/栅格",
+          "methods": ["NDWI阈值", "OTSU", "机器学习"],
+          "applications": ["水资源监测", "洪水制图"],
+          "dataSources": ["Sentinel-2", "Landsat"],
+          "processingTime": "1-3 分钟",
+          "cloudReady": true,
+          "libraries": ["rasterio", "scikit-image"]
+        }
+      ]
+    },
+    "time_series": {
+      "name": "时间序列分析",
+      "description": "多时相数据分析工具",
+      "algorithms": [
+        {
+          "id": "temporal_aggregation",
+          "name": "时间聚合",
+          "description": "计算时间序列统计量",
+          "inputType": "时间序列影像栈",
+          "outputType": "统计结果（均值、最大、最小等）",
+          "methods": ["Mean", "Max", "Min", "Median", "Std"],
+          "applications": ["季节分析", "趋势检测"],
+          "dataSources": ["任何时间序列"],
+          "processingTime": "5-30 分钟",
+          "cloudReady": true,
+          "libraries": ["xarray", "rasterio"]
+        },
+        {
+          "id": "phenology",
+          "name": "物候分析",
+          "description": "提取植被生长季参数",
+          "inputType": "NDVI 时间序列",
+          "outputType": "物候参数（始期、峰值等）",
+          "applications": ["农业监测", "气候变化", "生态研究"],
+          "dataSources": ["MODIS", "Sentinel-2", "Landsat"],
+          "processingTime": "10-30 分钟",
+          "cloudReady": true,
+          "libraries": ["scipy", "numpy"]
+        }
+      ]
+    },
+    "utilities": {
+      "name": "通用工具",
+      "description": "数据处理辅助工具",
+      "algorithms": [
+        {
+          "id": "clip",
+          "name": "AOI 裁剪",
+          "description": "按感兴趣区域裁剪影像",
+          "inputType": "栅格 + AOI 矢量",
+          "outputType": "裁剪后栅格",
+          "applications": ["数据准备", "区域分析"],
+          "dataSources": ["任何栅格"],
+          "processingTime": "< 1 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio"]
+        },
+        {
+          "id": "reproject",
+          "name": "投影转换",
+          "description": "坐标系统转换",
+          "inputType": "栅格/矢量",
+          "outputType": "转换后数据",
+          "applications": ["数据标准化", "多源融合"],
+          "dataSources": ["任何地理数据"],
+          "processingTime": "< 2 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "pyproj"]
+        },
+        {
+          "id": "resample",
+          "name": "重采样",
+          "description": "改变影像分辨率",
+          "inputType": "栅格",
+          "outputType": "重采样栅格",
+          "methods": ["最近邻", "双线性", "三次卷积"],
+          "applications": ["分辨率统一", "尺度变换"],
+          "dataSources": ["任何栅格"],
+          "processingTime": "< 2 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio"]
+        },
+        {
+          "id": "zonal_statistics",
+          "name": "分区统计",
+          "description": "按矢量区域计算栅格统计",
+          "inputType": "栅格 + 矢量区域",
+          "outputType": "统计表格",
+          "statistics": ["mean", "sum", "min", "max", "count"],
+          "applications": ["精准农业", "区域评估"],
+          "dataSources": ["任何栅格"],
+          "processingTime": "1-5 分钟",
+          "cloudReady": true,
+          "libraries": ["rasterstats", "geopandas"]
+        },
+        {
+          "id": "cog_conversion",
+          "name": "COG 转换",
+          "description": "转换为云优化GeoTIFF格式",
+          "inputType": "GeoTIFF",
+          "outputType": "Cloud-Optimized GeoTIFF",
+          "applications": ["云端优化", "快速访问"],
+          "dataSources": ["任何 GeoTIFF"],
+          "processingTime": "1-5 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rio-cogeo"]
+        }
+      ]
+    }
+  },
+  "processingModel": {
+    "architecture": "Serverless Processing",
+    "workflow": [
+      "1. 用户选择算法和参数",
+      "2. 指定输入数据源（URL或STAC）",
+      "3. 提交任务到队列",
+      "4. Lambda/云函数执行算法",
+      "5. 结果临时存储（24小时）",
+      "6. 返回下载链接",
+      "7. 自动清理临时文件"
+    ],
+    "noStorage": true,
+    "temporaryOnly": true,
+    "cloudNative": true
+  },
+  "statistics": {
+    "totalAlgorithms": 35,
+    "categories": 8,
+    "avgProcessingTime": "< 5 分钟",
+    "cloudReady": "100%"
+  }
+}
