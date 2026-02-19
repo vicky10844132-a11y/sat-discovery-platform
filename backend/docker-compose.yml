@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  # PostgreSQL with PostGIS
+  postgres:
+    image: postgis/postgis:14-3.3
+    container_name: sat-discovery-postgres
+    environment:
+      POSTGRES_DB: sat_discovery
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d sat_discovery"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sat-discovery-network
+
+  # Redis for caching and task queue
+  redis:
+    image: redis:7-alpine
+    container_name: sat-discovery-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sat-discovery-network
+
+  # API Gateway
+  gateway:
+    build:
+      context: .
+      dockerfile: services/gateway/Dockerfile
+    container_name: sat-discovery-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      DATABASE_URL: postgresql://admin:${DB_PASSWORD:-changeme}@postgres:5432/sat_discovery
+      REDIS_URL: redis://redis:6379
+      DATA_INGESTION_URL: http://data-ingestion:3001
+      ORBITAL_URL: http://orbital:3002
+      PROCESSING_URL: http://processing:3003
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - sat-discovery-network
+    restart: unless-stopped
+
+  # Data Ingestion Service
+  data-ingestion:
+    build:
+      context: .
+      dockerfile: services/data-ingestion/Dockerfile
+    container_name: sat-discovery-data-ingestion
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3001
+      DATABASE_URL: postgresql://admin:${DB_PASSWORD:-changeme}@postgres:5432/sat_discovery
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - sat-discovery-network
+    restart: unless-stopped
+
+  # Orbital Service
+  orbital:
+    build:
+      context: .
+      dockerfile: services/orbital/Dockerfile
+    container_name: sat-discovery-orbital
+    ports:
+      - "3002:3002"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3002
+      DATABASE_URL: postgresql://admin:${DB_PASSWORD:-changeme}@postgres:5432/sat_discovery
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - sat-discovery-network
+    restart: unless-stopped
+
+  # Processing Service
+  processing:
+    build:
+      context: .
+      dockerfile: services/processing/Dockerfile
+    container_name: sat-discovery-processing
+    ports:
+      - "3003:3003"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3003
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://admin:${DB_PASSWORD:-changeme}@postgres:5432/sat_discovery
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - sat-discovery-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  sat-discovery-network:
+    driver: bridge
