@@ -10,7 +10,7 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 - 🔧 **提供处理算法** - 35+ 专业算法  
 - ☁️ **云端计算** - Serverless 架构
 - 💾 **不存储数据** - 只做计算，不存输入输出
-- 🔓 **完全开源** - MIT 许可证
+- ❤️ **公益免费** - 免费提供服务
 
 ## 🔄 工作原理
 
@@ -219,30 +219,30 @@ sat-discovery-platform/
 - [开源资源清单](./OPEN_SOURCE_CATALOG.md) - 详细资源列表
 - [开发指南](./DEVELOPER.md) - 技术文档
 
-## 🤝 贡献指南
+## 🤝 反馈与建议
 
-欢迎贡献！可以：
+欢迎用户反馈！可以：
 - 🐛 报告 Bug
 - 💡 提出功能建议
 - 📝 改进文档
-- 🔧 提交代码
+- 💬 使用讨论区交流
 
-### 贡献方式
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
+### 反馈方式
+- **问题反馈**: [Issues](https://github.com/vicky10844132-a11y/sat-discovery-platform/issues)
+- **功能建议**: [Discussions](https://github.com/vicky10844132-a11y/sat-discovery-platform/discussions)
 
-## 📄 许可证
+## 📄 版权声明
 
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+**版权所有 © 2026 SAT-DISCOVERY Platform**
 
-**开源承诺**:
-- ✅ 平台代码 100% 开源
-- ✅ 只接入开源数据源
-- ✅ 只使用开源算法
-- ✅ 完全免费使用
+本平台为公益项目，提供免费服务，但源代码为私有财产，不对外公开。
+
+**使用条款**:
+- ✅ 平台服务 100% 免费
+- ✅ 面向全球用户开放
+- ✅ 公益性质，非商业
+- ❌ 源代码不公开
+- ⚖️ 保留所有权利
 
 ## 🌟 致谢
 
@@ -262,4 +262,4 @@ sat-discovery-platform/
 
 ---
 
-**SAT-DISCOVERY** - 无存储算法处理平台 · 只做计算，不存数据 · MIT开源
+**SAT-DISCOVERY** - 无存储算法处理平台 · 只做计算，不存数据 · 公益免费
