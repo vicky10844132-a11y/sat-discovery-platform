@@ -1,0 +1,46 @@
+# Cloudflare Pages 配置文件
+# 用于 SAT-DISCOVERY Platform 部署
+
+# 项目名称
+name = "sat-discovery-platform"
+
+# 生产分支
+production_branch = "copilot/create-sat-discovery-foundation"
+
+# 构建配置
+[build]
+  command = ""  # 静态站点无需构建命令
+  cwd = ""
+  
+[build.upload]
+  format = "directory"
+  dir = "."  # 根目录
+
+# 部署配置
+[deployment]
+  # 兼容性日期
+  compatibility_date = "2024-01-01"
+
+# 环境变量（如需要）
+[env.production]
+  # 添加生产环境变量
+  NODE_ENV = "production"
+
+# 预览分支配置
+[preview]
+  branches_include = ["*"]
+  
+# 路由规则（可选）
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
+# 头部配置
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "no-referrer-when-downgrade"
