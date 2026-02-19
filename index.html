@@ -1,145 +1,492 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-DISCOVERY - Satellite Discovery Platform</title>
-    <link rel="stylesheet" href="/css/theme.css">
-    <link rel="stylesheet" href="/css/layout.css">
-    <link rel="stylesheet" href="/css/components.css">
+    <title>SAT-DISCOVERY - 卫星数据算法处理平台</title>
+    <link rel="stylesheet" href="css/cyber-theme.css">
     <style>
-        .hero {
+        /* 导航栏 */
+        nav {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 212, 255, 0.1);
+        }
+        
+        nav .container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            min-height: 70vh;
+        }
+        
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-sm);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cyan-bright);
+            box-shadow: var(--glow-sm);
+            transition: width var(--transition-base);
+        }
+        
+        .nav-menu a:hover {
+            color: var(--cyan-bright);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero区域 */
+        .hero {
+            padding: 100px 0;
             text-align: center;
-            padding: 2rem;
         }
+        
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--yellow);
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.6));
+            animation: pulse-glow 3s ease-in-out infinite;
         }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 215, 0, 0.8);
-            max-width: 600px;
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
         }
+        
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
         .hero-buttons {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 20px;
             justify-content: center;
+            flex-wrap: wrap;
         }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
+        
+        /* 特性网格 */
+        .features-section {
+            padding: 80px 0;
         }
-        .feature {
-            background-color: rgba(10, 25, 41, 0.6);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
+        
+        .section-title {
             text-align: center;
-            transition: all 0.3s;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-sm);
         }
-        .feature:hover {
-            border-color: var(--yellow);
-            background-color: rgba(10, 25, 41, 0.8);
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
-        .feature-icon {
+        
+        .feature-card {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 40px 32px;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--cyan-bright);
+            box-shadow: var(--glow-lg);
+            transform: translateY(-10px);
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid var(--cyan-bright);
+            border-radius: 50%;
+            color: var(--cyan-bright);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            box-shadow: var(--glow-md);
+        }
+        
+        .feature-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* 统计数据 */
+        .stats-section {
+            padding: 80px 0;
+            background: var(--gradient-cyber);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-card {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--cyan-bright);
+            box-shadow: var(--glow-md);
+        }
+        
+        .stat-value {
             font-size: 3rem;
-            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-md);
+            display: block;
+            margin-bottom: 12px;
         }
-        .feature h3 {
-            color: var(--yellow);
-            margin-bottom: 0.5rem;
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
-        .feature p {
-            color: rgba(255, 215, 0, 0.7);
+        
+        /* CTA区域 */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-panel {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            clip-path: polygon(
+                0 0, 
+                calc(100% - 30px) 0, 
+                100% 30px, 
+                100% 100%, 
+                30px 100%, 
+                0 calc(100% - 30px)
+            );
+            padding: 60px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .cta-panel::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            width: 35px;
+            height: 35px;
+            border-top: 3px solid var(--cyan-bright);
+            border-right: 3px solid var(--cyan-bright);
+            box-shadow: var(--glow-md);
+        }
+        
+        .cta-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: -1px;
+            width: 35px;
+            height: 35px;
+            border-bottom: 3px solid var(--cyan-bright);
+            border-left: 3px solid var(--cyan-bright);
+            box-shadow: var(--glow-md);
+        }
+        
+        .cta-panel h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-panel p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-secondary);
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-sm);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .footer-copyright {
+            color: var(--text-muted);
             font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-menu { gap: 20px; }
+            .cta-panel { clip-path: none; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🛰️ SAT-DISCOVERY</h1>
-        <nav>
-            <ul>
-                <li><a href="#/">Home</a></li>
-                <li><a href="app.html">Dashboard</a></li>
-                <li><a href="sources.html">Data Sources</a></li>
-                <li><a href="about.html">About</a></li>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">🛰️ SAT-DISCOVERY</a>
+            <ul class="nav-menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="data_sources.html">数据源</a></li>
+                <li><a href="algorithms.html">算法库</a></li>
+                <li><a href="login.html">登录</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <main>
-        <div class="hero">
-            <h1>🌍 Satellite Discovery Platform</h1>
-            <p>Explore and discover satellite remote sensing capabilities. Search through missions, filter by sensor type, and access data from providers worldwide.</p>
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1>SAT-DISCOVERY</h1>
+            <p class="hero-subtitle text-glow">卫星数据算法处理平台</p>
+            <p class="hero-description">
+                整合全球40+数据源，提供35+专业算法。用户自主输入输出，平台只做算法处理。
+                无需注册，邮箱登录即可查看历史记录。
+            </p>
             <div class="hero-buttons">
-                <a href="app.html" class="btn btn-primary">Launch Dashboard</a>
-                <a href="sources.html" class="btn">View Data Sources</a>
+                <a href="data_sources.html" class="btn btn-primary">浏览数据源</a>
+                <a href="algorithms.html" class="btn">查看算法</a>
+                <a href="login.html" class="btn">邮箱登录</a>
             </div>
         </div>
+    </section>
 
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🔍</div>
-                <h3>Search & Filter</h3>
-                <p>Search satellites by name or operator. Filter by sensor type, archive availability, and tasking capability.</p>
-            </div>
+    <div class="container">
+        <div class="divider-thin"></div>
+    </div>
 
-            <div class="feature">
-                <div class="feature-icon">🗺️</div>
-                <h3>Interactive Dashboard</h3>
-                <p>Browse satellite missions with an intuitive card-based interface and detailed specifications.</p>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <h3>Data Sources</h3>
-                <p>Access commercial and public data providers, STAC APIs, and discovery portals.</p>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">🛰️</div>
-                <h3>Orbit Planning</h3>
-                <p>Plan satellite passes and calculate visibility windows for your area of interest.</p>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">💾</div>
-                <h3>State Persistence</h3>
-                <p>Your searches and filters are saved locally for quick access next time.</p>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">📱</div>
-                <h3>Mobile Responsive</h3>
-                <p>Works seamlessly on desktop, tablet, and mobile devices.</p>
+    <!-- 核心特性 -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">核心特性</h2>
+            <div class="features-grid">
+                <div class="feature-card numbered-item" data-number="1">
+                    <div class="feature-number">1</div>
+                    <h3>用户自主I/O</h3>
+                    <p>
+                        用户选择输入路径（本地/S3/HTTP等），选择输出位置，平台不存储任何数据。
+                        支持所有格式和协议。
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="2">
+                    <div class="feature-number">2</div>
+                    <h3>算法集成平台</h3>
+                    <p>
+                        整合全球算法资源，包括NDVI、SAR处理、DEM分析、变化检测等35+专业算法。
+                        一个平台，所有算法。
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="3">
+                    <div class="feature-number">3</div>
+                    <h3>无密码登录</h3>
+                    <p>
+                        无需注册，使用邮箱接收魔法链接即可登录。查看处理历史，管理任务记录。
+                        简单安全，保护隐私。
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="4">
+                    <div class="feature-number">4</div>
+                    <h3>多源数据支持</h3>
+                    <p>
+                        整合40+全球数据源，包括Sentinel、Landsat、MODIS、商业SAR等。
+                        统一访问接口。
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="5">
+                    <div class="feature-number">5</div>
+                    <h3>灵活部署</h3>
+                    <p>
+                        支持浏览器模式、CLI工具、服务器部署三种方式。
+                        根据数据大小和需求自由选择。
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="6">
+                    <div class="feature-number">6</div>
+                    <h3>100%免费</h3>
+                    <p>
+                        公益平台，完全免费使用。虽然代码不公开，但服务永久免费。
+                        服务全球用户。
+                    </p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="info-box" style="max-width: 800px; margin: 3rem auto 2rem auto;">
-            <div class="info-box-title">Important Notice</div>
-            <div class="info-box-content">
-                <p>This tool provides reference information only. No imagery is hosted, stored, or distributed. 
-                Access to external sites is subject to the policies and availability of respective data providers.</p>
+    <div class="container">
+        <div class="divider-thin"></div>
+    </div>
+
+    <!-- 统计数据 -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">平台数据</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">40+</span>
+                    <span class="stat-label">全球数据源</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">35+</span>
+                    <span class="stat-label">专业算法</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">免费使用</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">数据存储</span>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
+    <div class="container">
+        <div class="divider-thin"></div>
+    </div>
+
+    <!-- CTA区域 -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-panel">
+                <h2 class="text-glow">开始使用</h2>
+                <p>
+                    浏览数据源，选择算法，开始处理。
+                    <br>
+                    无需注册，邮箱登录即可查看历史。
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center;">
+                    <a href="data_sources.html" class="btn btn-primary">浏览数据源</a>
+                    <a href="algorithms.html" class="btn">查看算法库</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>SAT-DISCOVERY - Open Satellite Observation Capability Index | Reference Only | No Data Hosted</p>
+        <div class="container">
+            <div class="footer-logo">SAT-DISCOVERY</div>
+            <div class="footer-links">
+                <a href="data_sources.html">数据源</a>
+                <a href="algorithms.html">算法库</a>
+                <a href="login.html">登录</a>
+                <a href="history.html">历史记录</a>
+            </div>
+            <p class="footer-copyright">
+                © 2026 SAT-DISCOVERY. 公益平台 · 免费使用 · 版权所有
+            </p>
+        </div>
     </footer>
 </body>
 </html>
