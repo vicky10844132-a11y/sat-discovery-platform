@@ -1,343 +1,265 @@
-# SAT-DISCOVERY - 全球开源卫星数据资源整合公益平台
+# SAT-DISCOVERY Platform 🛰️
 
-## 🌍 项目使命
+**遥感数据处理平台** - 无存储算法处理 · 整合全球资源
 
-**整合全球零碎的开源资源，让卫星数据服务所有人**
+## 🎯 项目定位
 
-SAT-DISCOVERY 是一个100%开源、100%免费的公益项目，致力于：
+SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Service），类似于 Google Earth Engine 和 Sentinel Hub：
 
-- 🔓 **民主化数据访问** - 让每个人都能使用卫星数据
-- 🔗 **统一零碎资源** - 一个平台访问全球20+开源数据源
-- 🛠️ **开放处理工具** - 集成20+开源算法库
-- 📚 **降低技术门槛** - 简化复杂的遥感分析
-- 🌱 **支持可持续发展** - 服务环境保护和科学研究
+- 📊 **整合数据源目录** - 40+ 全球遥感数据源
+- 🔧 **提供处理算法** - 35+ 专业算法  
+- ☁️ **云端计算** - Serverless 架构
+- 💾 **不存储数据** - 只做计算，不存输入输出
+- 🔓 **完全开源** - MIT 许可证
 
----
+## 🔄 工作原理
 
-## 📊 项目状态
-
-### 三个版本并行开发
-
-#### V1.0 - 静态前端 ✅ 生产就绪
-
-**状态**: 可立即部署  
-**功能**: 基础搜索、数据源目录、轨道规划  
-**部署**: Vercel静态托管  
-**成本**: $0  
-
-**立即部署**:
-```bash
-cd /home/runner/work/sat-discovery-platform/sat-discovery-platform
-vercel --prod
+```
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│  选择数据源  │  →  │  配置算法    │  →  │  提交任务   │
+│ (STAC/URL)  │     │  (参数设置)  │     │  (云端处理) │
+└─────────────┘     └──────────────┘     └─────────────┘
+                                               ↓
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│  下载结果   │  ←  │  临时链接    │  ←  │  算法执行   │
+│ (24小时内)  │     │ (24小时有效) │     │  (Lambda)   │
+└─────────────┘     └──────────────┘     └─────────────┘
+                                               ↓
+                                         自动清理临时文件
 ```
 
-#### V2.0 - 客户端架构 🚧 开发中 (10%)
+**核心特点**:
+- ❌ 不存储输入数据（从外部源调用）
+- ❌ 不存储输出数据（24小时后自动删除）
+- ✅ 只做算法处理（加工器）
+- ✅ 低成本运营（$0.002/次）
 
-**状态**: 开发中  
-**功能**: Workbench UI、客户端插件  
-**部署**: Vercel静态托管  
-**成本**: $0  
-**完成时间**: 8周  
+## 📊 数据源目录 (40+)
 
-#### V3.0 MVP - 五域全栈 🚀 刚启动 (5%)
+查看完整目录: [📖 data_sources.html](./data_sources.html)
 
-**状态**: 基础架构搭建  
-**功能**: 后端API、开源资源整合  
-**部署**: Docker + Kubernetes  
-**成本**: $450-2400/月 (运营)  
-**完成时间**: 6周MVP / 16周完整版  
+### 免费 SAR 数据
+- **ESA Sentinel-1** - 全球 C 波段 SAR (PB级, 10m)
+- **Alaska Satellite Facility** - Sentinel-1 + ALOS PALSAR
+- **JAXA G-Portal** - ALOS / PALSAR数据
 
----
+### 商业 SAR 样本
+- **Capella Space** - 开放数据集 (TB级, 0.5-1m)
+- **Umbra** - 样本数据 (GB级, 0.25-1m)
+- **ICEYE** - 样本数据 (GB级, ~1m)
 
-## 🌐 开源资源整合
+### 免费光学数据
+- **ESA Copernicus** - Sentinel-2/3 (PB级, 10-60m)
+- **NASA/USGS Landsat** - Landsat 8/9 (PB级, 15-30m)
+- **NASA Earthdata** - MODIS, VIIRS等
 
-### 数据源 (20+)
+### DEM 数据
+- **NASA SRTM** - 全球 DEM (30m)
+- **ESA Copernicus DEM** - 全球 DEM (30/90m)
+- **OpenTopography** - 高精度 LiDAR
 
-#### 官方空间机构
-- ✅ **NASA Earth Data** - MODIS, Landsat, ASTER等
-- ✅ **ESA Copernicus** - Sentinel-1/2/3/5P
-- ✅ **USGS EarthExplorer** - Landsat, DEM
-- ✅ **JAXA** - ALOS, GCOM
-- ✅ **NOAA** - GOES, AVHRR
-- ✅ **EUMETSAT** - Meteosat, MetOp
+### 聚合平台
+- **AWS Open Data** - S3上的Sentinel, Landsat
+- **Microsoft Planetary Computer** - STAC API
+- **Google Earth Engine** - 1000+ 数据集（云端处理）
 
-#### 云平台开放数据
-- ✅ **AWS Open Data** - S3上的Sentinel, Landsat
-- ✅ **Google Earth Engine** - 1000+数据集
-- ✅ **Microsoft Planetary Computer** - STAC最佳实践
-- ✅ **Google Cloud Public Datasets**
+## 🔧 算法目录 (35+)
 
-#### 社区平台
-- ✅ **Radiant Earth MLHub** - 机器学习数据集
-- ✅ **OpenAerialMap** - 众包航空影像
-- ✅ **OpenTopography** - LiDAR点云
-- ✅ **Global Forest Watch** - 森林监测
+查看完整目录: [📖 algorithms.html](./algorithms.html)
 
-查看完整清单: [OPEN_SOURCE_CATALOG.md](./OPEN_SOURCE_CATALOG.md)
+### 1. 光谱指数 (5个)
+- **NDVI** - 归一化植被指数
+- **NDWI** - 归一化水体指数
+- **EVI** - 增强植被指数
+- **SAVI** - 土壤调节植被指数
+- **NDBI** - 归一化建筑指数
 
-### 算法库 (20+)
+### 2. SAR 处理 (3个)
+- **斑点滤波** - Lee, Frost, Gamma MAP
+- **相干性计算** - 时间序列相干性
+- **地形校正** - Range Doppler 校正
 
-#### 核心框架
-- ✅ **GDAL/OGR** - 地理空间数据处理
-- ✅ **Rasterio** - Python栅格处理
-- ✅ **GeoPandas** - 矢量处理
+### 3. DEM 分析 (4个)
+- **坡度计算** - Slope
+- **坡向计算** - Aspect
+- **山体阴影** - Hillshade
+- **地形位置指数** - TPI
 
-#### 遥感工具
-- ✅ **Orfeo ToolBox** - 专业遥感处理
-- ✅ **SNAP** - ESA Sentinel官方工具
-- ✅ **Google Earth Engine** - 云端分析
+### 4. 变化检测 (3个)
+- **影像差值法**
+- **NDVI差值法**
+- **PCA变化检测**
 
-#### 机器学习
-- ✅ **TensorFlow/Keras** - 深度学习
-- ✅ **PyTorch** - 研究友好
-- ✅ **Segmentation Models** - 图像分割
+### 5. 图像处理 (4个)
+- **云掩膜** - Fmask, Sen2Cor
+- **全色融合** - Pansharpening
+- **大气校正** - 6S, DOS
+- **影像镶嵌** - Mosaic
 
-#### GIS工具
-- ✅ **QGIS Processing** - 500+算法
-- ✅ **GRASS GIS** - 地学分析
-- ✅ **SAGA GIS** - 自动化分析
-- ✅ **WhiteboxTools** - 地形分析
+### 6. 分类与提取 (3个)
+- **监督分类** - Random Forest, SVM
+- **非监督分类** - K-means, ISODATA
+- **水体提取** - NDWI阈值法
 
-#### 轨道工具
-- ✅ **satellite.js** - SGP4轨道计算
-- ✅ **Skyfield** - 高精度天文计算
-- ✅ **Poliastro** - 轨道力学
+### 7. 时间序列 (2个)
+- **时间聚合** - Mean, Max, Min, Median
+- **物候分析** - 植被生长季参数
 
-查看完整清单: [OPEN_SOURCE_CATALOG.md](./OPEN_SOURCE_CATALOG.md)
+### 8. 通用工具 (5个)
+- **AOI裁剪** - Clip
+- **投影转换** - Reproject
+- **重采样** - Resample
+- **分区统计** - Zonal Statistics
+- **COG转换** - Cloud-Optimized GeoTIFF
 
----
+## 💻 技术架构
 
-## 🏗️ 技术架构
+### 前端
+- **框架**: 纯 HTML/CSS/JavaScript (无框架依赖)
+- **样式**: 暗色主题 (#020b16) + 黄色强调 (#ffd700)
+- **地图**: Leaflet.js (可选)
+- **部署**: Vercel/Netlify (免费静态托管)
 
-### 前端 (V1.0 + V2.0)
-- 纯 HTML/CSS/JavaScript
-- 单页应用 Workbench
-- Leaflet 地图
-- WebAssembly 轻量级处理
+### 后端 (Serverless)
+- **API**: AWS API Gateway / Vercel Functions
+- **计算**: AWS Lambda / Google Cloud Functions
+- **队列**: Redis (Bull) / AWS SQS
+- **临时存储**: S3 (24小时lifecycle) / GCS
 
-### 后端 (V3.0)
+### 算法环境
+- **运行时**: Python 3.11 + GDAL 3.6
+- **核心库**: rasterio, numpy, scipy, scikit-image
+- **SAR**: pyroSAR, SNAP (可选)
+- **机器学习**: scikit-learn, TensorFlow (可选)
 
-**微服务架构**:
-```
-├── API Gateway (3000)      - 认证、路由、限流
-├── Data Ingestion (3001)   - 数据源接入
-├── Orbital Service (3002)  - 轨道预测
-├── Processing (3003)       - 算法处理
-└── Scheduler               - 任务调度
-```
+## 💰 成本估算
 
-**技术栈**:
-- Node.js 18+ / TypeScript
-- PostgreSQL 14 + PostGIS
-- Redis 7 (缓存/队列)
-- Bull (任务队列)
-- Docker + Kubernetes
+### 单次处理成本
+- Lambda 执行: ~$0.001
+- S3 临时存储: ~$0.0003
+- 数据传输: ~$0.001
+- **总计**: ~$0.002 (约 ¥0.014)
 
-**科学计算**:
-- GDAL 3.6+
-- Rasterio / GeoPandas
-- NumPy / SciPy
-- Orfeo ToolBox
-- satellite.js (SGP4)
+### 月度成本
+| 处理次数 | Lambda | 存储 | 传输 | API | 总计 |
+|---------|--------|------|------|-----|------|
+| 1000次 | $2 | $0.3 | $1 | $3.5 | ~$7 |
+| 10000次 | $20 | $3 | $10 | $35 | ~$68 |
 
----
+**对比**: Google Earth Engine (免费研究版) / Sentinel Hub ($0.1/km²)
 
 ## 🚀 快速开始
 
-### 部署 V1.0 (立即可用)
+### 1. 浏览数据源
+访问 [data_sources.html](./data_sources.html) 查看40+全球数据源
 
+### 2. 选择算法
+访问 [algorithms.html](./algorithms.html) 查看35+处理算法
+
+### 3. 本地部署
 ```bash
-# 1. 克隆仓库
+# 克隆仓库
 git clone https://github.com/vicky10844132-a11y/sat-discovery-platform.git
 cd sat-discovery-platform
 
-# 2. 部署到 Vercel
-vercel --prod
+# 启动本地服务器（可选）
+python -m http.server 8000
 
-# 或者直接在 vercel.com 导入 GitHub 仓库
+# 访问
+open http://localhost:8000
 ```
 
-### 开发 V3.0 MVP (本地)
-
+### 4. 部署到 Vercel（免费）
 ```bash
-# 1. 进入后端目录
-cd backend
+# 安装 Vercel CLI
+npm i -g vercel
 
-# 2. 复制环境变量
-cp .env.example .env
-
-# 3. 启动服务
-docker-compose up -d
-
-# 4. 检查服务
-curl http://localhost:3000/health
+# 部署
+vercel --prod
 ```
 
----
+## 📁 项目结构
 
-## 📖 文档
+```
+sat-discovery-platform/
+├── index.html                   # 首页
+├── data_sources.html           # 数据源目录
+├── data_sources_catalog.json  # 数据源JSON
+├── algorithms.html             # 算法目录
+├── algorithms_catalog.json    # 算法JSON
+├── app.html                    # Dashboard (旧版)
+├── css/                        # 样式文件
+│   ├── theme.css              # 主题
+│   ├── layout.css             # 布局
+│   └── components.css         # 组件
+├── js/                         # JavaScript模块
+│   ├── dataLoader.js
+│   ├── indexer.js
+│   └── ...
+├── backend/                    # 后端代码（开发中）
+│   ├── package.json
+│   ├── docker-compose.yml
+│   └── src/
+├── docs/                       # 文档
+│   ├── ARCHITECTURE_PROCESSING_PLATFORM.md
+│   ├── OPEN_SOURCE_CATALOG.md
+│   └── ...
+└── README.md                   # 本文件
+```
+
+## 📚 文档索引
 
 ### 用户文档
-- [快速开始](./QUICKSTART.md) - 5分钟上手
-- [部署指南](./DEPLOYMENT_CN.md) - 详细部署步骤
-- [用户指南](./VISUAL_GUIDE.md) - UI使用说明
+- [数据源目录](./data_sources.html) - 40+ 全球数据源
+- [算法目录](./algorithms.html) - 35+ 处理算法
+- [快速开始](./QUICKSTART.md) - 使用指南
 
 ### 开发文档
-- [开发者指南](./DEVELOPER.md) - 技术文档
-- [V2.0 架构](./ARCHITECTURE_V2.md) - 客户端架构
-- [V3.0 架构](./ARCHITECTURE_V3_FULLSTACK.md) - 全栈架构
-- [MVP 实施计划](./MVP_IMPLEMENTATION.md) - 6周计划
-- [开源资源清单](./OPEN_SOURCE_CATALOG.md) - 完整资源列表
+- [架构设计](./ARCHITECTURE_PROCESSING_PLATFORM.md) - 无存储处理平台
+- [开源资源清单](./OPEN_SOURCE_CATALOG.md) - 详细资源列表
+- [开发指南](./DEVELOPER.md) - 技术文档
 
-### 项目管理
-- [项目状态](./PROJECT_STATUS.md) - 当前进度
-- [实施路线图](./IMPLEMENTATION_ROADMAP.md) - 长期规划
-- [最终总结](./FINAL_SUMMARY_CN.md) - 三版本策略
+## 🤝 贡献指南
 
----
-
-## 🤝 参与贡献
-
-这是一个社区驱动的公益项目，欢迎所有人参与！
+欢迎贡献！可以：
+- 🐛 报告 Bug
+- 💡 提出功能建议
+- 📝 改进文档
+- 🔧 提交代码
 
 ### 贡献方式
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启 Pull Request
 
-1. **添加数据源** - 接入更多开源卫星数据
-2. **贡献算法** - 集成开源处理算法
-3. **改进文档** - 完善用户指南和教程
-4. **报告问题** - 提交 Issues
-5. **代码贡献** - 提交 Pull Requests
-6. **推广使用** - 分享给更多用户
+## 📄 许可证
 
-### 开发指南
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 
-```bash
-# Fork 仓库
-# Clone 到本地
-git clone https://github.com/YOUR_USERNAME/sat-discovery-platform.git
-
-# 创建分支
-git checkout -b feature/your-feature
-
-# 开发并提交
-git add .
-git commit -m "Add: your feature"
-git push origin feature/your-feature
-
-# 提交 Pull Request
-```
-
----
-
-## 📋 MVP 实施计划
-
-### Week 1-2: 基础架构 + STAC数据源
-- [x] 后端项目初始化
-- [x] Docker 环境配置
-- [ ] STAC 连接器
-- [ ] 数据标准化引擎
-
-### Week 3: 轨道预测 + NASA/ESA
-- [ ] TLE 管理器
-- [ ] SGP4 轨道计算
-- [ ] NASA CMR 连接器
-- [ ] ESA Copernicus 连接器
-
-### Week 4: 算法框架 + 核心算法
-- [ ] 算法插件系统
-- [ ] NDVI/NDWI 算法
-- [ ] DEM 处理
-- [ ] 任务队列
-
-### Week 5: 高级算法 + UI集成
-- [ ] SAR 处理
-- [ ] 时间序列
-- [ ] Workbench 集成
-
-### Week 6: 文档 + 测试 + 部署
-- [ ] API 文档
-- [ ] 用户指南
-- [ ] 测试完善
-- [ ] Beta 发布
-
----
-
-## 💰 成本透明
-
-### 开发成本
-- V1.0: 已完成 ✅
-- V2.0: 2人 × 8周
-- V3.0 MVP: 2-3人 × 6周
-
-### 运营成本 (月)
-- V1.0: $0 (Vercel免费)
-- V2.0: $0 (Vercel免费)
-- V3.0: $450-2400 (云服务)
-
-**资金来源**:
-- 个人捐赠
-- 机构赞助
-- 云服务赞助
-
----
-
-## 📜 开源许可
-
-**平台代码**: MIT License  
-**数据源**: 各数据源原始许可  
-**算法库**: 各算法库原始许可  
-
-所有集成的资源和算法都是开源的，符合以下许可之一:
-- MIT / Apache 2.0 / BSD
-- GPL v2/v3 (独立模块)
-- Public Domain
-
----
+**开源承诺**:
+- ✅ 平台代码 100% 开源
+- ✅ 只接入开源数据源
+- ✅ 只使用开源算法
+- ✅ 完全免费使用
 
 ## 🌟 致谢
 
-感谢以下开源项目和组织:
+感谢以下开源项目和数据提供者：
+- ESA Copernicus / Sentinel 系列
+- NASA / USGS Landsat
+- AWS Open Data Program
+- Microsoft Planetary Computer
+- Google Earth Engine
+- GDAL / Rasterio / NumPy
 
-**数据提供者**:
-- NASA, ESA, USGS, JAXA, NOAA
-- AWS, Microsoft, Google
-- Radiant Earth, OpenAerialMap
+## 📞 联系方式
 
-**算法库**:
-- OSGeo, QGIS, GRASS
-- Orfeo ToolBox, SNAP
-- TensorFlow, PyTorch
-- GDAL, Rasterio
-
-**社区**:
-- 所有贡献者
-- 用户反馈
-- 开源社区
+- **项目主页**: [GitHub](https://github.com/vicky10844132-a11y/sat-discovery-platform)
+- **问题反馈**: [Issues](https://github.com/vicky10844132-a11y/sat-discovery-platform/issues)
+- **讨论区**: [Discussions](https://github.com/vicky10844132-a11y/sat-discovery-platform/discussions)
 
 ---
 
-## 📞 联系我们
-
-- **GitHub**: https://github.com/vicky10844132-a11y/sat-discovery-platform
-- **Issues**: 提交问题和建议
-- **Discussions**: 社区讨论
-- **Email**: (待补充)
-
----
-
-## 🎯 项目里程碑
-
-- ✅ **2026-02-19**: V1.0 完成，可立即部署
-- 🚧 **2026-03-19**: V2.0 Beta 发布 (预计)
-- 🚀 **2026-04-02**: V3.0 MVP 发布 (预计)
-- 📈 **2026-06-01**: V3.0 完整版 (预计)
-
----
-
-**让卫星数据服务所有人！** 🌍🛰️
-
----
-
-**最后更新**: 2026-02-19  
-**当前版本**: V1.0 (生产) + V2.0 (开发中) + V3.0 (启动中)  
-**项目性质**: 公益 · 开源 · 免费
+**SAT-DISCOVERY** - 无存储算法处理平台 · 只做计算，不存数据 · MIT开源
