@@ -1,0 +1,451 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-02-19",
+  "categories": {
+    "commercial_sar": {
+      "name": "商业SAR",
+      "description": "高分辨率商业合成孔径雷达数据",
+      "sources": [
+        {
+          "id": "umbra",
+          "name": "Umbra",
+          "type": "SAR",
+          "isFree": false,
+          "url": "https://umbra.space/platform",
+          "apiAvailable": false,
+          "dataVolume": "TB级",
+          "resolution": "0.25-1m",
+          "content": "高分辨率 X 波段 SAR",
+          "notes": "需要注册企业账号，按景/订阅采购",
+          "openData": "https://umbra.space/open-data",
+          "sampleData": true
+        },
+        {
+          "id": "capella",
+          "name": "Capella Space",
+          "type": "SAR",
+          "isFree": false,
+          "url": "https://console.capellaspace.com",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "0.5-1m",
+          "content": "高分辨率 X 波段 SAR",
+          "notes": "提供 API 与任务规划",
+          "openData": "https://registry.opendata.aws/capella_opendata/",
+          "sampleData": true
+        },
+        {
+          "id": "iceye",
+          "name": "ICEYE",
+          "type": "SAR",
+          "isFree": false,
+          "url": "https://www.iceye.com",
+          "apiAvailable": false,
+          "dataVolume": "GB级",
+          "resolution": "~1m",
+          "content": "X 波段 SAR",
+          "notes": "芬兰SAR卫星星座",
+          "openData": "https://www.iceye.com/open-data",
+          "sampleData": true
+        },
+        {
+          "id": "synspective",
+          "name": "Synspective",
+          "type": "SAR",
+          "isFree": false,
+          "url": "https://synspective.com",
+          "apiAvailable": false,
+          "dataVolume": "GB级",
+          "resolution": "1-3m",
+          "content": "StriX SAR 样本",
+          "notes": "日本SAR卫星",
+          "openData": "https://synspective.com/news/sample-data",
+          "sampleData": true
+        }
+      ]
+    },
+    "free_sar": {
+      "name": "免费SAR数据",
+      "description": "公开可用的合成孔径雷达数据",
+      "sources": [
+        {
+          "id": "sentinel1",
+          "name": "ESA Sentinel-1",
+          "type": "SAR",
+          "isFree": true,
+          "url": "https://dataspace.copernicus.eu",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "10m",
+          "content": "全球 C 波段 SAR 数据",
+          "notes": "欧洲航天局，最权威的免费SAR数据源"
+        },
+        {
+          "id": "asf",
+          "name": "Alaska Satellite Facility (ASF DAAC)",
+          "type": "SAR",
+          "isFree": true,
+          "url": "https://search.asf.alaska.edu",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "10-25m",
+          "content": "Sentinel-1, ALOS PALSAR",
+          "notes": "SAR 专用门户，NASA授权"
+        },
+        {
+          "id": "jaxa_sar",
+          "name": "JAXA G-Portal",
+          "type": "SAR",
+          "isFree": "partial",
+          "url": "https://gportal.jaxa.jp",
+          "apiAvailable": "partial",
+          "dataVolume": "TB-PB级",
+          "resolution": "10-25m",
+          "content": "ALOS / PALSAR",
+          "notes": "日本官方平台，部分数据需申请"
+        },
+        {
+          "id": "terrasar",
+          "name": "DLR TerraSAR-X",
+          "type": "SAR",
+          "isFree": "partial",
+          "url": "https://tandemx-science.dlr.de",
+          "apiAvailable": "partial",
+          "dataVolume": "TB级",
+          "resolution": "~1m",
+          "content": "TerraSAR-X 科研数据",
+          "notes": "德国航天中心，科研项目需申请"
+        }
+      ]
+    },
+    "optical_free": {
+      "name": "免费光学数据",
+      "description": "公开可用的多光谱/高光谱影像",
+      "sources": [
+        {
+          "id": "copernicus",
+          "name": "ESA Copernicus Open Access Hub",
+          "type": "Optical",
+          "isFree": true,
+          "url": "https://dataspace.copernicus.eu",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "10-60m",
+          "content": "Sentinel-1/2/3/5P",
+          "notes": "欧洲官方门户，最权威"
+        },
+        {
+          "id": "landsat",
+          "name": "NASA/USGS Landsat",
+          "type": "Optical",
+          "isFree": true,
+          "url": "https://earthexplorer.usgs.gov",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "15-30m",
+          "content": "Landsat 4/5/7/8/9 系列",
+          "notes": "经典长时序光学数据"
+        },
+        {
+          "id": "earthdata",
+          "name": "NASA Earthdata",
+          "type": "Multi-source",
+          "isFree": true,
+          "url": "https://earthdata.nasa.gov",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "varies",
+          "content": "MODIS, Landsat, DEM 等",
+          "notes": "需要 Earthdata 登录"
+        },
+        {
+          "id": "usgs_ee",
+          "name": "USGS EarthExplorer",
+          "type": "Optical + DEM",
+          "isFree": true,
+          "url": "https://earthexplorer.usgs.gov",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "15-30m",
+          "content": "Landsat, SRTM, ASTER",
+          "notes": "经典下载入口"
+        },
+        {
+          "id": "glovis",
+          "name": "USGS GloVis",
+          "type": "Optical",
+          "isFree": true,
+          "url": "https://glovis.usgs.gov",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "15-30m",
+          "content": "Landsat 快速浏览下载",
+          "notes": "轻量版 EarthExplorer"
+        },
+        {
+          "id": "lpdaac",
+          "name": "NASA LP DAAC",
+          "type": "Multispectral",
+          "isFree": true,
+          "url": "https://lpdaac.usgs.gov/tools/data-pool",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "250m-1km",
+          "content": "MODIS, VIIRS",
+          "notes": "适合批量自动下载"
+        },
+        {
+          "id": "noaa",
+          "name": "NOAA CLASS",
+          "type": "Meteorological",
+          "isFree": true,
+          "url": "https://www.class.noaa.gov",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "0.5-2km",
+          "content": "GOES / JPSS 气象卫星数据",
+          "notes": "环境监测"
+        },
+        {
+          "id": "esa_snap",
+          "name": "ESA SNAP Data Portal",
+          "type": "SAR/Optical",
+          "isFree": true,
+          "url": "https://step.esa.int",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "varies",
+          "content": "Sentinel 工具与数据",
+          "notes": "配套处理软件"
+        },
+        {
+          "id": "esa_earth",
+          "name": "ESA Earth Online",
+          "type": "Multi-source",
+          "isFree": true,
+          "url": "https://earth.esa.int/eogateway",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "varies",
+          "content": "ESA 全部任务",
+          "notes": "资料索引门户"
+        },
+        {
+          "id": "isro",
+          "name": "ISRO Bhuvan",
+          "type": "Optical",
+          "isFree": "partial",
+          "url": "https://bhuvan.nrsc.gov.in",
+          "apiAvailable": "partial",
+          "dataVolume": "TB级",
+          "resolution": "1-5m",
+          "content": "Resourcesat / Cartosat",
+          "notes": "印度航天局，部分需注册"
+        },
+        {
+          "id": "cresda",
+          "name": "CRESDA (中国)",
+          "type": "Optical",
+          "isFree": "partial",
+          "url": "http://data.cresda.cn",
+          "apiAvailable": "partial",
+          "dataVolume": "TB级",
+          "resolution": "2-16m",
+          "content": "高分公开数据",
+          "notes": "中国资源卫星，需注册"
+        }
+      ]
+    },
+    "optical_commercial": {
+      "name": "商业光学数据",
+      "description": "高分辨率商业光学影像（含开放数据）",
+      "sources": [
+        {
+          "id": "planet",
+          "name": "Planet Labs",
+          "type": "Optical",
+          "isFree": false,
+          "url": "https://www.planet.com",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "0.5-3m",
+          "content": "PlanetScope / SkySat",
+          "notes": "商业服务",
+          "openData": "https://www.planet.com/open-data",
+          "sampleData": true
+        },
+        {
+          "id": "maxar",
+          "name": "Maxar",
+          "type": "Optical",
+          "isFree": false,
+          "url": "https://www.maxar.com",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "0.3-0.5m",
+          "content": "WorldView / GeoEye",
+          "notes": "商业服务",
+          "openData": "https://www.maxar.com/open-data",
+          "sampleData": true
+        },
+        {
+          "id": "airbus",
+          "name": "Airbus Defence and Space",
+          "type": "Optical",
+          "isFree": false,
+          "url": "https://www.intelligence-airbusds.com",
+          "apiAvailable": true,
+          "dataVolume": "GB级",
+          "resolution": "0.3-1m",
+          "content": "Pleiades / SPOT",
+          "notes": "商业服务",
+          "openData": "https://www.intelligence-airbusds.com/sample-imagery",
+          "sampleData": true
+        },
+        {
+          "id": "satellogic",
+          "name": "Satellogic",
+          "type": "Optical",
+          "isFree": false,
+          "url": "https://satellogic.com",
+          "apiAvailable": "partial",
+          "dataVolume": "GB级",
+          "resolution": "0.7-1m",
+          "content": "Aleph-1 卫星星座",
+          "notes": "需注册开发者账号",
+          "openData": "https://developers.satellogic.com",
+          "sampleData": true
+        },
+        {
+          "id": "blacksky",
+          "name": "BlackSky",
+          "type": "Optical",
+          "isFree": false,
+          "url": "https://www.blacksky.com",
+          "apiAvailable": true,
+          "dataVolume": "GB级",
+          "resolution": "~1m",
+          "content": "高频次光学影像",
+          "notes": "商业服务",
+          "openData": "https://www.blacksky.com/resources",
+          "sampleData": true
+        }
+      ]
+    },
+    "dem": {
+      "name": "DEM数据",
+      "description": "数字高程模型和LiDAR数据",
+      "sources": [
+        {
+          "id": "srtm",
+          "name": "NASA SRTM",
+          "type": "DEM",
+          "isFree": true,
+          "url": "https://lpdaac.usgs.gov/products/srtmgl1v003",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "30m",
+          "content": "全球 DEM (60°N - 56°S)",
+          "notes": "经典全球DEM数据"
+        },
+        {
+          "id": "aster_gdem",
+          "name": "NASA ASTER GDEM",
+          "type": "DEM",
+          "isFree": true,
+          "url": "https://earthdata.nasa.gov",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "30m",
+          "content": "全球 DEM (83°N - 83°S)",
+          "notes": "覆盖范围更广"
+        },
+        {
+          "id": "copernicus_dem",
+          "name": "ESA Copernicus DEM",
+          "type": "DEM",
+          "isFree": true,
+          "url": "https://spacedata.copernicus.eu",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "30m / 90m",
+          "content": "全球 DEM",
+          "notes": "最新的全球DEM产品"
+        },
+        {
+          "id": "3dep",
+          "name": "USGS 3DEP",
+          "type": "DEM / LiDAR",
+          "isFree": true,
+          "url": "https://apps.nationalmap.gov/downloader",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "1-10m",
+          "content": "美国高精度 DEM/LiDAR",
+          "notes": "美国本土高精度数据"
+        },
+        {
+          "id": "opentopo",
+          "name": "OpenTopography",
+          "type": "DEM / LiDAR",
+          "isFree": true,
+          "url": "https://opentopography.org",
+          "apiAvailable": true,
+          "dataVolume": "TB级",
+          "resolution": "1-30m",
+          "content": "全球 DEM/LiDAR",
+          "notes": "地形专用，高质量点云数据"
+        }
+      ]
+    },
+    "aggregators": {
+      "name": "聚合平台",
+      "description": "多源数据聚合和云端处理平台",
+      "sources": [
+        {
+          "id": "aws_opendata",
+          "name": "AWS Open Data",
+          "type": "Aggregator",
+          "isFree": true,
+          "url": "https://registry.opendata.aws",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "varies",
+          "content": "Sentinel, Landsat, NAIP 等多源遥感仓库",
+          "notes": "亚马逊云托管，S3访问"
+        },
+        {
+          "id": "planetary_computer",
+          "name": "Microsoft Planetary Computer",
+          "type": "Aggregator",
+          "isFree": true,
+          "url": "https://planetarycomputer.microsoft.com",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "varies",
+          "content": "全球遥感集合 + 云端处理",
+          "notes": "微软云平台，STAC API"
+        },
+        {
+          "id": "gee",
+          "name": "Google Earth Engine",
+          "type": "Aggregator",
+          "isFree": "research",
+          "url": "https://earthengine.google.com",
+          "apiAvailable": true,
+          "dataVolume": "PB级",
+          "resolution": "varies",
+          "content": "全球多源数据集 + 云端分析",
+          "notes": "云端处理，不直接下载原始数据，研究免费"
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "totalSources": 41,
+    "freeCount": 25,
+    "partialFreeCount": 6,
+    "commercialCount": 10,
+    "apiSupportCount": 32
+  }
+}
