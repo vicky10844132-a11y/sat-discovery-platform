@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT-DISCOVERY - 赛博科技风格演示</title>
+    <link rel="stylesheet" href="css/cyber-theme.css">
+    <style>
+        /* 页面特定样式 */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 32px 24px;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--cyan-bright);
+            box-shadow: var(--glow-lg);
+            transform: translateY(-8px);
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--cyan-bright);
+            border-radius: 50%;
+            color: var(--cyan-bright);
+            font-weight: 600;
+            margin-bottom: 16px;
+            box-shadow: var(--glow-sm);
+        }
+        
+        .stats-section {
+            margin: 60px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--cyan-bright);
+            box-shadow: var(--glow-md);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-md);
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .demo-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: var(--cyan-bright);
+            overflow-x: auto;
+        }
+        
+        .angular-panel {
+            background: var(--gradient-panel);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            clip-path: polygon(
+                0 0, 
+                calc(100% - 20px) 0, 
+                100% 20px, 
+                100% 100%, 
+                20px 100%, 
+                0 calc(100% - 20px)
+            );
+            padding: 32px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .angular-panel::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            width: 24px;
+            height: 24px;
+            border-top: 2px solid var(--cyan-bright);
+            border-right: 2px solid var(--cyan-bright);
+            box-shadow: var(--glow-md);
+        }
+        
+        .angular-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: -1px;
+            width: 24px;
+            height: 24px;
+            border-bottom: 2px solid var(--cyan-bright);
+            border-left: 2px solid var(--cyan-bright);
+            box-shadow: var(--glow-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>SAT-DISCOVERY</h1>
+            <p class="text-glow-strong" style="font-size: 1.5rem;">卫星数据算法处理平台</p>
+            <p style="color: var(--text-secondary); margin-top: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                赛博科技风格 · 电光蓝主题 · 霓虹发光效果
+            </p>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Features Section -->
+        <section class="stats-section">
+            <h2 style="text-align: center; margin-bottom: 40px;">核心特性</h2>
+            <div class="features-grid">
+                <div class="feature-card numbered-item" data-number="1">
+                    <div class="feature-number">1</div>
+                    <h3>发光边框效果</h3>
+                    <p style="color: var(--text-secondary);">
+                        使用 CSS box-shadow 配合青蓝色创造霓虹发光效果，营造科技感氛围
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="2">
+                    <div class="feature-number">2</div>
+                    <h3>半透明面板</h3>
+                    <p style="color: var(--text-secondary);">
+                        使用 rgba() 和 backdrop-filter 创建玻璃态效果，提升视觉层次
+                    </p>
+                </div>
+                
+                <div class="feature-card numbered-item" data-number="3">
+                    <div class="feature-number">3</div>
+                    <h3>星空背景</h3>
+                    <p style="color: var(--text-secondary);">
+                        动态闪烁的星空效果配合网格背景，增强空间感和科技氛围
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <h2 style="text-align: center; margin-bottom: 40px;">平台数据</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">40+</span>
+                    <span class="stat-label">数据源</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">35+</span>
+                    <span class="stat-label">算法库</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">免费使用</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">处理能力</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Buttons Demo -->
+        <section style="margin: 60px 0; text-align: center;">
+            <h2 style="margin-bottom: 32px;">按钮样式</h2>
+            <div class="demo-buttons">
+                <button class="btn">标准按钮</button>
+                <button class="btn btn-primary">主要按钮</button>
+                <button class="btn animate-pulse-glow">发光按钮</button>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Panels Demo -->
+        <section style="margin: 60px 0;">
+            <h2 style="text-align: center; margin-bottom: 32px;">面板样式</h2>
+            
+            <!-- Regular Panel -->
+            <div class="panel-glow" style="margin-bottom: 24px;">
+                <h3>发光面板</h3>
+                <p style="color: var(--text-secondary);">
+                    这是一个带有发光效果的标准面板，使用半透明背景和模糊效果，配合霓虹蓝边框。
+                </p>
+            </div>
+
+            <!-- Angular Panel -->
+            <div class="angular-panel">
+                <h3>斜角面板</h3>
+                <p style="color: var(--text-secondary);">
+                    这是一个科技感斜角边框面板，使用 clip-path 实现，带有角落的强调边框效果。
+                </p>
+            </div>
+
+            <!-- Transparent Panel -->
+            <div class="panel-transparent">
+                <h3>透明面板</h3>
+                <p style="color: var(--text-secondary);">
+                    这是一个高透明度面板，适合叠加显示内容。
+                </p>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Form Demo -->
+        <section style="margin: 60px 0;">
+            <h2 style="text-align: center; margin-bottom: 32px;">表单元素</h2>
+            <div class="panel-glow" style="max-width: 600px; margin: 0 auto;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">邮箱地址</label>
+                    <input type="email" placeholder="your@email.com">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">搜索</label>
+                    <input type="search" placeholder="搜索卫星数据...">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">消息</label>
+                    <textarea rows="4" placeholder="输入消息..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Badges Demo -->
+        <section style="margin: 60px 0; text-align: center;">
+            <h2 style="margin-bottom: 32px;">标签样式</h2>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <span class="badge">免费</span>
+                <span class="badge badge-glow">API可用</span>
+                <span class="badge">SAR数据</span>
+                <span class="badge badge-glow">高分辨率</span>
+                <span class="badge">实时处理</span>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Code Block Demo -->
+        <section style="margin: 60px 0;">
+            <h2 style="text-align: center; margin-bottom: 32px;">代码块</h2>
+            <div class="code-block">
+<pre style="margin: 0;">// 配色方案
+:root {
+    --cyan-bright: #00d4ff;  // 电光蓝
+    --cyan-primary: #0ea5e9; // 主色调
+    --cyan-dark: #06b6d4;    // 深青色
+    --bg-primary: #0a0e1a;   // 主背景
+}</pre>
+            </div>
+        </section>
+
+        <div class="divider-thin"></div>
+
+        <!-- Cards Demo -->
+        <section style="margin: 60px 0;">
+            <h2 style="text-align: center; margin-bottom: 32px;">卡片网格</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="card">
+                    <h3>Sentinel-1</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 12px;">
+                        SAR 卫星数据，全球覆盖，免费获取
+                    </p>
+                    <div>
+                        <span class="badge">免费</span>
+                        <span class="badge badge-glow">SAR</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Landsat-8</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 12px;">
+                        光学影像，30米分辨率，历史数据丰富
+                    </p>
+                    <div>
+                        <span class="badge">免费</span>
+                        <span class="badge">光学</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>MODIS</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 12px;">
+                        每日全球覆盖，适合大尺度监测
+                    </p>
+                    <div>
+                        <span class="badge">免费</span>
+                        <span class="badge badge-glow">每日更新</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="margin: 80px 0 40px; text-align: center; padding-top: 40px; border-top: 1px solid var(--border-secondary);">
+            <p class="text-glow" style="font-size: 1.2rem; margin-bottom: 12px;">SAT-DISCOVERY</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                赛博科技风格设计演示 · 电光蓝主题
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
