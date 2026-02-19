@@ -32,11 +32,57 @@ https://sat-discovery-platform.vercel.app/
 
 ## 1. 🌐 域名配置
 
-### 当前配置
+### 当前配置状态 ✅
 
-- ✅ www.sat-index.online - 已配置并启用
-- ✅ HTTPS/SSL - 自动启用
-- ✅ 全球CDN - Vercel提供
+#### Cloudflare DNS 配置
+**Nameservers**:
+- `jamie.ns.cloudflare.com`
+- `koa.ns.cloudflare.com`
+
+**DNS 记录**:
+| 类型 | 名称 | 内容 | 代理状态 | TTL |
+|------|------|------|----------|-----|
+| A | sat-index.online | 216.198.79.1 | DNS only | Auto |
+| CNAME | www | 2882f84c7fcdcf31.vercel-dns-017.com | DNS only | Auto |
+
+#### 配置说明
+
+**A 记录** (`sat-index.online`):
+- 指向 Vercel 服务器 IP: `216.198.79.1`
+- 代理状态: DNS only（灰色云朵）
+- 允许 Vercel 管理 SSL 证书
+
+**CNAME 记录** (`www`):
+- 指向 Vercel DNS: `2882f84c7fcdcf31.vercel-dns-017.com`
+- 代理状态: DNS only（灰色云朵）
+- Vercel 自动管理路由和证书
+
+### 配置验证
+
+#### 1. 检查 DNS 传播
+```bash
+# 检查 A 记录
+dig sat-index.online +short
+# 应显示: 216.198.79.1
+
+# 检查 CNAME 记录
+dig www.sat-index.online +short
+# 应显示: 2882f84c7fcdcf31.vercel-dns-017.com
+```
+
+#### 2. 在线工具验证
+- DNS Checker: https://dnschecker.org/
+- 输入: www.sat-index.online
+- 确认全球传播
+
+#### 3. 测试访问
+```bash
+# 测试根域名
+curl -I https://sat-index.online/
+
+# 测试 www 域名
+curl -I https://www.sat-index.online/
+```
 
 ### 推荐配置：域名重定向
 
@@ -45,8 +91,10 @@ https://sat-discovery-platform.vercel.app/
 sat-index.online → www.sat-index.online
 ```
 
+**当前状态**: 两个域名都可访问，建议配置重定向
+
 **Vercel配置步骤**:
-1. 访问项目页面
+1. 访问项目页面: https://vercel.com/dashboard
 2. Settings → Domains
 3. 点击 "Add Domain"
 4. 输入 `sat-index.online`（无www）
