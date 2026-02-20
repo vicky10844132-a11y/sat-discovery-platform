@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/components.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
 </head>
 <body>
     <header>
@@ -23,8 +26,13 @@
     </header>
 
     <main>
+        <!-- Sidebar toggle button -->
+        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+            <span class="toggle-icon">◀</span>
+        </button>
+
         <!-- Sidebar with filters -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-section">
                 <h3>Search</h3>
                 <div class="input-group">
@@ -110,6 +118,10 @@
     </footer>
 
     <!-- Load JavaScript modules -->
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    
     <script src="/js/storage.js"></script>
     <script src="/js/dataLoader.js"></script>
     <script src="/js/indexer.js"></script>
@@ -122,6 +134,9 @@
         // Initialize the application
         async function init() {
             try {
+                // Initialize sidebar toggle
+                initSidebarToggle();
+
                 // Show loading state
                 UI.showLoading(document.getElementById('resultsGrid'));
 
@@ -241,6 +256,37 @@
             UI.renderCards(filtered, document.getElementById('resultsGrid'));
             UI.updateResultsCount(filtered.length, document.getElementById('resultsCount'));
             UI.renderFilterChips(document.getElementById('filterChips'));
+        }
+
+        // Initialize sidebar toggle functionality
+        function initSidebarToggle() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const content = document.querySelector('.content');
+            const toggleIcon = toggleBtn.querySelector('.toggle-icon');
+            
+            // Load saved state
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+                content.classList.add('sidebar-collapsed');
+                toggleIcon.textContent = '▶';
+            }
+            
+            // Toggle on click
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = sidebar.classList.toggle('collapsed');
+                content.classList.toggle('sidebar-collapsed');
+                toggleIcon.textContent = isCollapsed ? '▶' : '◀';
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+                
+                // Trigger map resize after animation
+                setTimeout(() => {
+                    if (window.MapManager && window.MapManager.map) {
+                        window.MapManager.map.invalidateSize();
+                    }
+                }, 300);
+            });
         }
 
         // Start the app
