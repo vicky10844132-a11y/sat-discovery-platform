@@ -18,16 +18,100 @@
           "query_url": "https://browser.dataspace.copernicus.eu/"
         },
         {
+          "name": "Landsat 8",
+          "operator": "NASA/USGS",
+          "type": "Optical",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2013-02",
+          "coverage": "Global",
+          "revisit_days": 16,
+          "programming": false,
+          "query_url": "https://earthexplorer.usgs.gov/"
+        },
+        {
+          "name": "Landsat 9",
+          "operator": "NASA/USGS",
+          "type": "Optical",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2021-10",
+          "coverage": "Global",
+          "revisit_days": 16,
+          "programming": false,
+          "query_url": "https://earthexplorer.usgs.gov/"
+        },
+        {
           "name": "PlanetScope",
           "operator": "Planet Labs",
           "type": "Optical",
           "commercial": true,
-          "public_archive": "Partial",
+          "public_archive": false,
           "archive_since": "2016-01",
           "coverage": "Global",
           "revisit_days": 1,
           "programming": true,
           "query_url": "https://www.planet.com/explorer/"
+        },
+        {
+          "name": "SkySat",
+          "operator": "Planet Labs",
+          "type": "Optical",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2013-11",
+          "coverage": "Targeted",
+          "revisit_days": 1,
+          "programming": true,
+          "query_url": "https://www.planet.com/products/hi-res-monitoring/"
+        },
+        {
+          "name": "WorldView-3",
+          "operator": "Maxar",
+          "type": "Optical",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2014-08",
+          "coverage": "Global",
+          "revisit_days": 1,
+          "programming": true,
+          "query_url": "https://www.maxar.com/products/satellite-imagery"
+        },
+        {
+          "name": "SPOT 6/7",
+          "operator": "Airbus",
+          "type": "Optical",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2012-09",
+          "coverage": "Global",
+          "revisit_days": 1,
+          "programming": true,
+          "query_url": "https://www.intelligence-airbusds.com/en/8692-spot-67"
+        },
+        {
+          "name": "Pleiades Neo",
+          "operator": "Airbus",
+          "type": "Optical",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2021-04",
+          "coverage": "Global",
+          "revisit_days": 1,
+          "programming": true,
+          "query_url": "https://www.intelligence-airbusds.com/imagery/constellation/pleiades-neo/"
+        },
+        {
+          "name": "MODIS (Terra/Aqua)",
+          "operator": "NASA",
+          "type": "Optical",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2000-02",
+          "coverage": "Global",
+          "revisit_days": 1,
+          "programming": false,
+          "query_url": "https://worldview.earthdata.nasa.gov/"
         }
       ]
     },
@@ -53,18 +137,97 @@
           "operator": "ICEYE",
           "type": "SAR",
           "commercial": true,
-          "public_archive": "Limited",
+          "public_archive": false,
           "archive_since": "2018-01",
           "coverage": "Global",
           "revisit_days": 1,
           "programming": true,
           "query_url": "https://www.iceye.com/"
+        },
+        {
+          "name": "Capella",
+          "operator": "Capella Space",
+          "type": "SAR",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2020-08",
+          "coverage": "Global",
+          "revisit_days": 1,
+          "programming": true,
+          "query_url": "https://www.capellaspace.com/"
+        },
+        {
+          "name": "COSMO-SkyMed",
+          "operator": "ASI/e-GEOS",
+          "type": "SAR",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2007-06",
+          "coverage": "Global",
+          "revisit_days": 1,
+          "programming": true,
+          "query_url": "https://www.e-geos.it/"
+        },
+        {
+          "name": "TerraSAR-X",
+          "operator": "DLR/Airbus",
+          "type": "SAR",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2007-06",
+          "coverage": "Global",
+          "revisit_days": 2,
+          "programming": true,
+          "query_url": "https://www.intelligence-airbusds.com/imagery/constellation/terrasar-x/"
+        },
+        {
+          "name": "RADARSAT Constellation",
+          "operator": "CSA/MDA",
+          "type": "SAR",
+          "commercial": true,
+          "public_archive": false,
+          "archive_since": "2019-06",
+          "coverage": "Global",
+          "revisit_days": 4,
+          "programming": true,
+          "query_url": "https://www.asc-csa.gc.ca/eng/satellites/radarsat/"
+        }
+      ]
+    },
+    {
+      "id": "hyperspectral",
+      "label": "Hyperspectral",
+      "description": "Hyperspectral imaging satellites",
+      "satellites": [
+        {
+          "name": "EnMAP",
+          "operator": "DLR",
+          "type": "Hyperspectral",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2022-04",
+          "coverage": "Global",
+          "revisit_days": 27,
+          "programming": false,
+          "query_url": "https://www.enmap.org/"
+        },
+        {
+          "name": "PRISMA",
+          "operator": "ASI",
+          "type": "Hyperspectral",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2019-03",
+          "coverage": "Global",
+          "revisit_days": 29,
+          "programming": true,
+          "query_url": "http://prisma.asi.it/"
         }
       ]
     },
     {
       "id": "weather",
-      "label": "Weather / Environmental",
+      "label": "Weather",
       "description": "Meteorological and environmental observation satellites",
       "satellites": [
         {
@@ -74,10 +237,34 @@
           "commercial": false,
           "public_archive": true,
           "archive_since": "2016-11",
-          "coverage": "Regional (GEO)",
-          "revisit_days": "Minutes",
+          "coverage": "Regional (Americas)",
+          "revisit_days": 0,
           "programming": false,
           "query_url": "https://www.star.nesdis.noaa.gov/"
+        },
+        {
+          "name": "Meteosat",
+          "operator": "EUMETSAT",
+          "type": "Weather",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "1977-11",
+          "coverage": "Regional (Europe/Africa)",
+          "revisit_days": 0,
+          "programming": false,
+          "query_url": "https://www.eumetsat.int/"
+        },
+        {
+          "name": "Himawari",
+          "operator": "JMA",
+          "type": "Weather",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2015-07",
+          "coverage": "Regional (Asia-Pacific)",
+          "revisit_days": 0,
+          "programming": false,
+          "query_url": "https://www.data.jma.go.jp/mscweb/en/himawari89/"
         }
       ]
     }
