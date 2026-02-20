@@ -11,10 +11,14 @@ const UI = {
         container.innerHTML = '';
         
         if (satellites.length === 0) {
+            const hasFilters = Filters.getActiveCount() > 0;
             container.innerHTML = `
                 <div class="empty-state">
-                    <div class="empty-state-icon">🛰️</div>
-                    <div class="empty-state-text">No satellites found</div>
+                    <div class="empty-state-icon">${hasFilters ? '🔍' : '🛰️'}</div>
+                    <div class="empty-state-text">
+                        ${hasFilters ? 'No satellites match your filters' : 'No satellites found'}
+                    </div>
+                    ${hasFilters ? '<div class="empty-state-hint">Try adjusting or clearing your filters</div>' : ''}
                 </div>
             `;
             return;
