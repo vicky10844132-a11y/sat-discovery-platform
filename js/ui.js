@@ -123,6 +123,18 @@ const UI = {
             );
         }
         
+        // Time range chip
+        if (active.timeRange && (active.timeRange.start || active.timeRange.end)) {
+            const timeRangeText = `${active.timeRange.start || '...'} to ${active.timeRange.end || '...'}`;
+            container.appendChild(
+                this.createChip('Time Range', timeRangeText, () => {
+                    Filters.setTimeRange(null, null);
+                    document.getElementById('startDate').value = '';
+                    document.getElementById('endDate').value = '';
+                })
+            );
+        }
+        
         // Clear all button
         if (Filters.getActiveCount() > 0) {
             const clearBtn = document.createElement('button');

@@ -8,7 +8,11 @@ const Filters = {
         archive: null,  // null, true, false
         tasking: null,  // null, true, false
         commercial: null,  // null, true, false
-        operator: null
+        operator: null,
+        timeRange: {
+            start: null,
+            end: null
+        }
     },
     
     listeners: [],
@@ -54,6 +58,15 @@ const Filters = {
         this.notifyChange();
     },
     
+    // Set time range filter
+    setTimeRange(start, end) {
+        this.active.timeRange = {
+            start: start || null,
+            end: end || null
+        };
+        this.notifyChange();
+    },
+    
     // Clear all filters
     clearAll() {
         this.active = {
@@ -62,7 +75,11 @@ const Filters = {
             archive: null,
             tasking: null,
             commercial: null,
-            operator: null
+            operator: null,
+            timeRange: {
+                start: null,
+                end: null
+            }
         };
         this.notifyChange();
     },
@@ -127,6 +144,19 @@ const Filters = {
             );
         }
         
+        // Apply time range filter
+        if (this.active.timeRange && (this.active.timeRange.start || this.active.timeRange.end)) {
+            filtered = filtered.filter(item => {
+                if (!item.launchDate && !item.acquisitionDate) return true;
+                
+                const itemDate = new Date(item.launchDate || item.acquisitionDate);
+                const startDate = this.active.timeRange.start ? new Date(this.active.timeRange.start) : new Date('1900-01-01');
+                const endDate = this.active.timeRange.end ? new Date(this.active.timeRange.end) : new Date('2100-12-31');
+                
+                return itemDate >= startDate && itemDate <= endDate;
+            });
+        }
+        
         return filtered;
     },
     
@@ -139,6 +169,7 @@ const Filters = {
         if (this.active.tasking !== null) count++;
         if (this.active.commercial !== null) count++;
         if (this.active.operator) count++;
+        if (this.active.timeRange && (this.active.timeRange.start || this.active.timeRange.end)) count++;
         return count;
     },
     

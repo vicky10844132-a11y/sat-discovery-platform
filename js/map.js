@@ -7,6 +7,7 @@ const MapManager = {
     drawControl: null,
     drawnItems: null,
     markers: [],
+    tempMarker: null,  // For coordinate location marker
     
     // Initialize the map with Leaflet
     init(containerId) {
