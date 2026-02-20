@@ -1,0 +1,237 @@
+{
+  "timestamp": "2026-02-20T12:58:05.346Z",
+  "summary": {
+    "total": 39,
+    "passed": 31,
+    "failed": 5,
+    "warnings": 3,
+    "successRate": 79.5
+  },
+  "tests": [
+    {
+      "name": "Leaflet CSS",
+      "status": "FAIL",
+      "url": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+      "error": "getaddrinfo ENOTFOUND unpkg.com"
+    },
+    {
+      "name": "Leaflet JS",
+      "status": "FAIL",
+      "url": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+      "error": "getaddrinfo ENOTFOUND unpkg.com"
+    },
+    {
+      "name": "Leaflet.draw CSS",
+      "status": "FAIL",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css",
+      "error": "getaddrinfo ENOTFOUND cdnjs.cloudflare.com"
+    },
+    {
+      "name": "Leaflet.draw JS",
+      "status": "FAIL",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js",
+      "error": "getaddrinfo ENOTFOUND cdnjs.cloudflare.com"
+    },
+    {
+      "name": "OpenStreetMap Tiles",
+      "status": "FAIL",
+      "url": "https://tile.openstreetmap.org/0/0/0.png",
+      "error": "getaddrinfo ENOTFOUND tile.openstreetmap.org"
+    },
+    {
+      "name": "storage.js",
+      "status": "PASS",
+      "path": "js/storage.js",
+      "size": 3627
+    },
+    {
+      "name": "dataLoader.js",
+      "status": "PASS",
+      "path": "js/dataLoader.js",
+      "size": 3523
+    },
+    {
+      "name": "indexer.js",
+      "status": "PASS",
+      "path": "js/indexer.js",
+      "size": 2625
+    },
+    {
+      "name": "filters.js",
+      "status": "PASS",
+      "path": "js/filters.js",
+      "size": 4202
+    },
+    {
+      "name": "ui.js",
+      "status": "PASS",
+      "path": "js/ui.js",
+      "size": 6928
+    },
+    {
+      "name": "map.js",
+      "status": "PASS",
+      "path": "js/map.js",
+      "size": 6995
+    },
+    {
+      "name": "router.js",
+      "status": "PASS",
+      "path": "js/router.js",
+      "size": 3283
+    },
+    {
+      "name": "theme.css",
+      "status": "PASS",
+      "path": "css/theme.css",
+      "size": 181
+    },
+    {
+      "name": "layout.css",
+      "status": "PASS",
+      "path": "css/layout.css",
+      "size": 4543
+    },
+    {
+      "name": "components.css",
+      "status": "PASS",
+      "path": "css/components.css",
+      "size": 6548
+    },
+    {
+      "name": "satellites.json",
+      "status": "PASS",
+      "path": "satellites.json",
+      "size": 2398
+    },
+    {
+      "name": "open_archives.json",
+      "status": "PASS",
+      "path": "open_archives.json",
+      "size": 642
+    },
+    {
+      "name": "sources.json",
+      "status": "PASS",
+      "path": "sources.json",
+      "size": 3303
+    },
+    {
+      "name": "algorithms_catalog.json",
+      "status": "PASS",
+      "path": "algorithms_catalog.json",
+      "size": 17232
+    },
+    {
+      "name": "data_sources_catalog.json",
+      "status": "PASS",
+      "path": "data_sources_catalog.json",
+      "size": 14298
+    },
+    {
+      "name": "app.html",
+      "status": "PASS",
+      "features": [
+        "Navigation",
+        "Buttons",
+        "Forms",
+        "Scripts",
+        "Stylesheets"
+      ]
+    },
+    {
+      "name": "index.html",
+      "status": "WARN",
+      "features": [
+        "Navigation",
+        "Buttons",
+        "Stylesheets"
+      ]
+    },
+    {
+      "name": "about.html",
+      "status": "WARN",
+      "features": [
+        "Navigation",
+        "Stylesheets"
+      ]
+    },
+    {
+      "name": "data_sources.html",
+      "status": "WARN",
+      "features": [
+        "Navigation",
+        "Forms",
+        "Scripts",
+        "Stylesheets"
+      ]
+    },
+    {
+      "name": "algorithms.html",
+      "status": "PASS",
+      "features": [
+        "Navigation",
+        "Buttons",
+        "Forms",
+        "Scripts",
+        "Stylesheets"
+      ]
+    },
+    {
+      "name": "侧边栏折叠按钮",
+      "status": "PASS"
+    },
+    {
+      "name": "搜索输入框",
+      "status": "PASS"
+    },
+    {
+      "name": "传感器类型筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "归档筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "任务调度筛选",
+      "status": "PASS"
+    },
+    {
+      "name": "清除筛选按钮",
+      "status": "PASS"
+    },
+    {
+      "name": "地图容器",
+      "status": "PASS"
+    },
+    {
+      "name": "结果网格",
+      "status": "PASS"
+    },
+    {
+      "name": "初始化函数",
+      "status": "PASS"
+    },
+    {
+      "name": "Leaflet 初始化",
+      "status": "PASS"
+    },
+    {
+      "name": "Leaflet 地图初始化",
+      "status": "PASS"
+    },
+    {
+      "name": "OpenStreetMap 瓦片",
+      "status": "PASS"
+    },
+    {
+      "name": "AOI 绘制功能",
+      "status": "PASS"
+    },
+    {
+      "name": "地图标记功能",
+      "status": "PASS"
+    }
+  ]
+}
