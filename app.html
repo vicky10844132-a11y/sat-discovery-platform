@@ -36,10 +36,10 @@
             <div class="sidebar-section info-section">
                 <div class="info-text">
                     <strong>🔍 How to use:</strong><br>
-                    • Search by name or use filters<br>
+                    • Press Ctrl+K to search<br>
+                    • Use filters to narrow results<br>
                     • Click map to draw AOI<br>
-                    • Select dates or enter coordinates<br>
-                    • View results in cards below
+                    • Enter coordinates to jump to location
                 </div>
             </div>
             
@@ -50,8 +50,8 @@
                         type="text" 
                         id="searchInput" 
                         class="input-field" 
-                        placeholder="Search satellites..."
-                        title="Search by satellite name or operator"
+                        placeholder="Search satellites... (Ctrl+K)"
+                        title="Search by satellite name or operator (Ctrl+K to focus)"
                     >
                 </div>
             </div>
@@ -230,6 +230,22 @@
                             Storage.addRecentSearch(e.target.value.trim());
                         }
                     }, 300);
+                });
+                
+                // Add keyboard shortcut for search (Ctrl+K or Cmd+K)
+                document.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                        e.preventDefault();
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                    
+                    // Escape to clear search
+                    if (e.key === 'Escape' && document.activeElement === searchInput) {
+                        searchInput.value = '';
+                        Filters.setSearch('');
+                        searchInput.blur();
+                    }
                 });
 
                 // Setup archive filter

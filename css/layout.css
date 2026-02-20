@@ -184,16 +184,42 @@ main {
     .sidebar {
         width: 100%;
         max-height: 40vh;
+        overflow-y: auto;
         border-right: none;
         border-bottom: 1px solid rgba(255, 215, 0, 0.2);
     }
     
+    .sidebar-toggle {
+        top: 10px;
+        left: 10px;
+        z-index: 1001;
+    }
+    
     .map-panel {
         height: 50%;
+        min-height: 300px;
     }
     
     .results-panel {
         height: 50%;
+    }
+    
+    /* Better touch targets on mobile */
+    .btn {
+        min-height: 44px;
+        padding: 0.75rem 1rem;
+    }
+    
+    .input-field, 
+    input[type="date"], 
+    input[type="number"] {
+        min-height: 44px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Stack date preset buttons vertically on very small screens */
+    .date-range-presets {
+        grid-template-columns: 1fr;
     }
 }
 
