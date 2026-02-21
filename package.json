@@ -1,0 +1,8 @@
+{
+  "name": "sat-discovery-platform",
+  "version": "1.0.0",
+  "description": "Satellite Discovery & Data Access Platform",
+  "scripts": {
+    "serve": "python3 -m http.server 8000"
+  }
+}
