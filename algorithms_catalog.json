@@ -221,6 +221,84 @@
         }
       ]
     },
+    "preprocessing": {
+      "name": "预处理与裁剪",
+      "description": "影像预处理和地理裁剪工具",
+      "algorithms": [
+        {
+          "id": "gdal_warp_clip",
+          "name": "GDAL Warp 影像裁剪",
+          "description": "使用 GDAL Warp 进行地理裁剪和重投影",
+          "function": "gdal.Warp()",
+          "inputType": "任何栅格影像",
+          "outputType": "裁剪后的栅格",
+          "parameters": {
+            "destNameOrDestDS": {
+              "description": "输出数据集名称或数据源",
+              "type": "string or gdal.Dataset",
+              "required": true
+            },
+            "srcDSOrSrcDSTab": {
+              "description": "源数据（单个或多个数据集）",
+              "type": "gdal.Dataset or list",
+              "required": true
+            },
+            "options": {
+              "description": "WarpOptions 对象，定义裁剪信息",
+              "type": "gdal.WarpOptions",
+              "required": false,
+              "common_options": [
+                "cutlineDSName - 裁剪矢量文件",
+                "cropToCutline - 裁剪到矢量边界",
+                "dstSRS - 目标投影",
+                "outputBounds - 输出范围 [minX, minY, maxX, maxY]",
+                "xRes/yRes - 输出分辨率",
+                "resampleAlg - 重采样算法"
+              ]
+            }
+          },
+          "codeExample": "from osgeo import gdal\n\n# 基本裁剪示例\nds = gdal.Open('input.tif')\noptions = gdal.WarpOptions(\n    cutlineDSName='boundary.shp',\n    cropToCutline=True,\n    dstNodata=-9999\n)\ngdal.Warp('output.tif', ds, options=options)",
+          "applications": [
+            "按矢量边界裁剪",
+            "按坐标范围裁剪",
+            "投影转换",
+            "重采样",
+            "影像拼接"
+          ],
+          "dataSources": ["任何 GeoTIFF", "Sentinel", "Landsat", "SAR"],
+          "processingTime": "10秒 - 5分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "osgeo"],
+          "documentation": "https://gdal.org/en/stable/api/python/utilities.html#osgeo.gdal.WarpOptions",
+          "notes": "支持多种裁剪方式：矢量裁剪、坐标裁剪、重投影等"
+        },
+        {
+          "id": "gdal_translate",
+          "name": "GDAL Translate 格式转换",
+          "description": "栅格格式转换和子集提取",
+          "function": "gdal.Translate()",
+          "inputType": "任何栅格",
+          "outputType": "转换后的栅格",
+          "applications": ["格式转换", "波段提取", "数据类型转换"],
+          "dataSources": ["任何栅格"],
+          "processingTime": "< 1 分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL"]
+        },
+        {
+          "id": "reproject",
+          "name": "投影转换",
+          "description": "影像重投影和坐标系转换",
+          "inputType": "任何栅格",
+          "outputType": "重投影栅格",
+          "applications": ["投影转换", "坐标系统一"],
+          "dataSources": ["任何栅格"],
+          "processingTime": "30秒 - 3分钟",
+          "cloudReady": true,
+          "libraries": ["GDAL", "rasterio"]
+        }
+      ]
+    },
     "image_processing": {
       "name": "图像处理",
       "description": "基础图像处理和增强",
@@ -440,8 +518,8 @@
     "cloudNative": true
   },
   "statistics": {
-    "totalAlgorithms": 35,
-    "categories": 8,
+    "totalAlgorithms": 38,
+    "categories": 9,
     "avgProcessingTime": "< 5 分钟",
     "cloudReady": "100%"
   }
