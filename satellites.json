@@ -191,6 +191,18 @@
           "revisit_days": 4,
           "programming": true,
           "query_url": "https://www.asc-csa.gc.ca/eng/satellites/radarsat/"
+        },
+        {
+          "name": "NISAR",
+          "operator": "NASA/ISRO",
+          "type": "SAR",
+          "commercial": false,
+          "public_archive": true,
+          "archive_since": "2024-Q1",
+          "coverage": "Global",
+          "revisit_days": 12,
+          "programming": false,
+          "query_url": "https://search.asf.alaska.edu/#/?dataset=NISAR"
         }
       ]
     },
