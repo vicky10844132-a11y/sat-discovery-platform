@@ -1,0 +1,419 @@
+{
+  "metadata": {
+    "title": "Remote Sensing Resources 2025",
+    "description": "Comprehensive catalog of remote sensing data sources, tools, and algorithms",
+    "version": "1.0.0",
+    "last_updated": "2025-02-21",
+    "total_resources": 60,
+    "categories": 10
+  },
+  "categories": {
+    "open_data": {
+      "name": "开放遥感数据 (Open EO / SAR / DEM)",
+      "description": "Free and open remote sensing data sources",
+      "resources": [
+        {
+          "id": "iceye-sar",
+          "name": "ICEYE SAR Open Data",
+          "type": "SAR Data",
+          "provider": "ICEYE",
+          "access": "Free",
+          "urls": {
+            "stac": "https://radiantearth.github.io/stac-browser/#/external/iceye-open-data-catalog.s3.amazonaws.com/catalog.json",
+            "s3": "http://iceye-open-data-catalog.s3-website-us-west-2.amazonaws.com/"
+          },
+          "description": "SAR 示例数据下载（含中国区域）",
+          "coverage": "Global including China",
+          "format": "STAC, S3"
+        },
+        {
+          "id": "alos4-sample",
+          "name": "ALOS-4 Sample Product",
+          "type": "SAR Data",
+          "provider": "JAXA",
+          "access": "Free",
+          "url": "https://www.eorc.jaxa.jp/ALOS/en/alos-4/a4_data_e.htm",
+          "description": "ALOS-4 SAR 示例数据",
+          "coverage": "Sample products"
+        },
+        {
+          "id": "spaceeye-t",
+          "name": "SpaceEye-T VVHR EO Open Data",
+          "type": "Optical Data",
+          "provider": "SpaceEye",
+          "access": "Free",
+          "url": "http://st-vvhr-opendata.s3-website.us-west-2.amazonaws.com/",
+          "description": "VVHR 光学数据样例下载",
+          "resolution": "Very Very High Resolution"
+        },
+        {
+          "id": "vivid-mosaic",
+          "name": "Vivid Mosaic 15cm Global Sample",
+          "type": "Optical Data",
+          "provider": "Vantor",
+          "access": "Sample",
+          "url": "https://vantor.com/resources/samples-vivid-mosaic-15-cm-global-locations/",
+          "description": "15cm 超高分辨率样例数据",
+          "resolution": "15cm"
+        },
+        {
+          "id": "copernicus-dem",
+          "name": "Copernicus DEM (Official)",
+          "type": "DEM",
+          "provider": "ESA",
+          "access": "Free",
+          "url": "https://dataspace.copernicus.eu/",
+          "description": "Copernicus数字高程模型",
+          "products": ["GLO-30", "GLO-90"],
+          "resolution": ["30m", "90m"],
+          "coverage": "Global"
+        },
+        {
+          "id": "copdem-cog",
+          "name": "全球整块 CopDEM (COG版)",
+          "type": "DEM",
+          "provider": "Ireept镶嵌转换版",
+          "access": "Free",
+          "size": "约800GB",
+          "description": "全球拼接为一整块，已转换为COG格式",
+          "features": ["全球拼接", "COG格式", "加载快速", "适合QGIS/ArcGIS"]
+        },
+        {
+          "id": "srtm-dem",
+          "name": "SRTM DEM (30m)",
+          "type": "DEM",
+          "provider": "USGS",
+          "access": "Free",
+          "url": "https://earthexplorer.usgs.gov/",
+          "dataset": "Digital Elevation → SRTM → SRTM 1 Arc-Second Global",
+          "resolution": "30m",
+          "coverage": "Global"
+        },
+        {
+          "id": "aster-gdem",
+          "name": "ASTER GDEM",
+          "type": "DEM",
+          "provider": "NASA",
+          "access": "Free",
+          "url": "https://search.earthdata.nasa.gov/search",
+          "resolution": "30m",
+          "coverage": "Global"
+        },
+        {
+          "id": "aw3d-30m",
+          "name": "AW3D 30m",
+          "type": "DEM",
+          "provider": "JAXA",
+          "access": "Free",
+          "url": "https://www.eorc.jaxa.jp/ALOS/en/aw3d30/data/index.htm",
+          "resolution": "30m",
+          "coverage": "Global"
+        },
+        {
+          "id": "nasa-corona",
+          "name": "NASA 解密卫星影像 (CORONA等)",
+          "type": "Historical Imagery",
+          "provider": "NASA/USGS",
+          "access": "Free",
+          "urls": {
+            "earthexplorer": "https://earthexplorer.usgs.gov/",
+            "landviewer": "https://eos.com/products/landviewer/"
+          },
+          "description": "解密的历史卫星影像数据"
+        }
+      ]
+    },
+    "satellite_tracking": {
+      "name": "卫星追踪工具",
+      "description": "Satellite tracking and pass prediction tools",
+      "resources": [
+        {
+          "id": "look4sat",
+          "name": "Look4Sat 4.0.2",
+          "type": "Mobile App",
+          "platform": "Android",
+          "features": ["自定义TLE源", "过境预测", "卫星追踪"],
+          "download": "https://files.xanyi.eu.org/look4sat/",
+          "version": "4.0.2",
+          "language": ["English", "中文汉化版"],
+          "description": "支持自定义TLE源的卫星过境预测工具"
+        }
+      ]
+    },
+    "sar_visualization": {
+      "name": "SAR可视化平台",
+      "description": "SAR data visualization platforms",
+      "resources": [
+        {
+          "id": "terraq-sar",
+          "name": "Terraq SAR Visualization",
+          "type": "Web Platform",
+          "provider": "Terraq",
+          "access": "Free",
+          "url": "https://data.terraq.space",
+          "description": "全球开源SAR数据可视化平台",
+          "coverage": "Global"
+        }
+      ]
+    },
+    "osint_tools": {
+      "name": "OSINT地理空间工具",
+      "description": "Open Source Intelligence geospatial tools",
+      "resources": [
+        {
+          "id": "pano-date",
+          "name": "Pano Date",
+          "type": "Street View Analysis",
+          "url": "https://pano-date.emily.bz/",
+          "description": "Google街景时间分析工具"
+        },
+        {
+          "id": "bellingcat-filename",
+          "name": "Bellingcat Filename Finder",
+          "type": "Browser Extension",
+          "url": "https://chromewebstore.google.com/detail/bellingcat-filename-finde/fdhodjpkigpaachejkipcghppfnnfdmp",
+          "description": "Bellingcat文件名查找器"
+        },
+        {
+          "id": "imagery-wayback",
+          "name": "World Imagery Wayback",
+          "type": "Historical Imagery",
+          "provider": "ESRI",
+          "url": "https://livingatlas.arcgis.com/wayback/",
+          "description": "全球影像历史版本回溯"
+        },
+        {
+          "id": "spot-beta",
+          "name": "Spot Beta",
+          "type": "Geolocation",
+          "url": "https://www.findthatspot.io/",
+          "description": "地理定位工具"
+        },
+        {
+          "id": "osm-search",
+          "name": "Bellingcat OSM Search",
+          "type": "Map Search",
+          "url": "https://osm-search.bellingcat.com/",
+          "description": "OpenStreetMap搜索工具"
+        },
+        {
+          "id": "grid-generator",
+          "name": "Bellingcat Grid Generator",
+          "type": "Grid Search",
+          "url": "https://grid.bellingcat.com/",
+          "description": "网格搜索生成器"
+        },
+        {
+          "id": "heywhatsthat",
+          "name": "Heywhatsthat",
+          "type": "Map Comparison",
+          "url": "https://www.heywhatsthat.com/",
+          "description": "地图对比工具"
+        },
+        {
+          "id": "multimap",
+          "name": "Multimap",
+          "type": "Map Comparison",
+          "url": "https://javier.jimenezshaw.com/mapas/mapas.html",
+          "description": "多地图并排对比"
+        },
+        {
+          "id": "dualmaps",
+          "name": "DualMaps",
+          "type": "Map Comparison",
+          "url": "https://www.mapchannels.com/DualMaps.aspx",
+          "description": "双地图对比工具"
+        },
+        {
+          "id": "eosda-landviewer",
+          "name": "EOSDA LandViewer",
+          "type": "Satellite Imagery Viewer",
+          "url": "https://eos.com/products/landviewer/",
+          "description": "卫星影像在线查看和分析平台"
+        }
+      ]
+    },
+    "visualization": {
+      "name": "可视化前端组件",
+      "description": "Visualization components and libraries",
+      "resources": [
+        {
+          "id": "giojs",
+          "name": "Gio.js",
+          "type": "JavaScript Library",
+          "description": "3D数据流地球可视化",
+          "github": "https://github.com/syt123450/giojs",
+          "npm": "npm install giojs",
+          "features": ["国家间数据流动可视化", "3D Web地球"],
+          "technology": "WebGL"
+        }
+      ]
+    },
+    "gis_tools": {
+      "name": "GIS数据处理工具",
+      "description": "GIS data processing and conversion tools",
+      "resources": [
+        {
+          "id": "gdb-cleanup",
+          "name": "GDB空图层批量清理工具",
+          "type": "Python Tool",
+          "technology": "Python + GDAL + Tkinter",
+          "features": ["自动删除0 feature图层", "支持备份模式"],
+          "description": "File Geodatabase批量清理工具",
+          "path": "tools/gis_tools/gdb_cleaner.py"
+        },
+        {
+          "id": "nc2tiff",
+          "name": "NC2TIFF转换器",
+          "type": "Converter",
+          "description": "NetCDF → GeoTIFF转换工具"
+        },
+        {
+          "id": "wgs84-utm",
+          "name": "WGS84-UTM批量转换工具",
+          "type": "Converter",
+          "description": "影像投影批量转换工具"
+        }
+      ]
+    },
+    "data_collection": {
+      "name": "数据采集系统",
+      "description": "Data collection and scheduling systems",
+      "resources": [
+        {
+          "id": "webspoon-kettle",
+          "name": "WebSpoon + Kettle数据采集系统",
+          "type": "ETL System",
+          "description": "dataCollection可视化调度系统",
+          "features": [
+            "WebSpoon在线编辑",
+            "任务调度",
+            "日志监控",
+            "邮件告警",
+            "资源库管理"
+          ]
+        }
+      ]
+    },
+    "historical_imagery": {
+      "name": "历史影像下载",
+      "description": "Historical imagery services",
+      "resources": [
+        {
+          "id": "esri-wayback",
+          "name": "ESRI Wayback历史影像下载",
+          "type": "Web Service",
+          "provider": "ESRI",
+          "mapserver": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          "description": "历史影像版本回溯查询"
+        }
+      ]
+    },
+    "documentation": {
+      "name": "NASA航天技术资料",
+      "description": "NASA aerospace engineering documentation",
+      "resources": [
+        {
+          "id": "nasa-sp-series",
+          "name": "NASA航天技术资料全集",
+          "type": "Technical Documentation",
+          "provider": "NASA",
+          "series": "NASA-SP-8001至NASA-SP-8126",
+          "topics": [
+            "结构设计",
+            "气动设计",
+            "热控系统",
+            "推进系统",
+            "环境模型"
+          ],
+          "description": "航天工程设计参考文档"
+        }
+      ]
+    },
+    "algorithms_2025": {
+      "name": "遥感算法体系 (2025版)",
+      "description": "Latest remote sensing algorithms and frameworks",
+      "resources": [
+        {
+          "id": "super-resolution",
+          "name": "超分辨率算法",
+          "type": "Deep Learning",
+          "methods": ["Diffusion", "Mamba", "CNN"],
+          "models": ["SRLatentDiffusion (ESA)"],
+          "description": "基于扩散模型和Mamba的超分辨率技术"
+        },
+        {
+          "id": "semantic-segmentation",
+          "name": "语义分割",
+          "type": "Deep Learning",
+          "models": ["HDFormer", "CM-UNet"],
+          "description": "高精度遥感影像语义分割"
+        },
+        {
+          "id": "change-detection",
+          "name": "变化检测",
+          "type": "Deep Learning",
+          "models": ["MF-UNet", "CIUCD", "CDMamba"],
+          "description": "时序遥感影像变化检测"
+        },
+        {
+          "id": "pansharpening",
+          "name": "全色锐化",
+          "type": "Image Fusion",
+          "models": ["WFANet"],
+          "description": "全色与多光谱影像融合"
+        },
+        {
+          "id": "hyperspectral",
+          "name": "高光谱分类",
+          "type": "Deep Learning",
+          "models": ["WaveMamba"],
+          "description": "高光谱影像分类算法"
+        },
+        {
+          "id": "diffusion-models",
+          "name": "扩散模型应用",
+          "type": "Generative AI",
+          "description": "扩散模型在遥感中的应用"
+        },
+        {
+          "id": "wavelet-dl",
+          "name": "小波+深度学习融合",
+          "type": "Hybrid Method",
+          "description": "小波变换与深度学习结合"
+        },
+        {
+          "id": "rs-mamba",
+          "name": "RS-Mamba框架",
+          "type": "Framework",
+          "description": "遥感专用Mamba架构框架"
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "total_resources": 62,
+    "by_category": {
+      "open_data": 10,
+      "satellite_tracking": 1,
+      "sar_visualization": 1,
+      "osint_tools": 10,
+      "visualization": 1,
+      "gis_tools": 3,
+      "data_collection": 1,
+      "historical_imagery": 1,
+      "documentation": 1,
+      "algorithms_2025": 8
+    },
+    "by_access": {
+      "free": 45,
+      "sample": 5,
+      "commercial": 0
+    }
+  },
+  "usage_notes": {
+    "citation": "Please cite data sources appropriately when using in research",
+    "updates": "This catalog is updated regularly. Check version and last_updated date.",
+    "contributions": "Contributions and corrections welcome via GitHub issues"
+  }
+}

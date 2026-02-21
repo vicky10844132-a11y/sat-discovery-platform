@@ -1,0 +1,2 @@
+# GDB Cleaner Tool Requirements
+GDAL>=3.0.0
