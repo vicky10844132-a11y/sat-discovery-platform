@@ -47,7 +47,21 @@
       // Build map
       const map = new maplibregl.Map({
         container: containerId,
-        style: DEFAULT_STYLE,
+        style: {
+            version: 8,
+            sources: {
+                osm: {
+                    type: "raster",
+                    tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                    tileSize: 256
+                }
+            },
+            layers: [{
+                id: "osm",
+                type: "raster",
+                source: "osm"
+            }]
+        },
         center: [0, 20],
         zoom: 2,
         minZoom: 2,   // ✅ cannot zoom out infinitely
