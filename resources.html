@@ -12,11 +12,11 @@
       padding: 20px;
     }
     .content-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
     }
     .page-header {
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     .page-header h1 {
       font-family: Orbitron, Inter, system-ui;
@@ -30,6 +30,94 @@
       color: var(--muted);
       margin: 0;
     }
+    
+    /* Filters and Search */
+    .filter-controls {
+      background: linear-gradient(180deg, rgba(10, 22, 46, 0.52), rgba(6, 14, 32, 0.66));
+      border: 1px solid var(--borderA);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+    .filter-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .filter-row:last-child {
+      margin-bottom: 0;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--borderB);
+      background: rgba(3, 8, 18, 0.6);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-box input::placeholder {
+      color: var(--muted2);
+    }
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--borderB);
+      background: rgba(3, 8, 18, 0.4);
+      color: var(--muted);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .filter-btn.active {
+      background: var(--cyan);
+      color: var(--bg0);
+      border-color: var(--cyan);
+    }
+    .clear-filters {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255, 100, 100, 0.2);
+      border: 1px solid rgba(255, 100, 100, 0.3);
+      color: #ffaaaa;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .clear-filters:hover {
+      background: rgba(255, 100, 100, 0.3);
+    }
+    .results-count {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: auto;
+    }
+    
+    /* Resource Cards */
     .category-section {
       margin-bottom: 40px;
     }
@@ -47,7 +135,7 @@
     }
     .resources-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 16px;
     }
     .resource-card {
@@ -57,18 +145,57 @@
       padding: 18px;
       transition: all 0.3s ease;
       text-decoration: none;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .resource-card:hover {
       border-color: rgba(111, 231, 255, 0.4);
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
-    .resource-name {
+    .resource-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .resource-title {
       font-size: 15px;
       font-weight: 600;
       color: var(--cyan);
-      margin: 0 0 8px 0;
+      margin: 0;
+      flex: 1;
+    }
+    .access-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .access-stac {
+      background: rgba(111, 231, 255, 0.2);
+      color: var(--cyan);
+    }
+    .access-portal {
+      background: rgba(122, 109, 255, 0.2);
+      color: var(--violet);
+    }
+    .access-download {
+      background: rgba(100, 255, 150, 0.2);
+      color: #aaffcc;
+    }
+    .access-docs, .access-library, .access-web-tool, .access-api {
+      background: rgba(255, 200, 100, 0.2);
+      color: #ffcc88;
+    }
+    .resource-provider {
+      font-size: 11px;
+      color: var(--muted2);
+      margin: 0;
     }
     .resource-desc {
       font-size: 12px;
@@ -76,10 +203,28 @@
       line-height: 1.5;
       margin: 0;
     }
-    .loading {
+    .resource-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .tag {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      background: rgba(3, 8, 18, 0.6);
+      border: 1px solid var(--borderB);
+      color: var(--muted2);
+    }
+    .loading, .no-results {
       text-align: center;
-      padding: 40px;
+      padding: 60px 20px;
       color: var(--muted);
+      font-size: 14px;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -102,7 +247,27 @@
     <div class="content-container">
       <div class="page-header">
         <h1>📚 Resources</h1>
-        <p>Curated collection of satellite data portals, STAC APIs, OSINT tools, and tracking platforms</p>
+        <p>Curated database of satellite data, OSINT tools, and reference materials</p>
+      </div>
+
+      <div class="filter-controls">
+        <div class="filter-row">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search resources by title or description...">
+          </div>
+          <div class="results-count" id="resultsCount"></div>
+        </div>
+        
+        <div class="filter-row">
+          <span class="filter-label">Access:</span>
+          <div class="filter-group" id="accessFilters"></div>
+        </div>
+        
+        <div class="filter-row">
+          <span class="filter-label">Tags:</span>
+          <div class="filter-group" id="tagFilters"></div>
+          <button class="clear-filters" id="clearFilters">Clear All</button>
+        </div>
       </div>
 
       <div id="resources-container">
@@ -112,59 +277,229 @@
   </div>
 
   <script>
+    let allResources = [];
+    let filteredResources = [];
+    let activeAccessFilters = new Set();
+    let activeTagFilters = new Set();
+    let searchQuery = '';
+
     async function loadResources() {
       try {
         const response = await fetch('resources.json');
         const data = await response.json();
         
-        const container = document.getElementById('resources-container');
-        container.innerHTML = '';
-        
+        // Flatten resources with category info
+        allResources = [];
         data.categories.forEach(category => {
-          const section = document.createElement('div');
-          section.className = 'category-section';
-          
-          const header = document.createElement('h2');
-          header.className = 'category-header';
-          header.textContent = category.name;
-          section.appendChild(header);
-          
-          const desc = document.createElement('p');
-          desc.className = 'category-desc';
-          desc.textContent = category.description;
-          section.appendChild(desc);
-          
-          const grid = document.createElement('div');
-          grid.className = 'resources-grid';
-          
-          category.links.forEach(link => {
-            const card = document.createElement('a');
-            card.className = 'resource-card';
-            card.href = link.url;
-            card.target = '_blank';
-            card.rel = 'noopener noreferrer';
-            
-            const name = document.createElement('div');
-            name.className = 'resource-name';
-            name.textContent = link.name;
-            card.appendChild(name);
-            
-            const description = document.createElement('p');
-            description.className = 'resource-desc';
-            description.textContent = link.description;
-            card.appendChild(description);
-            
-            grid.appendChild(card);
+          category.items.forEach(item => {
+            allResources.push({
+              ...item,
+              category: category.name,
+              categoryId: category.id
+            });
           });
-          
-          section.appendChild(grid);
-          container.appendChild(section);
         });
+        
+        // Initialize filters
+        initializeFilters();
+        
+        // Initial render
+        filteredResources = [...allResources];
+        renderResources(data.categories);
+        updateResultsCount();
+        
       } catch (error) {
         console.error('Error loading resources:', error);
         document.getElementById('resources-container').innerHTML = 
           '<div class="loading">Error loading resources. Please refresh the page.</div>';
       }
+    }
+    
+    function initializeFilters() {
+      // Get unique access types
+      const accessTypes = [...new Set(allResources.map(r => r.access_type))].sort();
+      const accessContainer = document.getElementById('accessFilters');
+      accessTypes.forEach(type => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.textContent = type;
+        btn.onclick = () => toggleAccessFilter(type, btn);
+        accessContainer.appendChild(btn);
+      });
+      
+      // Get unique tags
+      const tags = [...new Set(allResources.flatMap(r => r.tags))].sort();
+      const tagContainer = document.getElementById('tagFilters');
+      tags.forEach(tag => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.textContent = tag;
+        btn.onclick = () => toggleTagFilter(tag, btn);
+        tagContainer.appendChild(btn);
+      });
+      
+      // Search input
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        applyFilters();
+      });
+      
+      // Clear filters button
+      document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+    }
+    
+    function toggleAccessFilter(type, btn) {
+      if (activeAccessFilters.has(type)) {
+        activeAccessFilters.delete(type);
+        btn.classList.remove('active');
+      } else {
+        activeAccessFilters.add(type);
+        btn.classList.add('active');
+      }
+      applyFilters();
+    }
+    
+    function toggleTagFilter(tag, btn) {
+      if (activeTagFilters.has(tag)) {
+        activeTagFilters.delete(tag);
+        btn.classList.remove('active');
+      } else {
+        activeTagFilters.add(tag);
+        btn.classList.add('active');
+      }
+      applyFilters();
+    }
+    
+    function clearAllFilters() {
+      activeAccessFilters.clear();
+      activeTagFilters.clear();
+      searchQuery = '';
+      document.getElementById('searchInput').value = '';
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      applyFilters();
+    }
+    
+    function applyFilters() {
+      filteredResources = allResources.filter(resource => {
+        // Search filter
+        if (searchQuery) {
+          const matchesSearch = 
+            resource.title.toLowerCase().includes(searchQuery) ||
+            resource.description.toLowerCase().includes(searchQuery) ||
+            resource.provider.toLowerCase().includes(searchQuery);
+          if (!matchesSearch) return false;
+        }
+        
+        // Access type filter
+        if (activeAccessFilters.size > 0 && !activeAccessFilters.has(resource.access_type)) {
+          return false;
+        }
+        
+        // Tag filter (OR logic - matches any selected tag)
+        if (activeTagFilters.size > 0) {
+          const hasMatchingTag = resource.tags.some(tag => activeTagFilters.has(tag));
+          if (!hasMatchingTag) return false;
+        }
+        
+        return true;
+      });
+      
+      // Group by category
+      const categorized = {};
+      filteredResources.forEach(resource => {
+        if (!categorized[resource.categoryId]) {
+          categorized[resource.categoryId] = {
+            id: resource.categoryId,
+            name: resource.category,
+            items: []
+          };
+        }
+        categorized[resource.categoryId].items.push(resource);
+      });
+      
+      renderResources(Object.values(categorized));
+      updateResultsCount();
+    }
+    
+    function updateResultsCount() {
+      const count = filteredResources.length;
+      const total = allResources.length;
+      document.getElementById('resultsCount').textContent = 
+        `Showing ${count} of ${total} resources`;
+    }
+    
+    function renderResources(categories) {
+      const container = document.getElementById('resources-container');
+      
+      if (categories.length === 0 || filteredResources.length === 0) {
+        container.innerHTML = '<div class="no-results">No resources match your filters. Try adjusting your search.</div>';
+        return;
+      }
+      
+      container.innerHTML = '';
+      
+      categories.forEach(category => {
+        if (!category.items || category.items.length === 0) return;
+        
+        const section = document.createElement('div');
+        section.className = 'category-section';
+        
+        const header = document.createElement('h2');
+        header.className = 'category-header';
+        header.textContent = category.name;
+        section.appendChild(header);
+        
+        const grid = document.createElement('div');
+        grid.className = 'resources-grid';
+        
+        category.items.forEach(item => {
+          const card = document.createElement('a');
+          card.className = 'resource-card';
+          card.href = item.url;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          
+          const headerDiv = document.createElement('div');
+          headerDiv.className = 'resource-header';
+          
+          const title = document.createElement('div');
+          title.className = 'resource-title';
+          title.textContent = item.title;
+          headerDiv.appendChild(title);
+          
+          const badge = document.createElement('span');
+          badge.className = `access-badge access-${item.access_type.toLowerCase().replace(/\s+/g, '-')}`;
+          badge.textContent = item.access_type;
+          headerDiv.appendChild(badge);
+          
+          card.appendChild(headerDiv);
+          
+          const provider = document.createElement('p');
+          provider.className = 'resource-provider';
+          provider.textContent = item.provider;
+          card.appendChild(provider);
+          
+          const description = document.createElement('p');
+          description.className = 'resource-desc';
+          description.textContent = item.description;
+          card.appendChild(description);
+          
+          const tagsDiv = document.createElement('div');
+          tagsDiv.className = 'resource-tags';
+          item.tags.forEach(tag => {
+            const tagSpan = document.createElement('span');
+            tagSpan.className = 'tag';
+            tagSpan.textContent = tag;
+            tagsDiv.appendChild(tagSpan);
+          });
+          card.appendChild(tagsDiv);
+          
+          grid.appendChild(card);
+        });
+        
+        section.appendChild(grid);
+        container.appendChild(section);
+      });
     }
     
     document.addEventListener('DOMContentLoaded', loadResources);

@@ -1,88 +1,285 @@
 {
   "categories": [
     {
+      "id": "sar-data",
+      "name": "SAR Data & Platforms",
+      "description": "Synthetic Aperture Radar imagery and visualization platforms",
+      "items": [
+        {
+          "title": "ICEYE SAR Open Data",
+          "provider": "ICEYE",
+          "url": "https://www.iceye.com/open-data",
+          "description": "Open SAR data samples from ICEYE X-band constellation available via STAC and S3",
+          "access_type": "STAC",
+          "tags": ["SAR", "Open Data", "X-band"]
+        },
+        {
+          "title": "Terraq SAR Visualization",
+          "provider": "Terraq",
+          "url": "https://data.terraq.space",
+          "description": "Web-based SAR data visualization and analysis platform",
+          "access_type": "Portal",
+          "tags": ["SAR", "Visualization", "Web Tool"]
+        },
+        {
+          "title": "Alaska Satellite Facility (ASF)",
+          "provider": "ASF/NASA",
+          "url": "https://search.asf.alaska.edu/",
+          "description": "Comprehensive SAR archive including Sentinel-1, ALOS PALSAR, RADARSAT",
+          "access_type": "Portal",
+          "tags": ["SAR", "Sentinel-1", "ALOS", "RADARSAT"]
+        },
+        {
+          "title": "ALOS-4 Sample Products",
+          "provider": "JAXA",
+          "url": "https://www.eorc.jaxa.jp/ALOS-4/en/",
+          "description": "Sample SAR products from JAXA's ALOS-4 mission",
+          "access_type": "Download",
+          "tags": ["SAR", "ALOS", "L-band", "Sample Data"]
+        }
+      ]
+    },
+    {
+      "id": "dem-elevation",
+      "name": "DEM & Elevation Data",
+      "description": "Digital Elevation Models and terrain data from global sources",
+      "items": [
+        {
+          "title": "Copernicus DEM (GLO-30/GLO-90)",
+          "provider": "ESA/Copernicus",
+          "url": "https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model",
+          "description": "Global DEM at 30m and 90m resolution based on TanDEM-X radar data",
+          "access_type": "Download",
+          "tags": ["DEM", "30m", "90m", "Global"]
+        },
+        {
+          "title": "SRTM DEM",
+          "provider": "USGS",
+          "url": "https://earthexplorer.usgs.gov/",
+          "description": "Shuttle Radar Topography Mission elevation data at 30m (US) and 90m (global)",
+          "access_type": "Portal",
+          "tags": ["DEM", "30m", "90m", "SRTM"]
+        },
+        {
+          "title": "ASTER GDEM",
+          "provider": "NASA/METI",
+          "url": "https://search.earthdata.nasa.gov/",
+          "description": "Global DEM at 30m resolution from ASTER stereo imagery",
+          "access_type": "Portal",
+          "tags": ["DEM", "30m", "Global", "ASTER"]
+        },
+        {
+          "title": "AW3D30",
+          "provider": "JAXA",
+          "url": "https://www.eorc.jaxa.jp/ALOS/en/aw3d30/",
+          "description": "Global 30m DEM derived from ALOS PRISM imagery",
+          "access_type": "Download",
+          "tags": ["DEM", "30m", "Global", "ALOS"]
+        },
+        {
+          "title": "OpenTopography",
+          "provider": "OpenTopography",
+          "url": "https://opentopography.org/",
+          "description": "High-resolution topography data and processing tools",
+          "access_type": "Portal",
+          "tags": ["DEM", "LiDAR", "High-Res"]
+        }
+      ]
+    },
+    {
+      "id": "optical-vhr",
+      "name": "Optical & VHR Data",
+      "description": "Very High Resolution optical imagery and historical archives",
+      "items": [
+        {
+          "title": "SpaceEye-T VVHR Open Data",
+          "provider": "SpaceEye",
+          "url": "https://spaceeye.space/",
+          "description": "Very-very high resolution optical imagery samples",
+          "access_type": "Download",
+          "tags": ["Optical", "VHR", "Sub-meter", "Open Data"]
+        },
+        {
+          "title": "Vivid Mosaic 15cm Sample",
+          "provider": "Maxar/Vivid",
+          "url": "https://www.maxar.com/products/vivid-imagery",
+          "description": "15cm resolution imagery mosaic sample data",
+          "access_type": "Download",
+          "tags": ["Optical", "15cm", "VHR", "Sample"]
+        },
+        {
+          "title": "CORONA Archive (USGS)",
+          "provider": "USGS",
+          "url": "https://earthexplorer.usgs.gov/",
+          "description": "Declassified satellite imagery from 1960s-1970s CORONA program",
+          "access_type": "Portal",
+          "tags": ["Optical", "Historical", "Declassified"]
+        },
+        {
+          "title": "CORONA via EOSDA LandViewer",
+          "provider": "EOSDA",
+          "url": "https://eos.com/landviewer/",
+          "description": "Browse and download CORONA historical imagery through web interface",
+          "access_type": "Portal",
+          "tags": ["Optical", "Historical", "Declassified", "Web Tool"]
+        }
+      ]
+    },
+    {
       "id": "stac-apis",
       "name": "STAC APIs & Open Data",
-      "description": "Spatiotemporal Asset Catalog (STAC) endpoints providing standardized access to satellite imagery",
-      "links": [
+      "description": "Spatiotemporal Asset Catalog endpoints for standardized data access",
+      "items": [
         {
-          "name": "AWS EarthSearch",
+          "title": "AWS EarthSearch",
+          "provider": "Element 84/AWS",
           "url": "https://earth-search.aws.element84.com/v1",
-          "description": "STAC API for Sentinel-2, Landsat 8-9, GOES, and other open datasets hosted on AWS"
+          "description": "STAC API for Sentinel-2, Landsat 8-9, GOES, and other open datasets hosted on AWS",
+          "access_type": "STAC",
+          "tags": ["STAC", "Sentinel-2", "Landsat", "Open Data"]
         },
         {
-          "name": "Microsoft Planetary Computer",
+          "title": "Microsoft Planetary Computer",
+          "provider": "Microsoft",
           "url": "https://planetarycomputer.microsoft.com/api/stac/v1",
-          "description": "STAC API with Sentinel-1/2, Landsat, MODIS, NAIP, and many environmental datasets"
+          "description": "STAC API with Sentinel-1/2, Landsat, MODIS, NAIP, and environmental datasets",
+          "access_type": "STAC",
+          "tags": ["STAC", "Sentinel", "Landsat", "MODIS"]
         },
         {
-          "name": "Google Earth Engine Data Catalog",
+          "title": "Google Earth Engine Data Catalog",
+          "provider": "Google",
           "url": "https://developers.google.com/earth-engine/datasets",
-          "description": "Petabyte-scale catalog of satellite imagery and geospatial datasets"
+          "description": "Petabyte-scale catalog of satellite imagery and geospatial datasets",
+          "access_type": "Docs",
+          "tags": ["Catalog", "Multi-mission", "Cloud Platform"]
         },
         {
-          "name": "USGS Earth Explorer",
-          "url": "https://earthexplorer.usgs.gov/",
-          "description": "Official US Geological Survey portal for Landsat, aerial imagery, and elevation data"
-        },
-        {
-          "name": "Copernicus Open Access Hub",
+          "title": "Copernicus Open Access Hub",
+          "provider": "ESA",
           "url": "https://scihub.copernicus.eu/",
-          "description": "Official ESA portal for Sentinel-1, Sentinel-2, and Sentinel-3 data"
+          "description": "Official ESA portal for Sentinel-1, Sentinel-2, and Sentinel-3 data",
+          "access_type": "Portal",
+          "tags": ["Sentinel", "ESA", "Open Data"]
         }
       ]
     },
     {
-      "id": "sar-dem",
-      "name": "SAR & DEM Data",
-      "description": "Synthetic Aperture Radar and Digital Elevation Model resources",
-      "links": [
+      "id": "osint-tools",
+      "name": "OSINT & Geolocation Tools",
+      "description": "Open source intelligence tools for imagery analysis and geolocation",
+      "items": [
         {
-          "name": "Alaska Satellite Facility (ASF)",
-          "url": "https://search.asf.alaska.edu/",
-          "description": "Comprehensive SAR data archive including Sentinel-1, ALOS PALSAR, RADARSAT"
+          "title": "Pano Date",
+          "provider": "Community",
+          "url": "https://mrhavens.com/pano-date/",
+          "description": "Extract date metadata from Google Street View panoramas",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Street View", "Metadata"]
         },
         {
-          "name": "Copernicus DEM",
-          "url": "https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model",
-          "description": "Global DEM at 30m and 90m resolution based on TanDEM-X data"
+          "title": "Bellingcat Filename Finder",
+          "provider": "Bellingcat",
+          "url": "https://bellingcat.github.io/telegram-phone-number-checker/",
+          "description": "Extract timestamps from social media image filenames",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Metadata", "Social Media"]
         },
         {
-          "name": "NASA Earthdata",
-          "url": "https://search.earthdata.nasa.gov/",
-          "description": "Portal for NASA Earth observation data including SRTM, ASTER GDEM, and more"
+          "title": "ArcGIS Wayback",
+          "provider": "ESRI",
+          "url": "https://livingatlas.arcgis.com/wayback/",
+          "description": "Browse historical versions of ESRI World Imagery basemap",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Historical", "Basemap"]
         },
         {
-          "name": "OpenTopography",
-          "url": "https://opentopography.org/",
-          "description": "High-resolution topography data and processing tools"
-        }
-      ]
-    },
-    {
-      "id": "osint",
-      "name": "OSINT & Imagery Tools",
-      "description": "Open Source Intelligence tools for satellite imagery analysis",
-      "links": [
+          "title": "ESRI World Imagery Wayback API",
+          "provider": "ESRI",
+          "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/world_imagery/mapserver",
+          "description": "MapServer endpoint for programmatic access to historical imagery",
+          "access_type": "API",
+          "tags": ["API", "Historical", "Basemap"]
+        },
         {
-          "name": "Sentinel Hub EO Browser",
+          "title": "Spot",
+          "provider": "Bellingcat",
+          "url": "https://github.com/bellingcat/wikiless",
+          "description": "Geolocation verification tool",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Geolocation", "Verification"]
+        },
+        {
+          "title": "Bellingcat OSM Search",
+          "provider": "Bellingcat",
+          "url": "https://osm-search.bellingcat.com/",
+          "description": "Search and filter OpenStreetMap features for geolocation",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "OSM", "Geolocation"]
+        },
+        {
+          "title": "Grid Generator",
+          "provider": "Community",
+          "url": "https://www.mapdevelopers.com/area_finder.php",
+          "description": "Generate coordinate grids for systematic geospatial searches",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Grid", "Coordinates"]
+        },
+        {
+          "title": "Heywhatsthat",
+          "provider": "Community",
+          "url": "https://www.heywhatsthat.com/",
+          "description": "Panorama and viewshed analysis for geolocation verification",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Viewshed", "Terrain"]
+        },
+        {
+          "title": "Multimap",
+          "provider": "Community",
+          "url": "https://multimap.world/",
+          "description": "Compare multiple map layers side-by-side for geolocation",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Comparison", "Basemap"]
+        },
+        {
+          "title": "DualMaps",
+          "provider": "Community",
+          "url": "https://www.dualmaps.com/",
+          "description": "Side-by-side comparison of Google Maps and OpenStreetMap",
+          "access_type": "Web Tool",
+          "tags": ["OSINT", "Comparison", "Maps"]
+        },
+        {
+          "title": "Sentinel Hub EO Browser",
+          "provider": "Sinergise",
           "url": "https://apps.sentinel-hub.com/eo-browser/",
-          "description": "Web-based tool for browsing and analyzing Sentinel and Landsat imagery"
+          "description": "Web-based tool for browsing and analyzing Sentinel and Landsat imagery",
+          "access_type": "Web Tool",
+          "tags": ["Optical", "Sentinel", "Landsat", "Analysis"]
         },
         {
-          "name": "NASA Worldview",
+          "title": "NASA Worldview",
+          "provider": "NASA",
           "url": "https://worldview.earthdata.nasa.gov/",
-          "description": "Interactive interface for browsing NASA's satellite imagery in near real-time"
+          "description": "Interactive interface for browsing NASA satellite imagery in near real-time",
+          "access_type": "Web Tool",
+          "tags": ["Optical", "MODIS", "VIIRS", "Near Real-Time"]
         },
         {
-          "name": "Soar.Earth",
+          "title": "Soar.Earth",
+          "provider": "Soar",
           "url": "https://soar.earth/",
-          "description": "Platform for browsing and sharing satellite and drone imagery"
+          "description": "Platform for browsing and sharing satellite and drone imagery",
+          "access_type": "Portal",
+          "tags": ["Optical", "Drone", "Community"]
         },
         {
-          "name": "Zoom Earth",
+          "title": "Zoom Earth",
+          "provider": "Neave Interactive",
           "url": "https://zoom.earth/",
-          "description": "Live weather satellite images and recent historical imagery"
+          "description": "Live weather satellite images and recent historical imagery",
+          "access_type": "Web Tool",
+          "tags": ["Weather", "Near Real-Time", "GOES"]
         }
       ]
     },
@@ -90,85 +287,163 @@
       "id": "tracking",
       "name": "Satellite Tracking",
       "description": "Tools for tracking satellite positions and pass predictions",
-      "links": [
+      "items": [
         {
-          "name": "N2YO",
+          "title": "Look4Sat 4.0.2",
+          "provider": "rt-bishop",
+          "url": "https://github.com/rt-bishop/Look4Sat/releases/tag/4.0.2",
+          "description": "Android app for satellite pass predictions with offline TLE support",
+          "access_type": "Download",
+          "tags": ["Tracking", "Android", "TLE", "Pass Prediction"]
+        },
+        {
+          "title": "N2YO",
+          "provider": "N2YO",
           "url": "https://www.n2yo.com/",
-          "description": "Real-time satellite tracking with pass predictions and sky maps"
+          "description": "Real-time satellite tracking with pass predictions and sky maps",
+          "access_type": "Web Tool",
+          "tags": ["Tracking", "Pass Prediction", "Real-Time"]
         },
         {
-          "name": "Heavens Above",
+          "title": "Heavens Above",
+          "provider": "Heavens Above",
           "url": "https://www.heavens-above.com/",
-          "description": "Satellite visibility predictions and orbital tracking"
+          "description": "Satellite visibility predictions and orbital tracking",
+          "access_type": "Web Tool",
+          "tags": ["Tracking", "Visibility", "Pass Prediction"]
         },
         {
-          "name": "CelesTrak",
+          "title": "CelesTrak",
+          "provider": "CelesTrak",
           "url": "https://celestrak.org/",
-          "description": "Orbital element sets (TLE) and satellite catalog data"
+          "description": "Orbital element sets (TLE) and satellite catalog data",
+          "access_type": "Portal",
+          "tags": ["Tracking", "TLE", "Orbital Elements"]
         },
         {
-          "name": "Space-Track.org",
+          "title": "Space-Track.org",
+          "provider": "US Space Force",
           "url": "https://www.space-track.org/",
-          "description": "Official US Space Force catalog of satellites and orbital elements"
+          "description": "Official catalog of satellites and orbital elements",
+          "access_type": "Portal",
+          "tags": ["Tracking", "TLE", "Official Catalog"]
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "name": "Visualization Libraries",
+      "description": "JavaScript libraries for geospatial and satellite data visualization",
+      "items": [
+        {
+          "title": "gio.js",
+          "provider": "syt123450",
+          "url": "https://github.com/syt123450/giojs",
+          "description": "Web 3D globe visualization library built with Three.js for data connections",
+          "access_type": "Library",
+          "tags": ["Visualization", "3D", "JavaScript", "WebGL"]
+        },
+        {
+          "title": "GDAL",
+          "provider": "OSGeo",
+          "url": "https://gdal.org/",
+          "description": "Geospatial Data Abstraction Library for raster and vector processing",
+          "access_type": "Library",
+          "tags": ["Processing", "Raster", "Vector", "CLI"]
+        },
+        {
+          "title": "Rasterio",
+          "provider": "Mapbox",
+          "url": "https://rasterio.readthedocs.io/",
+          "description": "Python library for reading and writing geospatial raster data",
+          "access_type": "Library",
+          "tags": ["Processing", "Python", "Raster"]
+        },
+        {
+          "title": "QGIS",
+          "provider": "QGIS Project",
+          "url": "https://qgis.org/",
+          "description": "Free and open source geographic information system",
+          "access_type": "Download",
+          "tags": ["GIS", "Desktop", "Open Source"]
+        },
+        {
+          "title": "Sentinel Hub Python",
+          "provider": "Sinergise",
+          "url": "https://sentinelhub-py.readthedocs.io/",
+          "description": "Python library for Sentinel Hub services",
+          "access_type": "Library",
+          "tags": ["Python", "Sentinel", "API Client"]
+        },
+        {
+          "title": "PySTAC",
+          "provider": "stac-utils",
+          "url": "https://pystac.readthedocs.io/",
+          "description": "Python library for working with STAC catalogs",
+          "access_type": "Library",
+          "tags": ["Python", "STAC", "Catalog"]
+        }
+      ]
+    },
+    {
+      "id": "reference",
+      "name": "Reference Materials",
+      "description": "Technical references and algorithm documentation",
+      "items": [
+        {
+          "title": "NASA SP-8001 through SP-8126",
+          "provider": "NASA",
+          "url": "https://ntrs.nasa.gov/",
+          "description": "Space vehicle design criteria monograph series covering orbital mechanics and spacecraft systems",
+          "access_type": "Docs",
+          "tags": ["Reference", "Orbital Mechanics", "Engineering"]
+        },
+        {
+          "title": "Remote Sensing Algorithms Overview",
+          "provider": "Community",
+          "url": "https://www.mdpi.com/journal/remotesensing/special_issues/algorithms_remote_sensing",
+          "description": "Contemporary overview of remote sensing processing algorithms and methodologies",
+          "access_type": "Docs",
+          "tags": ["Reference", "Algorithms", "Processing"]
         }
       ]
     },
     {
       "id": "commercial",
-      "name": "Commercial Data Portals",
-      "description": "Commercial satellite imagery providers and aggregators (reference only)",
-      "links": [
+      "name": "Commercial Platforms",
+      "description": "Commercial satellite imagery providers (reference only)",
+      "items": [
         {
-          "name": "Planet Explorer",
+          "title": "Planet Explorer",
+          "provider": "Planet Labs",
           "url": "https://www.planet.com/explorer/",
-          "description": "Browse Planet's constellation imagery (requires account for full access)"
+          "description": "Browse Planet constellation imagery (requires account for full access)",
+          "access_type": "Portal",
+          "tags": ["Optical", "Commercial", "Daily Coverage"]
         },
         {
-          "name": "Maxar SecureWatch",
+          "title": "Maxar SecureWatch",
+          "provider": "Maxar",
           "url": "https://securewatch.maxar.com/",
-          "description": "Access to Maxar's constellation including WorldView and GeoEye"
+          "description": "Access to Maxar constellation including WorldView and GeoEye",
+          "access_type": "Portal",
+          "tags": ["Optical", "VHR", "Commercial"]
         },
         {
-          "name": "Airbus OneAtlas",
+          "title": "Airbus OneAtlas",
+          "provider": "Airbus",
           "url": "https://oneatlas.airbus.com/",
-          "description": "Pleiades, SPOT, and other Airbus satellite imagery"
+          "description": "Pleiades, SPOT, and other Airbus satellite imagery",
+          "access_type": "Portal",
+          "tags": ["Optical", "VHR", "Commercial"]
         },
         {
-          "name": "Apollo Mapping ImageHunter",
+          "title": "Apollo Mapping ImageHunter",
+          "provider": "Apollo Mapping",
           "url": "https://imagehunter.apollomapping.com/",
-          "description": "Aggregator for multiple commercial satellite data sources"
-        }
-      ]
-    },
-    {
-      "id": "tools-libs",
-      "name": "Libraries & Tools",
-      "description": "Software libraries and tools for satellite data processing",
-      "links": [
-        {
-          "name": "GDAL",
-          "url": "https://gdal.org/",
-          "description": "Geospatial Data Abstraction Library for raster and vector processing"
-        },
-        {
-          "name": "Rasterio",
-          "url": "https://rasterio.readthedocs.io/",
-          "description": "Python library for reading and writing geospatial raster data"
-        },
-        {
-          "name": "QGIS",
-          "url": "https://qgis.org/",
-          "description": "Free and open source geographic information system"
-        },
-        {
-          "name": "Sentinel Hub Python",
-          "url": "https://sentinelhub-py.readthedocs.io/",
-          "description": "Python library for Sentinel Hub services"
-        },
-        {
-          "name": "PySTAC",
-          "url": "https://pystac.readthedocs.io/",
-          "description": "Python library for working with STAC catalogs"
+          "description": "Aggregator for multiple commercial satellite data sources",
+          "access_type": "Portal",
+          "tags": ["Aggregator", "Commercial", "Multi-source"]
         }
       ]
     }
