@@ -3,51 +3,73 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About</title>
+  <title>About - SAT-DISCOVERY</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="top">
-    <div class="brand">About</div>
-    <div class="hero-sub">A neutral discovery index for publicly available satellite search portals.</div>
-    <nav class="nav">
-      <a class="navlink" href="/" rel="noopener noreferrer">Back</a>
-      <a class="navlink" href="/compliance.html" target="_blank" rel="noopener noreferrer">Compliance</a>
+  <div id="topbar">
+    <div>
+      <div class="brandTitle">SAT-DISCOVERY</div>
+      <div class="brandSub">About</div>
+    </div>
+    <nav style="display: flex; gap: 20px; align-items: center;">
+      <a href="index.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Home</a>
+      <a href="app.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Map Search</a>
+      <a href="resources.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Resources</a>
+      <a href="tools.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Tools</a>
+      <a href="about.html" style="color: var(--cyan); text-decoration: none; font-size: 13px;">About</a>
     </nav>
-  </header>
+  </div>
 
-  <main class="wrap" style="padding-top:18px;">
-    <div class="card">
-      <div class="h2" style="margin-top:0">What this is</div>
-      <div class="note">
-        This site is a <b>public discovery index only</b>. It helps users find publicly available satellite imagery search portals.
+  <div style="padding: 40px 20px; max-width: 1000px; margin: 0 auto;">
+    <div class="card" style="margin-bottom: 20px;">
+      <h2 style="margin-top:0; color: var(--cyan); font-family: Orbitron, Inter, system-ui;">What is SAT-DISCOVERY?</h2>
+      <div style="font-size: 14px; line-height: 1.6; color: var(--text);">
+        SAT-DISCOVERY is a <b>public discovery platform</b> for satellite imagery and geospatial data. 
+        We provide tools to search STAC APIs, access open data archives, and discover satellite data portals.
+        Our platform includes interactive mapping with Leaflet, AOI drawing tools, and geospatial analysis capabilities.
       </div>
     </div>
 
-    <div style="height:12px"></div>
-
-    <div class="card">
-      <div class="h2" style="margin-top:0">What this is not</div>
-      <div class="note">
-        No data hosting. No downloads. No ordering/tasking. No transactions. We do not proxy or resell satellite data.
+    <div class="card" style="margin-bottom: 20px;">
+      <h2 style="margin-top:0; color: var(--cyan); font-family: Orbitron, Inter, system-ui;">What We Do</h2>
+      <div style="font-size: 14px; line-height: 1.6; color: var(--text);">
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>Provide interactive map search with STAC API integration</li>
+          <li>Curate links to public satellite data portals and resources</li>
+          <li>Offer geospatial analysis tools and utilities</li>
+          <li>Help users discover freely available satellite imagery</li>
+          <li>Share practical tools for geospatial data processing</li>
+        </ul>
       </div>
     </div>
 
-    <div style="height:12px"></div>
+    <div class="card" style="margin-bottom: 20px;">
+      <h2 style="margin-top:0; color: var(--cyan); font-family: Orbitron, Inter, system-ui;">What We Don't Do</h2>
+      <div style="font-size: 14px; line-height: 1.6; color: var(--text);">
+        <ul style="margin: 8px 0; padding-left: 20px;">
+          <li>No data hosting or storage</li>
+          <li>No downloads or file distribution</li>
+          <li>No ordering, tasking, or transactions</li>
+          <li>No commercial partnerships or reselling</li>
+          <li>We do not proxy or cache satellite data</li>
+        </ul>
+      </div>
+    </div>
 
     <div class="card">
-      <div class="h2" style="margin-top:0">Request a correction / addition</div>
-      <div class="note">
-        If you represent a provider and want to request an update (URL change, name change, removal, or addition),
-        email:
+      <h2 style="margin-top:0; color: var(--cyan); font-family: Orbitron, Inter, system-ui;">Contact & Contributions</h2>
+      <div style="font-size: 14px; line-height: 1.6; color: var(--text);">
+        For corrections, additions, or to report issues, please visit our 
+        <a href="https://github.com/vicky10844132-a11y/sat-discovery-platform" 
+           style="color: var(--cyan); text-decoration: none;">GitHub repository</a>.
         <br><br>
-        <a class="navlink" href="mailto:your-email@example.com?subject=Satellite%20Discovery%20Index%20-%20Correction%20Request" rel="noopener noreferrer">
-          your-email@example.com
-        </a>
+        All data portal links and resources are publicly available and documented. 
+        We welcome contributions to improve the platform.
         <br><br>
-        Please include the public portal URL and an official public reference page if available.
+        See also: <a href="compliance.html" style="color: var(--cyan); text-decoration: none;">Compliance Information</a>
       </div>
     </div>
-  </main>
+  </div>
 </body>
 </html>

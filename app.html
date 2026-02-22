@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT-DISCOVERY - Data Access</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/map.css">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+    crossorigin=""/>
+  
+  <!-- Leaflet Draw CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+  
+  <style>
+    /* Additional inline styles for app layout */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(180deg, #071126, #050b18);
+      color: #eaf2ff;
+      height: 100vh;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div>
+        <div class="app-title">SAT-DISCOVERY</div>
+        <div class="app-subtitle">Map Search & Data Access</div>
+      </div>
+      <nav class="app-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="app.html" class="nav-link" style="color: var(--cyan);">Map Search</a>
+        <a href="resources.html" class="nav-link">Resources</a>
+        <a href="tools.html" class="nav-link">Tools</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+    </header>
+
+    <!-- Main App Body -->
+    <div class="app-body">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- STAC Data Source Selection -->
+        <div class="panel">
+          <h3 class="panel-title">DATA SOURCE</h3>
+          <div class="form-group">
+            <label class="form-label">STAC Endpoint</label>
+            <select id="stacEndpoint" class="form-select">
+              <option value="aws">AWS EarthSearch</option>
+              <option value="microsoft">Microsoft Planetary Computer</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Collection Selection -->
+        <div class="panel">
+          <h3 class="panel-title">COLLECTION</h3>
+          <div class="form-group">
+            <label class="form-label">Satellite Collection</label>
+            <select id="collectionSelect" class="form-select">
+              <option value="">All Collections</option>
+              <option value="sentinel-2-l2a">Sentinel-2 L2A</option>
+              <option value="landsat-c2-l2">Landsat 8-9 C2 L2</option>
+              <option value="sentinel-1-grd">Sentinel-1 GRD</option>
+              <option value="cop-dem-glo-30">Copernicus DEM 30m</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Date Range Selection -->
+        <div class="panel">
+          <h3 class="panel-title">DATE RANGE</h3>
+          <div class="form-group">
+            <label class="form-label">Start Date</label>
+            <input type="date" id="startDate" class="form-input" value="">
+          </div>
+          <div class="form-group">
+            <label class="form-label">End Date</label>
+            <input type="date" id="endDate" class="form-input" value="">
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="panel">
+          <h3 class="panel-title">FILTERS</h3>
+          <div class="form-group">
+            <label class="form-label">Max Cloud Cover (%)</label>
+            <input type="number" id="cloudCover" class="form-input" 
+              min="0" max="100" value="30" placeholder="0-100">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Max Results</label>
+            <input type="number" id="maxResults" class="form-input" 
+              min="1" max="100" value="10" placeholder="1-100">
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <button id="searchBtn" class="btn btn-primary btn-full">
+          Search STAC
+        </button>
+
+        <!-- Results Panel -->
+        <div class="panel" style="margin-top: 14px;">
+          <h3 class="panel-title">RESULTS <span id="resultCount"></span></h3>
+          <div id="resultsContainer" class="results-container">
+            <div style="text-align: center; color: #9fb2cc; font-size: 12px; padding: 20px;">
+              Draw an AOI on the map and click Search to find data
+            </div>
+          </div>
+        </div>
+
+        <!-- Export Options -->
+        <div class="panel">
+          <h3 class="panel-title">EXPORT</h3>
+          <button id="exportAOI" class="btn btn-secondary btn-full" style="margin-bottom: 8px;">
+            Export AOI as GeoJSON
+          </button>
+          <button id="exportResults" class="btn btn-secondary btn-full">
+            Export Results as GeoJSON
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Map Container -->
+        <div class="map-container">
+          <div id="map"></div>
+          
+          <!-- AOI Info -->
+          <div id="aoiInfo" class="aoi-info" style="display: none;">
+            <div>
+              <span class="label">Area:</span>
+              <span class="value" id="aoiArea">-</span>
+            </div>
+            <div style="margin-top: 4px;">
+              <span class="label">Bounds:</span>
+              <span class="value" id="aoiBounds">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="panel">
+          <h3 class="panel-title">INSTRUCTIONS</h3>
+          <div style="font-size: 12px; color: #9fb2cc; line-height: 1.6;">
+            <ol style="margin-left: 20px;">
+              <li>Use the drawing tools on the map to define your Area of Interest (AOI)</li>
+              <li>Select a STAC data source and collection</li>
+              <li>Set your desired date range and filters</li>
+              <li>Click "Search STAC" to find available satellite data</li>
+              <li>Results will appear on the map and in the sidebar</li>
+              <li>Export your AOI or search results as GeoJSON</li>
+            </ol>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- External Libraries -->
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+    crossorigin=""></script>
+  
+  <!-- Leaflet Draw -->
+  <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+  
+  <!-- Turf.js for geospatial operations -->
+  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+  
+  <!-- App Modules -->
+  <script src="js/stacClient.js"></script>
+  <script src="js/geoProcessor.js"></script>
+  <script src="js/mapIntegration.js"></script>
+  
+  <!-- Main App Script -->
+  <script>
+    // Initialize app
+    let mapIntegration;
+    let stacClient;
+    let geoProcessor;
+    let currentResults = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize modules
+      mapIntegration = new MapIntegration();
+      stacClient = new STACClient();
+      geoProcessor = new GeoProcessor();
+
+      // Initialize map
+      const map = mapIntegration.initLeafletMap('map', [20, 0], 2);
+
+      // Set default dates (last 30 days)
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - 30);
+      
+      document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+      document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+
+      // Listen for AOI changes
+      if (map) {
+        map.on('aoi:created', handleAOIChange);
+        map.on('aoi:edited', handleAOIChange);
+        map.on('aoi:deleted', () => {
+          document.getElementById('aoiInfo').style.display = 'none';
+        });
+      }
+
+      // Search button handler
+      document.getElementById('searchBtn').addEventListener('click', performSearch);
+
+      // Export handlers
+      document.getElementById('exportAOI').addEventListener('click', exportAOI);
+      document.getElementById('exportResults').addEventListener('click', exportResults);
+    });
+
+    function handleAOIChange(event) {
+      const aoi = event.aoi;
+      if (!aoi) return;
+
+      // Calculate and display area
+      const area = geoProcessor.calculateArea(aoi.geometry || aoi);
+      const bounds = geoProcessor.calculateBounds(aoi.geometry || aoi);
+
+      document.getElementById('aoiArea').textContent = `${area.toFixed(2)} km²`;
+      document.getElementById('aoiBounds').textContent = 
+        `${bounds[0].toFixed(2)}, ${bounds[1].toFixed(2)}, ${bounds[2].toFixed(2)}, ${bounds[3].toFixed(2)}`;
+      document.getElementById('aoiInfo').style.display = 'block';
+
+      // Save to localStorage
+      try {
+        localStorage.setItem('lastAOI', JSON.stringify(aoi));
+      } catch (e) {
+        console.error('Failed to save AOI to localStorage:', e.name, e.message);
+        if (e.name === 'QuotaExceededError') {
+          console.warn('localStorage quota exceeded. AOI will not be persisted.');
+        }
+      }
+    }
+
+    async function performSearch() {
+      const aoi = mapIntegration.getAOI();
+      if (!aoi) {
+        showMessage('Please draw an Area of Interest on the map first', 'error');
+        return;
+      }
+
+      const endpoint = document.getElementById('stacEndpoint').value;
+      const collection = document.getElementById('collectionSelect').value;
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      const cloudCover = parseInt(document.getElementById('cloudCover').value) || 100;
+      const maxResults = parseInt(document.getElementById('maxResults').value) || 10;
+
+      if (!startDate || !endDate) {
+        showMessage('Please select start and end dates', 'error');
+        return;
+      }
+
+      // Show loading
+      document.getElementById('resultsContainer').innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          Searching...
+        </div>
+      `;
+
+      try {
+        // Get bounding box from AOI
+        const bbox = geoProcessor.calculateBounds(aoi.geometry || aoi);
+        
+        const dateRange = { start: startDate, end: endDate };
+        const query = {
+          cloud_cover: cloudCover,
+          limit: maxResults
+        };
+
+        if (collection) {
+          query.collections = [collection];
+        }
+
+        // Perform STAC search
+        const results = await stacClient.searchItems(bbox, dateRange, query, endpoint);
+        
+        currentResults = results.items;
+        displayResults(results);
+
+        // Add results to map
+        mapIntegration.clearDataLayers();
+        if (results.items.length > 0) {
+          mapIntegration.addDataLayer(results.items);
+        }
+
+      } catch (error) {
+        console.error('Search error:', error);
+        showMessage(`Search failed: ${error.message}`, 'error');
+        document.getElementById('resultsContainer').innerHTML = `
+          <div class="error-message">
+            Search failed. Please try again or check your connection.
+          </div>
+        `;
+      }
+    }
+
+    function displayResults(results) {
+      const container = document.getElementById('resultsContainer');
+      const count = results.items.length;
+      
+      document.getElementById('resultCount').textContent = `(${count})`;
+
+      if (count === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; color: #9fb2cc; font-size: 12px; padding: 20px;">
+            No results found. Try adjusting your filters or date range.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = results.items.map(item => {
+        const props = item.properties || {};
+        const datetime = props.datetime ? new Date(props.datetime).toLocaleDateString() : 'Unknown';
+        const cloudCover = props['eo:cloud_cover'] !== undefined ? 
+          `${props['eo:cloud_cover'].toFixed(1)}%` : 'N/A';
+        
+        return `
+          <div class="result-item">
+            <div class="result-header">
+              <div class="result-title">${item.id || 'Unknown'}</div>
+              <div class="result-badge">${item.collection || 'N/A'}</div>
+            </div>
+            <div class="result-meta">
+              <div class="result-meta-item">📅 ${datetime}</div>
+              <div class="result-meta-item">☁️ ${cloudCover}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function showMessage(message, type = 'error') {
+      const className = type === 'error' ? 'error-message' : 'success-message';
+      const container = document.getElementById('resultsContainer');
+      container.innerHTML = `<div class="${className}">${message}</div>` + container.innerHTML;
+      
+      setTimeout(() => {
+        const msg = container.querySelector(`.${className}`);
+        if (msg) msg.remove();
+      }, 5000);
+    }
+
+    function exportAOI() {
+      const aoi = mapIntegration.getAOI();
+      if (!aoi) {
+        alert('No AOI to export. Please draw an area on the map first.');
+        return;
+      }
+
+      const geojsonStr = geoProcessor.exportGeoJSON([{
+        type: 'Feature',
+        geometry: aoi.geometry || aoi,
+        properties: {
+          name: 'Area of Interest',
+          created: new Date().toISOString()
+        }
+      }]);
+
+      downloadFile(geojsonStr, 'aoi.geojson', 'application/geo+json');
+      showMessage('AOI exported successfully', 'success');
+    }
+
+    function exportResults() {
+      if (currentResults.length === 0) {
+        alert('No results to export. Please perform a search first.');
+        return;
+      }
+
+      const geojsonStr = geoProcessor.exportGeoJSON(currentResults);
+      downloadFile(geojsonStr, 'stac-results.geojson', 'application/geo+json');
+      showMessage('Results exported successfully', 'success');
+    }
+
+    function downloadFile(content, filename, contentType) {
+      const blob = new Blob([content], { type: contentType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    // Load saved AOI from localStorage on page load
+    window.addEventListener('load', () => {
+      try {
+        const savedAOI = localStorage.getItem('lastAOI');
+        if (savedAOI) {
+          const aoi = JSON.parse(savedAOI);
+          mapIntegration.setAOI(aoi.geometry || aoi);
+        }
+      } catch (e) {
+        console.error('Failed to load saved AOI:', e);
+      }
+    });
+  </script>
+</body>
+</html>
