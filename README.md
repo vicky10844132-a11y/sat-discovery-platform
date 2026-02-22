@@ -1,52 +1,70 @@
 # SAT-DISCOVERY Platform
 
-A neutral satellite discovery index and data access platform for publicly available satellite imagery search portals.
+A comprehensive satellite data discovery platform providing STAC API integration, interactive mapping, curated resources, and geospatial analysis tools.
 
 ## Overview
 
-SAT-DISCOVERY provides two main functionalities:
+SAT-DISCOVERY is a multi-functional platform for satellite imagery discovery and access:
 
-1. **Discovery Index** (`index.html`) - A public discovery index for satellite imagery search portals
-2. **Data Access Platform** (`app.html`) - Interactive STAC-based satellite data search and visualization
+1. **Landing Page** (`index.html`) - Main entry point showcasing platform features
+2. **Map Search** (`app.html`) - Interactive STAC-based satellite data search with Leaflet mapping
+3. **Resources Hub** (`resources.html`) - Curated links to satellite data portals, OSINT tools, and tracking platforms
+4. **Tools & Algorithms** (`tools.html`) - Practical geospatial utilities and data processing tools
+5. **About & Compliance** - Platform information and usage policies
 
 ## Features
 
-### Discovery Index
-- Reference catalog of publicly available satellite imagery portals
-- Links to official data sources (AWS EarthSearch, Microsoft Planetary Computer, etc.)
-- No data hosting, downloads, or transactions
-
-### Data Access Platform
+### Map Search (STAC Integration)
 - **STAC API Integration**: Query AWS EarthSearch and Microsoft Planetary Computer
 - **Interactive Mapping**: Leaflet-based map with drawing tools for Area of Interest (AOI)
 - **Geospatial Analysis**: Calculate area, bounds, and spatial intersections using Turf.js
-- **Collection Support**: Sentinel-2, Landsat 8-9, Sentinel-1, and more
-- **Advanced Filters**: Date range, cloud cover, collection type
+- **Collection Support**: Sentinel-2, Landsat 8-9, Sentinel-1, Copernicus DEM
+- **Advanced Filters**: Date range, cloud cover, max results
 - **GeoJSON Export**: Export AOI and search results
+
+### Resources Hub
+- **STAC APIs & Open Data**: AWS EarthSearch, Microsoft Planetary Computer, Google Earth Engine
+- **SAR & DEM Data**: Alaska Satellite Facility, Copernicus DEM, NASA Earthdata
+- **OSINT Tools**: Sentinel Hub EO Browser, NASA Worldview, Zoom Earth
+- **Satellite Tracking**: N2YO, Heavens Above, CelesTrak, Space-Track
+- **Commercial Portals**: Planet, Maxar, Airbus, Apollo Mapping
+- **Libraries & Tools**: GDAL, Rasterio, QGIS, PySTAC
+
+### Tools & Algorithms
+- **GDB Empty Layer Cleaner**: Python utility for maintaining clean ESRI File Geodatabase structures
+  - GUI and CLI operation
+  - GDAL-based scanning
+  - Backup and direct deletion modes
+  - Cross-platform support
 
 ## Project Structure
 
 ```
+├── index.html                 # Landing page with feature overview
+├── app.html                   # Map search / STAC integration
+├── resources.html             # Resources hub (data-driven)
+├── tools.html                 # Tools & algorithms showcase
+├── about.html                 # About page
+├── compliance.html            # Compliance information
 ├── js/
 │   ├── stacClient.js          # STAC API client
 │   ├── geoProcessor.js        # Geospatial processing
-│   └── mapIntegration.js      # Leaflet map integration
+│   ├── mapIntegration.js      # Leaflet map integration
+│   ├── map.js                 # Map utilities
+│   └── router.js              # Client-side routing
 ├── css/
 │   ├── theme.css              # Color palette and variables
 │   ├── base.css               # Base styles
-│   ├── layout.css             # App layout (sidebar, main area)
+│   ├── layout.css             # App layout
 │   ├── components.css         # Reusable UI components
 │   └── map.css                # Map-specific styles
-├── index.html                 # Discovery index page
-├── app.html                   # Data access platform
-├── about.html                 # About page
-├── compliance.html            # Compliance information
+├── resources.json             # Resources data (6 categories)
+├── tools.json                 # Tools descriptions
+├── sources.json               # Legacy satellite portal links
 ├── package.json               # Frontend dependencies
 ├── vercel.json                # Deployment configuration
 └── README.md                  # This file
 ```
-
-## Getting Started
 
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -80,24 +98,59 @@ The project uses CDN-hosted libraries (no build step required):
 
 ## Usage
 
-### Data Access Platform
+### Map Search
+1. Navigate to the **Map Search** page from the main navigation
+2. Draw an Area of Interest (AOI) on the map using the drawing tools (rectangle, polygon, or circle)
+3. Select a STAC data source (AWS EarthSearch or Microsoft Planetary Computer)
+4. Choose a satellite collection (Sentinel-2, Landsat, etc.)
+5. Set your date range and filters (cloud cover, max results)
+6. Click "Search STAC" to find available satellite data
+7. View results on the map and in the sidebar
+8. Export your AOI or results as GeoJSON
 
-1. **Define Area of Interest (AOI)**:
-   - Use the drawing tools on the map to create a rectangle, polygon, or circle
-   - The AOI area and bounds will be calculated automatically
+### Browsing Resources
+1. Navigate to the **Resources** page
+2. Browse organized categories:
+   - STAC APIs & Open Data
+   - SAR & DEM Data
+   - OSINT & Imagery Tools
+   - Satellite Tracking
+   - Commercial Data Portals
+   - Libraries & Tools
+3. Click any resource card to visit the external portal
 
-2. **Configure Search**:
-   - Select a STAC endpoint (AWS EarthSearch or Microsoft Planetary Computer)
-   - Choose a satellite collection (Sentinel-2, Landsat, etc.)
-   - Set date range and filters (cloud cover, max results)
+### Exploring Tools
+1. Navigate to the **Tools** page
+2. Review detailed documentation for available tools
+3. Follow the 3-step usage guide
+4. Access source code and download links (placeholders for now)
 
-3. **Search for Data**:
-   - Click "Search STAC" to query available satellite imagery
-   - Results will appear on the map as footprints and in the sidebar
+## Navigation
 
-4. **Export Results**:
-   - Export your AOI as GeoJSON
-   - Export search results as GeoJSON for use in other tools
+All pages include a unified navigation bar:
+- **Home**: Landing page with feature overview
+- **Map Search**: Interactive STAC search and AOI drawing
+- **Resources**: Curated links to data portals and tools
+- **Tools**: Algorithms and utilities documentation
+- **About**: Platform information
+
+## Deployment
+
+### Vercel (Production)
+- Domain: `sat-index.online`
+- Production tracks `main` branch
+- Preview deployments available on feature branches
+- No build step required (static site)
+
+### Local Development
+1. Clone the repository
+2. Start a local web server:
+   ```bash
+   python3 -m http.server 8000
+   # or
+   npm run serve
+   ```
+3. Open http://localhost:8000 in your browser
 
 ## API Integration
 
