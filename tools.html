@@ -203,6 +203,88 @@
       padding: 40px;
       color: var(--muted);
     }
+    
+    /* Algorithms Section */
+    .algorithms-section {
+      background: linear-gradient(180deg, rgba(10, 22, 46, 0.52), rgba(6, 14, 32, 0.66));
+      border: 1px solid var(--borderA);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 40px;
+    }
+    .algorithms-header {
+      margin-bottom: 20px;
+    }
+    .algorithms-title {
+      font-family: Orbitron, Inter, system-ui;
+      font-size: 24px;
+      letter-spacing: 1.5px;
+      color: var(--text);
+      margin: 0 0 8px 0;
+    }
+    .algorithms-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .algorithm-family {
+      background: rgba(3, 8, 18, 0.4);
+      border-left: 3px solid var(--violet);
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+    }
+    .algorithm-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .algorithm-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    
+    /* Code Block */
+    .code-section {
+      margin: 20px 0;
+    }
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(3, 8, 18, 0.6);
+      padding: 10px 16px;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid var(--borderB);
+      border-bottom: none;
+    }
+    .code-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .code-block {
+      background: rgba(3, 8, 18, 0.8);
+      border: 1px solid var(--borderB);
+      border-radius: 0 0 8px 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #e0e0e0;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre;
+    }
   </style>
 </head>
 <body>
@@ -242,6 +324,48 @@
         const container = document.getElementById('tools-container');
         container.innerHTML = '';
         
+        // Render Algorithms Section First
+        if (data.algorithms) {
+          const algoSection = document.createElement('div');
+          algoSection.className = 'algorithms-section';
+          
+          const header = document.createElement('div');
+          header.className = 'algorithms-header';
+          
+          const title = document.createElement('h2');
+          title.className = 'algorithms-title';
+          title.textContent = data.algorithms.title;
+          header.appendChild(title);
+          
+          const desc = document.createElement('p');
+          desc.className = 'algorithms-desc';
+          desc.textContent = data.algorithms.description;
+          header.appendChild(desc);
+          
+          algoSection.appendChild(header);
+          
+          // Render algorithm families
+          data.algorithms.families.forEach(family => {
+            const familyDiv = document.createElement('div');
+            familyDiv.className = 'algorithm-family';
+            
+            const familyName = document.createElement('div');
+            familyName.className = 'algorithm-name';
+            familyName.textContent = family.name;
+            familyDiv.appendChild(familyName);
+            
+            const familyDesc = document.createElement('div');
+            familyDesc.className = 'algorithm-desc';
+            familyDesc.textContent = family.description;
+            familyDiv.appendChild(familyDesc);
+            
+            algoSection.appendChild(familyDiv);
+          });
+          
+          container.appendChild(algoSection);
+        }
+        
+        // Render Tools Section
         data.tools.forEach(tool => {
           const section = document.createElement('div');
           section.className = 'tool-section';
@@ -351,6 +475,36 @@
             limitationsList.appendChild(li);
           });
           section.appendChild(limitationsList);
+          
+          // Code Block (if exists)
+          if (tool.code) {
+            const codeTitle = document.createElement('h3');
+            codeTitle.className = 'section-title';
+            codeTitle.textContent = 'Source Code';
+            section.appendChild(codeTitle);
+            
+            const codeSection = document.createElement('div');
+            codeSection.className = 'code-section';
+            
+            const codeHeader = document.createElement('div');
+            codeHeader.className = 'code-header';
+            
+            const codeLabel = document.createElement('div');
+            codeLabel.className = 'code-label';
+            codeLabel.textContent = 'Python Script';
+            codeHeader.appendChild(codeLabel);
+            
+            codeSection.appendChild(codeHeader);
+            
+            const codeBlock = document.createElement('div');
+            codeBlock.className = 'code-block';
+            const pre = document.createElement('pre');
+            pre.textContent = tool.code;
+            codeBlock.appendChild(pre);
+            codeSection.appendChild(codeBlock);
+            
+            section.appendChild(codeSection);
+          }
           
           // Download Links
           const linksDiv = document.createElement('div');

@@ -1,4 +1,34 @@
 {
+  "algorithms": {
+    "title": "Algorithm Families Overview",
+    "description": "Common remote sensing and image processing algorithm categories used in satellite data analysis",
+    "families": [
+      {
+        "name": "Super-Resolution (SR)",
+        "description": "Techniques for enhancing spatial resolution of imagery through reconstruction algorithms. Methods include interpolation-based, learning-based, and multi-frame approaches. Performance depends on input quality and scene complexity."
+      },
+      {
+        "name": "Segmentation",
+        "description": "Algorithms for partitioning images into meaningful regions or objects. Includes threshold-based, region-growing, edge-based, and ML-based methods. Accuracy varies with scene heterogeneity and parameter tuning."
+      },
+      {
+        "name": "Change Detection",
+        "description": "Methods for identifying temporal differences between multi-date imagery. Common approaches include image differencing, ratio methods, and classification comparison. Results depend on co-registration accuracy and radiometric consistency."
+      },
+      {
+        "name": "Pansharpening",
+        "description": "Fusion of high-resolution panchromatic and lower-resolution multispectral imagery. Techniques include component substitution, multi-resolution analysis, and model-based methods. Trade-offs exist between spatial detail and spectral fidelity."
+      },
+      {
+        "name": "Hyperspectral Processing",
+        "description": "Analysis of imagery with numerous narrow spectral bands. Includes dimensionality reduction, spectral unmixing, and material identification. Computational requirements increase with spectral resolution."
+      },
+      {
+        "name": "Diffusion-based Methods",
+        "description": "Emerging approaches using diffusion models for image generation and restoration. Applications include denoising, inpainting, and synthetic data generation. Still being evaluated for operational satellite imagery workflows."
+      }
+    ]
+  },
   "tools": [
     {
       "id": "gdb-cleaner",
@@ -47,6 +77,7 @@
         "Does not check for relationships or dependencies before deletion",
         "Large GDBs (>10GB) may take several minutes to scan"
       ],
+      "code": "#!/usr/bin/env python3\n# GDB Empty Layer Cleaner\n# Lightweight utility for ESRI File Geodatabase maintenance\n\nimport os\nimport shutil\nfrom datetime import datetime\nfrom osgeo import ogr\nimport tkinter as tk\nfrom tkinter import filedialog, messagebox\n\ndef scan_gdb(gdb_path):\n    \"\"\"Scan GDB and return list of empty layers.\"\"\"\n    empty_layers = []\n    driver = ogr.GetDriverByName(\"OpenFileGDB\")\n    ds = driver.Open(gdb_path, 0)\n    \n    if ds is None:\n        raise ValueError(f\"Cannot open GDB: {gdb_path}\")\n    \n    for i in range(ds.GetLayerCount()):\n        layer = ds.GetLayerByIndex(i)\n        if layer.GetFeatureCount() == 0:\n            empty_layers.append(layer.GetName())\n    \n    ds = None\n    return empty_layers\n\ndef backup_gdb(gdb_path):\n    \"\"\"Create timestamped backup of GDB.\"\"\"\n    timestamp = datetime.now().strftime(\"%Y%m%d_%H%M%S\")\n    backup_path = f\"{gdb_path}_backup_{timestamp}\"\n    shutil.copytree(gdb_path, backup_path)\n    return backup_path\n\ndef delete_layers(gdb_path, layer_names):\n    \"\"\"Delete specified layers from GDB.\"\"\"\n    driver = ogr.GetDriverByName(\"OpenFileGDB\")\n    ds = driver.Open(gdb_path, 1)  # Open with write access\n    \n    for name in layer_names:\n        ds.DeleteLayer(ds.GetLayerIndex(name))\n    \n    ds = None\n\ndef run_gui():\n    \"\"\"Launch Tkinter GUI.\"\"\"\n    root = tk.Tk()\n    root.title(\"GDB Empty Layer Cleaner\")\n    \n    def select_and_scan():\n        gdb_path = filedialog.askdirectory(title=\"Select GDB\")\n        if not gdb_path:\n            return\n        \n        try:\n            empty = scan_gdb(gdb_path)\n            if not empty:\n                messagebox.showinfo(\"Result\", \"No empty layers found.\")\n                return\n            \n            msg = f\"Found {len(empty)} empty layers:\\n\" + \"\\n\".join(empty[:10])\n            if messagebox.askyesno(\"Clean?\", msg + \"\\n\\nDelete these layers?\"):\n                backup = backup_gdb(gdb_path)\n                delete_layers(gdb_path, empty)\n                messagebox.showinfo(\"Done\", f\"Cleaned. Backup: {backup}\")\n        except Exception as e:\n            messagebox.showerror(\"Error\", str(e))\n    \n    tk.Button(root, text=\"Select GDB and Scan\", command=select_and_scan).pack(pady=20)\n    root.mainloop()\n\nif __name__ == \"__main__\":\n    run_gui()",
       "source_placeholder": "https://github.com/yourusername/gdb-empty-layer-cleaner",
       "download_placeholder": "https://github.com/yourusername/gdb-empty-layer-cleaner/releases"
     }
