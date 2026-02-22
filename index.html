@@ -1,47 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discovery Platform</title>
-    <style>
-        .flex-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            flex-shrink: 1; /* Allow items to shrink */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT-DISCOVERY - Satellite Data Access Platform</title>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    body {
+      background: linear-gradient(180deg, #071126, #050b18);
+      color: #eaf2ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero-title {
+      font-size: 48px;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+      color: #eaf2ff;
+    }
+    .hero-subtitle {
+      font-size: 16px;
+      color: #9fb2cc;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+    .btn-launch {
+      display: inline-block;
+      padding: 16px 48px;
+      background: linear-gradient(135deg, #6fe7ff, #3fb7ff);
+      color: #020b16;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 20px rgba(111, 231, 255, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-launch:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(111, 231, 255, 0.5);
+    }
+    .nav-links {
+      margin-top: 32px;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+    .nav-links a {
+      color: #6fe7ff;
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+  </style>
 </head>
 <body>
-    <div class="flex-container">
-        <div class="item">
-            <h1>Safe Content</h1>
-            <p>This content is safe from XSS attacks.</p>
-        </div>
+  <div class="hero">
+    <h1 class="hero-title">SAT-DISCOVERY</h1>
+    <p class="hero-subtitle">Satellite Data Access &amp; Discovery Platform</p>
+    <a href="app.html" class="btn-launch">Launch App</a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="compliance.html">Compliance</a>
     </div>
-    <script>
-        // Function to validate elements
-        function validateElement(element) {
-            if (!element || typeof element !== 'object') {
-                throw new Error('Invalid element');
-            }
-        }
-
-        // Function to handle errors
-        function errorHandler(error) {
-            console.error('Error occurred:', error);
-            alert('An error occurred: ' + error.message);
-        }
-
-        // Example usage with error handling
-        try {
-            const item = document.querySelector('.item');
-            validateElement(item);
-        } catch (error) {
-            errorHandler(error);
-        }
-    </script>
+  </div>
 </body>
 </html>
