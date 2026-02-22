@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.vercel/
+
+# Cache files
+tle_cache.txt
+*.log
+
+# Pull request state files
+pulls/
+
+# OS files
+.DS_Store
+Thumbs.db
