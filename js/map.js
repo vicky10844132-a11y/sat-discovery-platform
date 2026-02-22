@@ -53,7 +53,7 @@
         minZoom: 2,   // ✅ cannot zoom out infinitely
         maxZoom: 16,  // ✅ reasonable max for performance
         maxBounds: [[-180, -85], [180, 85]], // ✅ constrain world
-        cooperativeGestures: true
+        cooperativeGestures: false
       });
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
