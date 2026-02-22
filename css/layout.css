@@ -183,3 +183,38 @@ footer {
     color: rgba(255, 215, 0, 0.7);
     font-size: 0.85rem;
 }
+
+/* === MAP-INTERACTION-FIX (Phase 2) ===
+   Purpose: ensure the map receives wheel/mouse/touch events.
+   Some overlays/containers may capture pointer events unintentionally.
+*/
+.content,
+.map-panel {
+  overflow: visible !important;
+}
+
+.map-panel {
+  position: relative !important;
+}
+
+#map {
+  position: relative !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure MapLibre canvas & controls can receive input */
+#map canvas,
+#map .maplibregl-canvas,
+#map .maplibregl-control-container,
+#map .maplibregl-ctrl,
+#map .maplibregl-ctrl * {
+  pointer-events: auto !important;
+}
+
+/* If any pseudo overlays exist on the map panel, never let them eat events */
+.map-panel::before,
+.map-panel::after {
+  pointer-events: none !important;
+}
+/* === /MAP-INTERACTION-FIX === */
