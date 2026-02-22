@@ -1,0 +1,18 @@
+# Exclude node_modules from Vercel deployment
+node_modules
+.git
+.gitignore
+
+# Exclude development/build files
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Exclude documentation that's not needed in production
+*.md.txt
+
+# Temporary files
+.DS_Store
+*.swp
+*.swo
+*~

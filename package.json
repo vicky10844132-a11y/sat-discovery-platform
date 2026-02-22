@@ -2,7 +2,6 @@
   "name": "sat-discovery-platform",
   "version": "1.0.0",
   "description": "Satellite Discovery & Data Access Platform",
-  "type": "module",
   "dependencies": {
     "@turf/turf": "^6.5.0",
     "leaflet": "^1.9.4",

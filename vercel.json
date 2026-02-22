@@ -1,7 +1,5 @@
 {
-  "framework": "static",
-  "buildCommand": "echo 'Static site - no build needed'",
-  "outputDirectory": ".",
+  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
@@ -25,19 +23,6 @@
           "value": "strict-origin-when-cross-origin"
         }
       ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "sat-index.online"
-        }
-      ],
-      "destination": "/index.html",
-      "permanent": false
     }
   ]
 }
