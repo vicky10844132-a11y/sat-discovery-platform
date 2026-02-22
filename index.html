@@ -1,47 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discovery Platform</title>
-    <style>
-        .flex-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            flex-shrink: 1; /* Allow items to shrink */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT-DISCOVERY - Satellite Data Discovery Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+    .hero h1 {
+      font-family: Orbitron, Inter, system-ui;
+      font-size: 42px;
+      letter-spacing: 4px;
+      margin: 0 0 16px 0;
+      color: var(--cyan);
+      text-shadow: 0 0 20px rgba(111, 231, 255, 0.4);
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .cta-btn {
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .cta-btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+      color: var(--bg0);
+      box-shadow: 0 4px 16px rgba(111, 231, 255, 0.3);
+    }
+    .cta-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(111, 231, 255, 0.4);
+    }
+    .cta-btn-secondary {
+      background: rgba(10, 20, 44, 0.6);
+      color: var(--cyan);
+      border: 1px solid var(--borderA);
+    }
+    .cta-btn-secondary:hover {
+      background: rgba(20, 30, 54, 0.7);
+      border-color: rgba(120, 190, 255, 0.4);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .feature-card {
+      background: linear-gradient(180deg, rgba(10, 22, 46, 0.52), rgba(6, 14, 32, 0.66));
+      border: 1px solid var(--borderA);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      border-color: rgba(120, 190, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .feature-card h3 {
+      font-family: Orbitron, Inter, system-ui;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin: 0 0 12px 0;
+    }
+    .feature-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .layout-wrapper {
+      min-height: calc(100vh - 62px);
+      overflow-y: auto;
+      padding-bottom: 40px;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted2);
+      font-size: 12px;
+      border-top: 1px solid var(--borderB);
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-    <div class="flex-container">
-        <div class="item">
-            <h1>Safe Content</h1>
-            <p>This content is safe from XSS attacks.</p>
-        </div>
+  <div id="topbar">
+    <div>
+      <div class="brandTitle">SAT-DISCOVERY</div>
+      <div class="brandSub">Satellite Data Discovery Platform</div>
     </div>
-    <script>
-        // Function to validate elements
-        function validateElement(element) {
-            if (!element || typeof element !== 'object') {
-                throw new Error('Invalid element');
-            }
-        }
+    <nav style="display: flex; gap: 20px; align-items: center;">
+      <a href="index.html" style="color: var(--cyan); text-decoration: none; font-size: 13px;">Home</a>
+      <a href="app.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Map Search</a>
+      <a href="resources.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Resources</a>
+      <a href="tools.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Tools</a>
+      <a href="about.html" style="color: var(--text); text-decoration: none; font-size: 13px;">About</a>
+    </nav>
+  </div>
 
-        // Function to handle errors
-        function errorHandler(error) {
-            console.error('Error occurred:', error);
-            alert('An error occurred: ' + error.message);
-        }
+  <div class="layout-wrapper">
+    <div class="hero">
+      <h1>SAT-DISCOVERY</h1>
+      <p>
+        A comprehensive platform for discovering satellite imagery, accessing STAC APIs, 
+        exploring open data archives, and utilizing geospatial analysis tools. 
+        Find the right satellite data for your research, analysis, or applications.
+      </p>
+    </div>
 
-        // Example usage with error handling
-        try {
-            const item = document.querySelector('.item');
-            validateElement(item);
-        } catch (error) {
-            errorHandler(error);
-        }
-    </script>
+    <div class="cta-buttons">
+      <a href="app.html" class="cta-btn cta-btn-primary">🗺️ Launch Map Search</a>
+      <a href="resources.html" class="cta-btn cta-btn-secondary">📚 Browse Resources</a>
+      <a href="tools.html" class="cta-btn cta-btn-secondary">🛠️ View Tools</a>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🛰️</div>
+        <h3>STAC API Integration</h3>
+        <p>
+          Search satellite imagery from AWS EarthSearch and Microsoft Planetary Computer. 
+          Query Sentinel-2, Landsat, Sentinel-1 SAR, and more with temporal and spatial filters.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Interactive Mapping</h3>
+        <p>
+          Draw areas of interest (AOI) using Leaflet mapping tools. 
+          Calculate areas, visualize footprints, and export results as GeoJSON.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Geospatial Analysis</h3>
+        <p>
+          Perform spatial calculations with Turf.js integration. 
+          Calculate bounds, check intersections, and analyze satellite coverage.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Open Data Portals</h3>
+        <p>
+          Access curated links to public satellite data portals, OSINT tools, 
+          and tracking platforms. Discover freely available imagery sources.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Discovery Index</h3>
+        <p>
+          Browse a comprehensive index of satellite data providers, 
+          including commercial and open archives. No data hosting or transactions.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Analysis Tools</h3>
+        <p>
+          Access practical geospatial utilities including the GDB Empty Layer Cleaner 
+          and other Python-based tools for data processing.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>SAT-DISCOVERY © 2024 | Public discovery index only - No data hosting or transactions</p>
+      <p><a href="compliance.html" style="color: var(--cyan); text-decoration: none;">Compliance</a> | 
+         <a href="about.html" style="color: var(--cyan); text-decoration: none;">About</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Smooth hover effects
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.feature-card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.borderColor = 'rgba(111, 231, 255, 0.4)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.borderColor = 'rgba(120, 190, 255, 0.16)';
+        });
+      });
+    });
+  </script>
 </body>
 </html>

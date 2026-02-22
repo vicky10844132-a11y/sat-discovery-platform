@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discovery Platform</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            flex-shrink: 1; /* Allow items to shrink */
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="item">
+            <h1>Safe Content</h1>
+            <p>This content is safe from XSS attacks.</p>
+        </div>
+    </div>
+    <script>
+        // Function to validate elements
+        function validateElement(element) {
+            if (!element || typeof element !== 'object') {
+                throw new Error('Invalid element');
+            }
+        }
+
+        // Function to handle errors
+        function errorHandler(error) {
+            console.error('Error occurred:', error);
+            alert('An error occurred: ' + error.message);
+        }
+
+        // Example usage with error handling
+        try {
+            const item = document.querySelector('.item');
+            validateElement(item);
+        } catch (error) {
+            errorHandler(error);
+        }
+    </script>
+</body>
+</html>

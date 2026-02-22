@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools - SAT-DISCOVERY</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .layout-wrapper {
+      min-height: calc(100vh - 62px);
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .content-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-family: Orbitron, Inter, system-ui;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      margin: 0 0 12px 0;
+    }
+    .page-header p {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+    .tool-section {
+      background: linear-gradient(180deg, rgba(10, 22, 46, 0.52), rgba(6, 14, 32, 0.66));
+      border: 1px solid var(--borderA);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+    .tool-header {
+      margin-bottom: 20px;
+    }
+    .tool-name {
+      font-family: Orbitron, Inter, system-ui;
+      font-size: 24px;
+      letter-spacing: 1.5px;
+      color: var(--text);
+      margin: 0 0 8px 0;
+    }
+    .tool-category {
+      display: inline-block;
+      background: rgba(111, 231, 255, 0.15);
+      color: var(--cyan);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .tool-tech {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .tech-badge {
+      background: rgba(6, 14, 30, 0.6);
+      border: 1px solid var(--borderB);
+      color: var(--muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+    .section-title {
+      font-family: Orbitron, Inter, system-ui;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: var(--cyan2);
+      margin: 24px 0 12px 0;
+    }
+    .tool-desc {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    .step-item {
+      background: rgba(3, 8, 18, 0.4);
+      border-left: 3px solid var(--cyan);
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+    }
+    .step-number {
+      font-family: Orbitron, Inter, system-ui;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .step-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .mode-card {
+      background: rgba(3, 8, 18, 0.4);
+      border: 1px solid var(--borderB);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .mode-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .mode-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .feature-item {
+      font-size: 13px;
+      color: var(--text);
+      padding: 8px 12px;
+      background: rgba(3, 8, 18, 0.3);
+      border-radius: 6px;
+    }
+    .feature-item::before {
+      content: "✓ ";
+      color: var(--cyan);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+    .limitations-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    .limitation-item {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    .limitation-item::before {
+      content: "⚠";
+      position: absolute;
+      left: 0;
+      color: #ffa726;
+    }
+    .download-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .download-btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .btn-source {
+      background: rgba(10, 20, 44, 0.6);
+      color: var(--cyan);
+      border: 1px solid var(--borderA);
+    }
+    .btn-source:hover {
+      background: rgba(20, 30, 54, 0.7);
+      border-color: rgba(120, 190, 255, 0.4);
+    }
+    .btn-download {
+      background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+      color: var(--bg0);
+    }
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(111, 231, 255, 0.3);
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <div>
+      <div class="brandTitle">SAT-DISCOVERY</div>
+      <div class="brandSub">Tools & Algorithms</div>
+    </div>
+    <nav style="display: flex; gap: 20px; align-items: center;">
+      <a href="index.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Home</a>
+      <a href="app.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Map Search</a>
+      <a href="resources.html" style="color: var(--text); text-decoration: none; font-size: 13px;">Resources</a>
+      <a href="tools.html" style="color: var(--cyan); text-decoration: none; font-size: 13px;">Tools</a>
+      <a href="about.html" style="color: var(--text); text-decoration: none; font-size: 13px;">About</a>
+    </nav>
+  </div>
+
+  <div class="layout-wrapper">
+    <div class="content-container">
+      <div class="page-header">
+        <h1>🛠️ Tools & Algorithms</h1>
+        <p>Practical geospatial utilities and data processing tools</p>
+      </div>
+
+      <div id="tools-container">
+        <div class="loading">Loading tools...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loadTools() {
+      try {
+        const response = await fetch('tools.json');
+        const data = await response.json();
+        
+        const container = document.getElementById('tools-container');
+        container.innerHTML = '';
+        
+        data.tools.forEach(tool => {
+          const section = document.createElement('div');
+          section.className = 'tool-section';
+          
+          // Header
+          const header = document.createElement('div');
+          header.className = 'tool-header';
+          
+          const category = document.createElement('div');
+          category.className = 'tool-category';
+          category.textContent = tool.category;
+          header.appendChild(category);
+          
+          const name = document.createElement('h2');
+          name.className = 'tool-name';
+          name.textContent = tool.name;
+          header.appendChild(name);
+          
+          // Tech stack
+          const techDiv = document.createElement('div');
+          techDiv.className = 'tool-tech';
+          tool.tech_stack.forEach(tech => {
+            const badge = document.createElement('span');
+            badge.className = 'tech-badge';
+            badge.textContent = tech;
+            techDiv.appendChild(badge);
+          });
+          header.appendChild(techDiv);
+          
+          section.appendChild(header);
+          
+          // Overview
+          const overviewTitle = document.createElement('h3');
+          overviewTitle.className = 'section-title';
+          overviewTitle.textContent = 'Overview';
+          section.appendChild(overviewTitle);
+          
+          const overview = document.createElement('p');
+          overview.className = 'tool-desc';
+          overview.textContent = tool.overview;
+          section.appendChild(overview);
+          
+          // Usage Steps
+          const stepsTitle = document.createElement('h3');
+          stepsTitle.className = 'section-title';
+          stepsTitle.textContent = 'Usage (3 Steps)';
+          section.appendChild(stepsTitle);
+          
+          const stepsList = document.createElement('ul');
+          stepsList.className = 'steps-list';
+          tool.usage_steps.forEach(step => {
+            const li = document.createElement('li');
+            li.className = 'step-item';
+            li.innerHTML = `
+              <span class="step-number">Step ${step.step}</span>
+              <div class="step-title">${step.title}</div>
+              <div class="step-desc">${step.description}</div>
+            `;
+            stepsList.appendChild(li);
+          });
+          section.appendChild(stepsList);
+          
+          // Run Modes
+          const modesTitle = document.createElement('h3');
+          modesTitle.className = 'section-title';
+          modesTitle.textContent = 'Run Modes';
+          section.appendChild(modesTitle);
+          
+          tool.run_modes.forEach(mode => {
+            const modeCard = document.createElement('div');
+            modeCard.className = 'mode-card';
+            modeCard.innerHTML = `
+              <div class="mode-title">${mode.mode}</div>
+              <div class="mode-desc">${mode.description}</div>
+            `;
+            section.appendChild(modeCard);
+          });
+          
+          // Features
+          const featuresTitle = document.createElement('h3');
+          featuresTitle.className = 'section-title';
+          featuresTitle.textContent = 'Features';
+          section.appendChild(featuresTitle);
+          
+          const featuresGrid = document.createElement('div');
+          featuresGrid.className = 'features-grid';
+          tool.features.forEach(feature => {
+            const div = document.createElement('div');
+            div.className = 'feature-item';
+            div.textContent = feature;
+            featuresGrid.appendChild(div);
+          });
+          section.appendChild(featuresGrid);
+          
+          // Limitations
+          const limitationsTitle = document.createElement('h3');
+          limitationsTitle.className = 'section-title';
+          limitationsTitle.textContent = 'Limitations';
+          section.appendChild(limitationsTitle);
+          
+          const limitationsList = document.createElement('ul');
+          limitationsList.className = 'limitations-list';
+          tool.limitations.forEach(limitation => {
+            const li = document.createElement('li');
+            li.className = 'limitation-item';
+            li.textContent = limitation;
+            limitationsList.appendChild(li);
+          });
+          section.appendChild(limitationsList);
+          
+          // Download Links
+          const linksDiv = document.createElement('div');
+          linksDiv.className = 'download-links';
+          
+          const sourceBtn = document.createElement('a');
+          sourceBtn.className = 'download-btn btn-source';
+          sourceBtn.href = tool.source_placeholder;
+          sourceBtn.target = '_blank';
+          sourceBtn.rel = 'noopener noreferrer';
+          sourceBtn.textContent = '📄 View Source Code';
+          linksDiv.appendChild(sourceBtn);
+          
+          const downloadBtn = document.createElement('a');
+          downloadBtn.className = 'download-btn btn-download';
+          downloadBtn.href = tool.download_placeholder;
+          downloadBtn.target = '_blank';
+          downloadBtn.rel = 'noopener noreferrer';
+          downloadBtn.textContent = '⬇️ Download Package';
+          linksDiv.appendChild(downloadBtn);
+          
+          section.appendChild(linksDiv);
+          
+          container.appendChild(section);
+        });
+      } catch (error) {
+        console.error('Error loading tools:', error);
+        document.getElementById('tools-container').innerHTML = 
+          '<div class="loading">Error loading tools. Please refresh the page.</div>';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadTools);
+  </script>
+</body>
+</html>

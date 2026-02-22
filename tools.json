@@ -1,0 +1,54 @@
+{
+  "tools": [
+    {
+      "id": "gdb-cleaner",
+      "name": "GDB Empty Layer Cleaner",
+      "category": "Data Processing",
+      "description": "Python utility for identifying and removing empty layers from ESRI File Geodatabase (GDB) files",
+      "tech_stack": ["Python 3.8+", "GDAL/OGR", "Tkinter"],
+      "overview": "This tool scans ESRI File Geodatabase (.gdb) directories and identifies layers with zero features. It provides both a graphical interface (Tkinter) and command-line operation for batch processing. The tool helps maintain clean geodatabase structures by removing unused layers that accumulate during data processing workflows.",
+      "usage_steps": [
+        {
+          "step": 1,
+          "title": "Select or Specify GDB Path",
+          "description": "Use the GUI file browser or provide the path to your .gdb directory via command line"
+        },
+        {
+          "step": 2,
+          "title": "Scan for Empty Layers",
+          "description": "The tool uses GDAL to iterate through all feature classes and counts features. Empty layers (0 features) are flagged for review"
+        },
+        {
+          "step": 3,
+          "title": "Review and Clean",
+          "description": "View the list of empty layers. Choose to either backup the GDB first (recommended) or perform direct deletion"
+        }
+      ],
+      "run_modes": [
+        {
+          "mode": "Backup Mode (Recommended)",
+          "description": "Creates a timestamped backup of the entire GDB before deletion. Safe for production environments. Backup location is shown in the UI."
+        },
+        {
+          "mode": "Direct Mode",
+          "description": "Removes empty layers immediately without backup. Faster but irreversible. Use only on non-critical or already-backed-up data."
+        }
+      ],
+      "features": [
+        "GDAL-based scanning for accuracy",
+        "Handles both feature classes and tables",
+        "Preserves spatial reference and metadata",
+        "Progress reporting for large GDBs",
+        "Cross-platform (Windows, Linux, macOS)"
+      ],
+      "limitations": [
+        "Requires GDAL/OGR bindings installed",
+        "Only works with ESRI File Geodatabase format (not Enterprise GDB)",
+        "Does not check for relationships or dependencies before deletion",
+        "Large GDBs (>10GB) may take several minutes to scan"
+      ],
+      "source_placeholder": "https://github.com/yourusername/gdb-empty-layer-cleaner",
+      "download_placeholder": "https://github.com/yourusername/gdb-empty-layer-cleaner/releases"
+    }
+  ]
+}
