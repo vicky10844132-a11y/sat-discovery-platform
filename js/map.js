@@ -67,6 +67,18 @@
 
       this.map = map;
       console.log("Map initialized (MapLibre)");
+
+      // DEBUG: verify wheel events reach the map container
+      try {
+        const el = document.getElementById(containerId);
+        if (el && !el.__wheelDebug) {
+          el.__wheelDebug = true;
+          el.addEventListener('wheel', (ev) => {
+            console.log('[MapDebug] wheel event', {deltaY: ev.deltaY, ctrlKey: ev.ctrlKey, metaKey: ev.metaKey});
+          }, { passive: true });
+        }
+      } catch (e) {}
+
     },
 
     // Placeholder APIs for next steps (AOI / layers)
