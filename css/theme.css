@@ -1,12 +1,24 @@
-/* Theme variables and color palette */
-:root {
-    --dark-blue: #020b16;
-    --yellow: #ffd700;
+.dark-theme {
+  background-color: #020b16;
+  color: #ffffff;
 }
 
-/* CSS reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.dark-theme a {
+  color: #ffd700;
+}
+
+.dark-theme button {
+  background-color: #ffd700;
+  color: #020b16;
+}
+
+.dark-theme input {
+  background-color: #020b16;
+  color: #ffffff;
+}
+
+.dark-theme header,
+.dark-theme footer {
+  background-color: #020b16;
+  color: #ffd700;
 }
