@@ -20,7 +20,11 @@
         attribution: "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
       }
     },
-    layers: [{ id: "osm", type: "raster", source: "osm" }]
+    layers: [
+      // Solid background so the map is never fully blank (visible while tiles load)
+      { id: "background", type: "background", paint: { "background-color": "#1a3c5e" } },
+      { id: "osm", type: "raster", source: "osm" }
+    ]
   };
 
   const MapManager = {
