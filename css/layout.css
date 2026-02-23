@@ -195,6 +195,7 @@ footer {
 
 .map-panel {
   position: relative !important;
+  pointer-events: auto !important;
 }
 
 #map {
@@ -203,9 +204,10 @@ footer {
   pointer-events: auto !important;
 }
 
-/* Ensure MapLibre canvas & controls can receive input */
+/* Ensure all MapLibre children (canvas-container, canvas, controls) can receive input */
 #map canvas,
 #map .maplibregl-canvas,
+#map .maplibregl-canvas-container,
 #map .maplibregl-control-container,
 #map .maplibregl-ctrl,
 #map .maplibregl-ctrl * {
