@@ -1,15 +1,27 @@
 name: Deploy Branch to Vercel
 
-# Triggers:
-# 1. Every push to the fix branch deploys immediately (no environment approval gate)
-# 2. workflow_dispatch: owner can click "Run workflow" from the Actions tab
-#    (this button appears when a workflow with workflow_dispatch exists on the
-#    current branch being viewed — select the fix branch in the dropdown)
+# HOW TO USE THIS WORKFLOW
+# ─────────────────────────
+# STEP 1 — Set these 3 repository secrets (one-time setup):
+#   GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+#
+#   VERCEL_TOKEN      → from https://vercel.com/account/tokens  (create a new token)
+#   VERCEL_ORG_ID     → from Vercel project: Settings → General → "Team ID"
+#   VERCEL_PROJECT_ID → from Vercel project: Settings → General → "Project ID"
+#
+# STEP 2 — Merge this PR into main.  The push to main triggers deploy-vercel.yml
+#          automatically — no manual trigger needed.
+#
+# ALTERNATIVELY (deploy without merging):
+#   After secrets are set, you can trigger this file manually via the GitHub API:
+#   curl -X POST -H "Authorization: token YOUR_GITHUB_PAT" \
+#     https://api.github.com/repos/vicky10844132-a11y/sat-discovery-platform/actions/workflows/deploy-branch.yml/dispatches \
+#     -d '{"ref":"copilot/fix-map-display-issue"}'
 
 on:
-  push:
-    branches:
-      - copilot/fix-map-display-issue
+  # Removed 'push' trigger: bot pushes created approval-gated runs that
+  # appeared as a confusing pile of "action_required" items in the Actions tab.
+  # Only manual dispatch is supported now.
   workflow_dispatch:
 
 jobs:
@@ -20,30 +32,29 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Check required secrets
-        # Fail fast with a clear message if VERCEL_TOKEN is not configured.
-        # Setup guide: https://vercel.com/docs/rest-api#authentication
-        # Repository Settings → Secrets → Actions → New repository secret
+        # Fail immediately with a clear message if any Vercel secret is missing.
         run: |
+          missing=0
           if [ -z "$VERCEL_TOKEN" ]; then
-            echo "::error::VERCEL_TOKEN secret is not set."
-            echo ""
-            echo "To fix this:"
-            echo "1. Get your Vercel token: https://vercel.com/account/tokens"
-            echo "2. Add it as a repository secret:"
-            echo "   GitHub repo → Settings → Secrets and variables → Actions → New repository secret"
-            echo "   Name: VERCEL_TOKEN"
-            echo "3. Also add VERCEL_ORG_ID and VERCEL_PROJECT_ID from your Vercel project settings."
-            exit 1
+            echo "::error::VERCEL_TOKEN is not set."
+            echo "  → Get a token at https://vercel.com/account/tokens"
+            echo "  → Add as repo secret: Settings → Secrets → Actions → New repository secret"
+            missing=1
           fi
           if [ -z "$VERCEL_ORG_ID" ]; then
-            echo "::error::VERCEL_ORG_ID secret is not set. Find it in Vercel project Settings → General."
-            exit 1
+            echo "::error::VERCEL_ORG_ID is not set."
+            echo "  → Find it in Vercel: project Settings → General → Team ID"
+            missing=1
           fi
           if [ -z "$VERCEL_PROJECT_ID" ]; then
-            echo "::error::VERCEL_PROJECT_ID secret is not set. Find it in Vercel project Settings → General."
+            echo "::error::VERCEL_PROJECT_ID is not set."
+            echo "  → Find it in Vercel: project Settings → General → Project ID"
+            missing=1
+          fi
+          if [ "$missing" = "1" ]; then
             exit 1
           fi
-          echo "All required secrets are present."
+          echo "✓ All required secrets are present — proceeding with deploy."
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -53,8 +64,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel Production
-        # VERCEL_TOKEN is read as an env var by the CLI (no --token flag needed).
-        # This avoids the "missing value" error when the secret is empty.
+        # VERCEL_TOKEN is read as an env var by the CLI — no --token flag needed.
         run: vercel --prod --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
