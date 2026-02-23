@@ -82,6 +82,20 @@
       this.map = map;
       console.log("Map initialized (MapLibre)");
 
+      // --- Fallback guard: if tiles never load (CSP/worker/network), switch to Leaflet after 2s ---
+      let __tileLoadedCount = 0;
+      try{
+        map.on("sourcedata", (e) => { if (e && e.tile) __tileLoadedCount++; });
+      }catch(_){ }
+      setTimeout(() => {
+        if (__tileLoadedCount === 0) {
+          console.warn("[MapDebug] No tiles loaded after 2s -> fallback");
+          try { map.remove(); } catch(_) {}
+          fallbackToLeaflet(containerId);
+        }
+      }, 2000);
+
+
       // DEBUG: verify wheel events reach the map container
       try {
         const el = document.getElementById(containerId);
@@ -108,3 +122,29 @@
 
   window.MapManager = MapManager;
 })();
+
+
+  function fallbackToLeaflet(containerId){
+    try{
+      const el = document.getElementById(containerId);
+      if(!el) return;
+      el.innerHTML = "";
+      el.style.background = "#0b1622";
+      const L = window.L;
+      if(!L){
+        console.error("[MapFallback] Leaflet not loaded");
+        el.innerHTML = "<div style='padding:12px;color:#fff;'>Map fallback failed: Leaflet missing</div>";
+        return;
+      }
+      const m = L.map(el, { zoomControl: true, attributionControl: true }).setView([20,0], 2);
+      // Use a more tolerant endpoint than tile.openstreetmap.org
+      L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", {
+        maxZoom: 16,
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(m);
+      console.warn("[MapFallback] Leaflet fallback activated");
+      window.__leafletMap = m;
+    }catch(e){
+      console.error("[MapFallback] exception", e);
+    }
+  }

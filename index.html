@@ -324,6 +324,8 @@
             .cta-panel { clip-path: none; }
         }
     </style>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -422,6 +424,17 @@
         </div>
     </section>
 
+    <!-- Map Preview (Phase 2) -->
+    <section class="features-section" style="padding-top: 20px;">
+      <div class="container">
+        <h2 class="section-title">Map Preview</h2>
+        <div class="feature-card" style="padding: 16px;">
+          <div id="map" style="width: 100%; height: 520px; border-radius: 12px; overflow: hidden;"></div>
+        </div>
+      </div>
+    </section>
+
+
     <div class="container">
         <div class="divider-thin"></div>
     </div>
@@ -488,5 +501,26 @@
             </p>
         </div>
     </footer>
+  <script>
+    window.addEventListener("load", function(){
+      try {
+        if (!window.maplibregl) return;
+        var el = document.getElementById("map");
+        if (!el) return;
+        var map = new maplibregl.Map({
+          container: "map",
+          style: "https://demotiles.maplibre.org/style.json",
+          center: [0, 20],
+          zoom: 2,
+          minZoom: 2,
+          maxZoom: 16,
+          maxBounds: [[-180, -85], [180, 85]]
+        });
+        map.addControl(new maplibregl.NavigationControl(), "top-right");
+      } catch (e) {
+        console.error("Map init failed", e);
+      }
+    });
+  </script>
 </body>
 </html>
