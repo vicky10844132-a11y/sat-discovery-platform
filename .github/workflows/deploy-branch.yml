@@ -19,14 +19,45 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Check required secrets
+        # Fail fast with a clear message if VERCEL_TOKEN is not configured.
+        # Setup guide: https://vercel.com/docs/rest-api#authentication
+        # Repository Settings → Secrets → Actions → New repository secret
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::VERCEL_TOKEN secret is not set."
+            echo ""
+            echo "To fix this:"
+            echo "1. Get your Vercel token: https://vercel.com/account/tokens"
+            echo "2. Add it as a repository secret:"
+            echo "   GitHub repo → Settings → Secrets and variables → Actions → New repository secret"
+            echo "   Name: VERCEL_TOKEN"
+            echo "3. Also add VERCEL_ORG_ID and VERCEL_PROJECT_ID from your Vercel project settings."
+            exit 1
+          fi
+          if [ -z "$VERCEL_ORG_ID" ]; then
+            echo "::error::VERCEL_ORG_ID secret is not set. Find it in Vercel project Settings → General."
+            exit 1
+          fi
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::error::VERCEL_PROJECT_ID secret is not set. Find it in Vercel project Settings → General."
+            exit 1
+          fi
+          echo "All required secrets are present."
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel Production
-        # Uses vercel CLI directly — does NOT create a GitHub Deployment/Environment,
-        # so there is no approval gate even when triggered from a non-default branch.
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        # VERCEL_TOKEN is read as an env var by the CLI (no --token flag needed).
+        # This avoids the "missing value" error when the secret is empty.
+        run: vercel --prod --yes
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
