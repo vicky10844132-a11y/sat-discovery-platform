@@ -218,3 +218,20 @@ footer {
   pointer-events: none !important;
 }
 /* === /MAP-INTERACTION-FIX === */
+
+
+/* === Map visibility fix === */
+.map-panel {
+  position: relative !important;
+}
+
+#map {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* push any decorative overlays behind map */
+.map-panel::before,
+.map-panel::after {
+  z-index: 0 !important;
+}
