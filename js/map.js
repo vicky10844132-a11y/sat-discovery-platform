@@ -236,7 +236,7 @@
         }
       });
 
-      const fallbackTimer = setTimeout(() => {
+      let fallbackTimer = setTimeout(() => {
         if (stats.loaded === 0) {
           console.warn("[MapFallback] No tiles loaded after 2s — activating Leaflet fallback");
           try { map.remove(); } catch (_) {}

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - copilot/create-sat-discovery-foundation
+      - copilot/fix-map-display-issue
 
 jobs:
   deploy:
