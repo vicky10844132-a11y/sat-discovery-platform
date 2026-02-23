@@ -1,10 +1,15 @@
-// SAT-DISCOVERY Map Module (Phase 3: OSM raster tiles v3)
+// SAT-DISCOVERY Map Module (Phase 4: diagnostics + error banner)
 // - Zero storage: Map itself stores nothing
 // - Constrained zoom: prevents infinite zoom-out
 // - OSM raster tiles: no glyph/sprite dependency
 // - Explicit interaction handlers: scrollZoom, dragPan, touchZoomRotate
+// - debugMap=1 URL param: verbose tile/worker logging
+// - Non-blocking in-map error banner on persistent tile failures
 
 (function () {
+  // Debug mode: enable with ?debugMap=1 in the URL
+  const DEBUG_MAP = new URLSearchParams(location.search).has('debugMap');
+
   // OSM raster tile style – uses all three subdomains for reliability
   const OSM_STYLE = {
     version: 8,
@@ -27,6 +32,24 @@
     ]
   };
 
+  // Show a dismissible error banner inside the map container (non-blocking)
+  function showMapErrorBanner(container, message) {
+    if (!container || container.querySelector('#map-error-banner')) return;
+    const banner = document.createElement('div');
+    banner.id = 'map-error-banner';
+    banner.className = 'map-error-banner';
+    const text = document.createElement('span');
+    text.textContent = message;
+    const close = document.createElement('button');
+    close.textContent = '✕';
+    close.className = 'map-error-banner__close';
+    close.setAttribute('aria-label', 'Dismiss map error');
+    close.onclick = () => banner.remove();
+    banner.appendChild(text);
+    banner.appendChild(close);
+    container.appendChild(banner);
+  }
+
   const MapManager = {
     map: null,
     aoi: null,
@@ -41,7 +64,7 @@
       // Ensure container can render a WebGL canvas
       container.style.width = "100%";
       container.style.height = "100%";
-      container.style.minHeight = container.style.minHeight || "420px";
+      container.style.minHeight = container.style.minHeight || "300px";
 
       if (!window.maplibregl) {
         console.error("[MapError] maplibregl not found. Ensure MapLibre is loaded in app.html <head>.");
@@ -73,7 +96,12 @@
         maxZoom: 16,
         maxBounds: [[-180, -85], [180, 85]],
         cooperativeGestures: false,
-        attributionControl: true
+        attributionControl: true,
+        // ?debugMap=1: intercept every tile/resource request and log it
+        transformRequest: DEBUG_MAP ? (url, resourceType) => {
+          console.log("[MapDebug] request", resourceType, url);
+          return { url };
+        } : undefined
       });
 
       // Explicitly enable all interactions (guards against accidental disable)
@@ -84,7 +112,8 @@
       map.addControl(new maplibregl.NavigationControl(), "top-right");
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
 
-      // Enhanced error handler: log URL so tile failures are identifiable
+      // Track consecutive tile errors; show banner after first failure
+      let tileErrorCount = 0;
       map.on("error", (e) => {
         const err = e && e.error ? e.error : e;
         let url = "";
@@ -94,10 +123,26 @@
           url = err.url;
         }
         console.error("[MapError]", url ? "Failed to load: " + url : err);
+        tileErrorCount++;
+        if (tileErrorCount === 1) {
+          const msg = url
+            ? "Basemap tiles failed to load (" + url + "). Check network/CSP."
+            : "Map error: " + (err && err.message ? err.message : String(err));
+          showMapErrorBanner(container, msg);
+        }
       });
 
+      // In debug mode, also log when tiles successfully load
+      if (DEBUG_MAP) {
+        map.on("data", (e) => {
+          if (e.dataType === "source" && e.isSourceLoaded) {
+            console.log("[MapDebug] source loaded:", e.sourceId);
+          }
+        });
+      }
+
       this.map = map;
-      console.log("[MapInit] OSM raster tiles v3 – scrollZoom/dragPan/touchZoom enabled");
+      console.log("[MapInit] OSM raster tiles v4 – scrollZoom/dragPan/touchZoom enabled" + (DEBUG_MAP ? " [debugMap ON]" : ""));
     },
 
     // Placeholder APIs for AOI / layers
