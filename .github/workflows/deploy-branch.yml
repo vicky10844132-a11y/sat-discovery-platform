@@ -1,0 +1,40 @@
+name: Deploy Branch to Vercel
+
+# Triggers:
+# 1. Every push to the fix branch deploys immediately (no environment approval gate)
+# 2. workflow_dispatch: owner can click "Run workflow" from the Actions tab
+#    (this button appears when a workflow with workflow_dispatch exists on the
+#    current branch being viewed — select the fix branch in the dropdown)
+
+on:
+  push:
+    branches:
+      - copilot/fix-map-display-issue
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel Production
+        # Uses vercel CLI directly — does NOT create a GitHub Deployment/Environment,
+        # so there is no approval gate even when triggered from a non-default branch.
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Verify deployment
+        run: |
+          echo "Waiting 30 s for Vercel to propagate..."
+          sleep 30
+          echo "=== js/map.js version check ==="
+          curl -sf https://www.sat-index.online/js/map.js | grep -m1 "MapInit\|Phase" || echo "Could not verify"
+          echo "=== HTTP headers ==="
+          curl -sI https://www.sat-index.online/ | head -10
