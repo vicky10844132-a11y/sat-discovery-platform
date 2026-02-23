@@ -227,7 +227,35 @@ footer {
 .map-panel::after {
   pointer-events: none !important;
 }
-/* === MAP ERROR BANNER ===
+/* === MAP STATUS OVERLAY ===
+   Tile counter shown top-left of map: ↑requested ✓loaded ✗errored
+   Always visible so tile status is readable without opening DevTools.
+*/
+.map-status-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.65);
+  color: #ccc;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+.map-status-overlay--ok {
+  color: #a8e6a3;
+}
+
+.map-status-overlay--error {
+  color: #ffb3b3;
+}
+/* === /MAP STATUS OVERLAY === */
+
+
    Non-blocking tile-error notification inside the map container.
    Shown by js/map.js when tile requests fail; dismissible via ✕ button.
 */
