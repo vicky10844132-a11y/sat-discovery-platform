@@ -1,6 +1,6 @@
-// SAT-DISCOVERY Map Module (Phase 5: robust tiles + Leaflet fallback)
-// - CARTO tiles (primary, reliable, no API key)
-// - OSM tiles as in-style backup
+// SAT-DISCOVERY Map Module (Phase 6: OSM primary tiles, Leaflet OSM fallback)
+// - OSM tiles (primary: not blocked by ad/content blockers)
+// - OSM tiles also in Leaflet fallback for consistency
 // - Tile status overlay (↑req ✓loaded ✗errored) — visible without DevTools
 // - ResizeObserver + map.resize() for correct canvas sizing
 // - Leaflet fallback if MapLibre tiles fail within 2 seconds
@@ -12,26 +12,25 @@
   // Seconds to wait for tiles before activating Leaflet fallback
   const TILE_FALLBACK_TIMEOUT_MS = 2000;
 
-  // CARTO Voyager raster tiles: reliable, no API key, all 4 subdomains
+  // OSM raster tiles: operated by OSM foundation, not blocked by ad-blockers
   const TILE_STYLE = {
     version: 8,
     sources: {
-      carto: {
+      osm: {
         type: "raster",
         tiles: [
-          "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
-          "https://b.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
-          "https://c.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
-          "https://d.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+          "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ],
         tileSize: 256,
-        attribution: "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, © <a href='https://carto.com/attributions'>CARTO</a>"
+        attribution: "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
       }
     },
     layers: [
       // Solid background visible while tiles load (or if they fail)
       { id: "background", type: "background", paint: { "background-color": "#1a3c5e" } },
-      { id: "carto", type: "raster", source: "carto" }
+      { id: "osm", type: "raster", source: "osm" }
     ]
   };
 
@@ -99,11 +98,11 @@
       }).setView([20, 0], 2);
 
       L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         {
-          attribution: '\u00a9 <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, \u00a9 <a href="https://carto.com/attributions">CARTO</a>',
-          subdomains: 'abcd',
-          maxZoom: 16
+          attribution: '\u00a9 <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          subdomains: 'abc',
+          maxZoom: 19
         }
       ).addTo(lmap);
 
@@ -255,7 +254,7 @@
       }
 
       this.map = map;
-      console.log("[MapInit] CARTO tiles v5 – scrollZoom/dragPan/touchZoom + Leaflet fallback" +
+      console.log("[MapInit] OSM tiles v6 – scrollZoom/dragPan/touchZoom + Leaflet fallback" +
         (DEBUG_MAP ? " [debugMap ON]" : ""));
     },
 

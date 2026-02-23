@@ -14,8 +14,8 @@ SAT-DISCOVERY / SAT-INDEX 部署信息
 
 修复内容：
 - MapLibre GL JS 本地化（不再依赖 CDN）
-- 主瓦片：CARTO Voyager（可靠，无需 API key）
-- Leaflet 备用方案（MapLibre 2秒无响应自动切换）
+- 主瓦片：OSM（OpenStreetMap，不会被广告拦截器屏蔽）
+- Leaflet 备用方案（MapLibre 2秒无响应自动切换，也使用 OSM 瓦片）
 - CSP 安全头（允许瓦片 CDN 加载）
 - 瓦片状态显示（左上角 ↑req ✓loaded ✗errored）
 
