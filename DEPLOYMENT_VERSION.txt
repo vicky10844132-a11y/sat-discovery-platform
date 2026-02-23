@@ -2,33 +2,33 @@
 SAT-DISCOVERY / SAT-INDEX 部署信息
 ========================================
 
-分支 (Branch): copilot/create-sat-discovery-foundation
-版本 (Version): 2026-02-19-v2
-提交 (Commit): 31c3a4d
+分支 (Branch): copilot/fix-map-display-issue → main
+版本 (Version): 2026-02-23-v5-map-fix
+提交 (Commit): see git log
 
 ========================================
-部署验证 (Deployment Verification)
+地图修复内容 (Map Fix Summary)
 ========================================
 
-如果您能看到这个文件，说明部署到了正确的分支！
+如果您能看到这个文件，地图修复已成功部署！
 
-网站应该显示：
-- 赛博科技风格设计
-- 星空背景动画
-- 数据源目录（40+）
-- 算法目录（35+）
+修复内容：
+- MapLibre GL JS 本地化（不再依赖 CDN）
+- 主瓦片：CARTO Voyager（可靠，无需 API key）
+- Leaflet 备用方案（MapLibre 2秒无响应自动切换）
+- CSP 安全头（允许瓦片 CDN 加载）
+- 瓦片状态显示（左上角 ↑req ✓loaded ✗errored）
 
-如果仍然显示 "Safe Content" 错误：
+如果地图仍不显示：
 1. 清除浏览器缓存（Ctrl+Shift+R）
-2. 使用隐私模式访问
-3. 检查 Vercel Production Branch 设置
+2. 等待 3 秒后观察地图区域
+3. 打开 DevTools > Console 查看 [MapInit] 或 [MapFallback] 日志
 
 ========================================
-联系信息
+Vercel 设置提示
 ========================================
 
-如果问题持续，请检查：
-- Vercel Dashboard → Settings → Git → Production Branch
-- 应该设置为: copilot/create-sat-discovery-foundation
+Production Branch 应设置为: main
+如需帮助，检查 Vercel Dashboard → Settings → Git → Production Branch
 
-最后更新: 2026-02-19 21:53 UTC
+最后更新: 2026-02-23
