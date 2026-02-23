@@ -255,7 +255,7 @@ footer {
 }
 /* === /MAP STATUS OVERLAY === */
 
-
+/* === MAP ERROR BANNER ===
    Non-blocking tile-error notification inside the map container.
    Shown by js/map.js when tile requests fail; dismissible via ✕ button.
 */
@@ -288,3 +288,31 @@ footer {
   font-size: 13px;
 }
 /* === /MAP ERROR BANNER === */
+
+/* === MAP OFFLINE GRID ===
+   Tertiary fallback: shown when all tile providers are unreachable.
+   Pure CSS — no external dependencies.
+*/
+.map-offline-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 64px),
+    #1a3c5e;
+  z-index: 0;
+}
+
+.map-offline-msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  font-family: monospace;
+  pointer-events: none;
+  z-index: 1;
+}
+/* === /MAP OFFLINE GRID === */
