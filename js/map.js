@@ -1,11 +1,27 @@
-// SAT-DISCOVERY Map Module (Phase 2: Stable Map Core)
+// SAT-DISCOVERY Map Module (Phase 3: OSM raster tiles v3)
 // - Zero storage: Map itself stores nothing
 // - Constrained zoom: prevents infinite zoom-out
-// - Vector style: labels remain stable across zoom levels
-// - No AOI tools yet (next step)
+// - OSM raster tiles: no glyph/sprite dependency
+// - Explicit interaction handlers: scrollZoom, dragPan, touchZoomRotate
 
 (function () {
-  const DEFAULT_STYLE = "https://demotiles.maplibre.org/style.json";
+  // OSM raster tile style – uses all three subdomains for reliability
+  const OSM_STYLE = {
+    version: 8,
+    sources: {
+      osm: {
+        type: "raster",
+        tiles: [
+          "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        ],
+        tileSize: 256,
+        attribution: "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+      }
+    },
+    layers: [{ id: "osm", type: "raster", source: "osm" }]
+  };
 
   const MapManager = {
     map: null,
@@ -14,7 +30,7 @@
     init(containerId) {
       const container = document.getElementById(containerId);
       if (!container) {
-        console.error("Map container not found:", containerId);
+        console.error("[MapError] Map container not found:", containerId);
         return;
       }
 
@@ -24,8 +40,7 @@
       container.style.minHeight = container.style.minHeight || "420px";
 
       if (!window.maplibregl) {
-        console.error("maplibregl not found. Ensure MapLibre CDN is loaded in app.html <head>.");
-        // Minimal fallback UI (still better than silent blank)
+        console.error("[MapError] maplibregl not found. Ensure MapLibre is loaded in app.html <head>.");
         container.innerHTML = `
           <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
             <div style="text-align:center;opacity:.9;">
@@ -44,58 +59,44 @@
         this.map = null;
       }
 
-      // Build map
+      // Build map with OSM raster tiles
       const map = new maplibregl.Map({
         container: containerId,
-        style: {
-            version: 8,
-            sources: {
-                osm: {
-                    type: "raster",
-                    tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-                    tileSize: 256
-                }
-            },
-            layers: [{
-                id: "osm",
-                type: "raster",
-                source: "osm"
-            }]
-        },
+        style: OSM_STYLE,
         center: [0, 20],
         zoom: 2,
-        minZoom: 2,   // ✅ cannot zoom out infinitely
-        maxZoom: 16,  // ✅ reasonable max for performance
-        maxBounds: [[-180, -85], [180, 85]], // ✅ constrain world
-        cooperativeGestures: false
+        minZoom: 2,
+        maxZoom: 16,
+        maxBounds: [[-180, -85], [180, 85]],
+        cooperativeGestures: false,
+        attributionControl: true
       });
 
-      map.addControl(new maplibregl.NavigationControl(), "top-right");
+      // Explicitly enable all interactions (guards against accidental disable)
+      map.scrollZoom.enable();
+      map.dragPan.enable();
+      map.touchZoomRotate.enable();
 
-      // Optional: show scale (helps with geospatial context)
+      map.addControl(new maplibregl.NavigationControl(), "top-right");
       map.addControl(new maplibregl.ScaleControl({ maxWidth: 120, unit: "metric" }), "bottom-left");
 
+      // Enhanced error handler: log URL so tile failures are identifiable
       map.on("error", (e) => {
-        console.error("Map error:", e && e.error ? e.error : e);
+        const err = e && e.error ? e.error : e;
+        let url = "";
+        if (e && e.tile && e.tile.tileID) {
+          url = String(e.tile.tileID);
+        } else if (err && err.url) {
+          url = err.url;
+        }
+        console.error("[MapError]", url ? "Failed to load: " + url : err);
       });
 
       this.map = map;
-      console.log("Map initialized (MapLibre)");
-
-      // DEBUG: verify wheel events reach the map container
-      try {
-        const el = document.getElementById(containerId);
-        if (el && !el.__wheelDebug) {
-          el.__wheelDebug = true;
-          el.addEventListener('wheel', (ev) => {
-            console.log('[MapDebug] wheel event', {deltaY: ev.deltaY, ctrlKey: ev.ctrlKey, metaKey: ev.metaKey});
-          }, { passive: true });
-        }
-      } catch (e) {}
-
+      console.log("[MapInit] OSM raster tiles v3 – scrollZoom/dragPan/touchZoom enabled");
     },
 
-    // Placeholder APIs for next steps (AOI / layers)
+    // Placeholder APIs for AOI / layers
     setAOI(aoi) { this.aoi = aoi; },
     getAOI() { return this.aoi; },
     clearAOI() { this.aoi = null; },

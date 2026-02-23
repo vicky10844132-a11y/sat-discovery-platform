@@ -214,6 +214,13 @@ footer {
   pointer-events: auto !important;
 }
 
+/* touch-action: none lets MapLibre handle all touch gestures on mobile */
+#map,
+#map .maplibregl-canvas-container,
+#map .maplibregl-canvas {
+  touch-action: none !important;
+}
+
 /* If any pseudo overlays exist on the map panel, never let them eat events */
 .map-panel::before,
 .map-panel::after {
