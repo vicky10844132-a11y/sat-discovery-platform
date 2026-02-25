@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全球遥感数据源目录 - SAT-DISCOVERY</title>
+    <title>全球遥感Data Providers目录 - SAT-DISCOVERY</title>
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/components.css">
@@ -314,7 +314,7 @@
             <ul>
                 <li><a href="/index.html">首页</a></li>
                 <li><a href="/app.html">Dashboard</a></li>
-                <li><a href="/data_sources.html" class="active">数据源</a></li>
+                <li><a href="/data_sources.html" class="active">Data Providers</a></li>
                 <li><a href="/sources.html">原目录</a></li>
             </ul>
         </nav>
@@ -322,13 +322,13 @@
 
     <main style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
         <div class="catalog-header">
-            <h1>🌍 全球遥感数据源目录</h1>
-            <p>整合全球公开和商业卫星数据源，包括 SAR、光学、DEM 等多种类型，提供统一的资源导航和访问入口</p>
+            <h1>🌍 全球遥感Data Providers目录</h1>
+            <p>整合全球公开和Commercial卫星Data Providers，包括 SAR、Optical、DEM 等多种类型，提供统一的资源导航和访问入口</p>
             
             <div class="stats-bar" id="statsBar">
                 <div class="stat-item">
                     <div class="stat-number">41</div>
-                    <div class="stat-label">数据源总数</div>
+                    <div class="stat-label">Data Providers总数</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">25+</div>
@@ -346,7 +346,7 @@
         </div>
 
         <div class="filter-bar">
-            <input type="text" id="searchInput" placeholder="🔍 搜索数据源名称、类型或内容...">
+            <input type="text" id="searchInput" placeholder="🔍 SearchData Providers名称、类型或内容...">
             
             <div class="filter-chips">
                 <div class="filter-chip active" data-filter="all">全部</div>
@@ -364,7 +364,7 @@
     <footer style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.5); margin-top: 4rem;">
         <p>SAT-DISCOVERY - 公益遥感资源聚合平台</p>
         <p style="font-size: 0.9rem; margin-top: 0.5rem;">
-            所有数据源版权归原机构所有 · 本站仅提供信息聚合和导航服务
+            所有Data Providers版权归原机构所有 · 本站仅提供信息聚合和导航服务
         </p>
     </footer>
 
@@ -383,7 +383,7 @@
             } catch (error) {
                 console.error('Failed to load catalog:', error);
                 document.getElementById('catalogContent').innerHTML = 
-                    '<p style="color: red; text-align: center;">加载数据源目录失败，请刷新页面重试</p>';
+                    '<p style="color: red; text-align: center;">加载Data Providers目录失败，请刷新页面重试</p>';
             }
         }
 
@@ -395,7 +395,7 @@
             document.getElementById('statsBar').innerHTML = `
                 <div class="stat-item">
                     <div class="stat-number">${stats.totalSources}</div>
-                    <div class="stat-label">数据源总数</div>
+                    <div class="stat-label">Data Providers总数</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">${stats.freeCount}</div>
@@ -429,7 +429,7 @@
                 section.innerHTML = `
                     <div class="category-header">
                         <h2>${categoryData.name}</h2>
-                        <span class="category-count">${filteredSources.length} 个数据源</span>
+                        <span class="category-count">${filteredSources.length} 个Data Providers</span>
                         <span class="category-description">${categoryData.description}</span>
                     </div>
                     <div class="sources-grid">
@@ -440,10 +440,10 @@
             }
         }
 
-        // 过滤数据源
+        // FiltersData Providers
         function filterSources(sources) {
             return sources.filter(source => {
-                // 搜索过滤
+                // SearchFilters
                 if (searchTerm) {
                     const searchLower = searchTerm.toLowerCase();
                     const matchesSearch = 
@@ -455,7 +455,7 @@
                     if (!matchesSearch) return false;
                 }
 
-                // 类型过滤
+                // 类型Filters
                 if (currentFilter === 'free' && source.isFree !== true) return false;
                 if (currentFilter === 'api' && source.apiAvailable !== true) return false;
                 if (currentFilter === 'sample' && !source.sampleData) return false;
@@ -464,14 +464,14 @@
             });
         }
 
-        // 渲染数据源卡片
+        // 渲染Data Providers卡片
         function renderSourceCard(source) {
             const freeStatus = source.isFree === true ? 'free' : 
                               source.isFree === 'partial' ? 'partial' : 
                               source.isFree === 'research' ? 'partial' : 'paid';
             
             const freeLabel = freeStatus === 'free' ? '免费' : 
-                            freeStatus === 'partial' ? '部分免费' : '商业';
+                            freeStatus === 'partial' ? '部分免费' : 'Commercial';
 
             const apiStatus = source.apiAvailable === true ? 'api' : 
                             source.apiAvailable === 'partial' ? 'api' : '';
@@ -525,13 +525,13 @@
             `;
         }
 
-        // 搜索功能
+        // Search功能
         document.getElementById('searchInput').addEventListener('input', (e) => {
             searchTerm = e.target.value;
             renderCatalog();
         });
 
-        // 过滤功能
+        // Filters功能
         document.querySelectorAll('.filter-chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));

@@ -28,7 +28,7 @@ zsh: command not found: npx
 
 **原因**:
 - Node.js/npm 没有安装
-- npx 命令不可用
+- npx 命令不Available
 
 ---
 
@@ -117,7 +117,7 @@ Vercel CLI 28.0.0
 ✅  Production: https://www.sat-index.online [1s]
 ```
 
-### 步骤9: 清除浏览器缓存
+### 步骤9: Clear浏览器缓存
 
 ```
 Cmd + Shift + R (Mac)
@@ -177,8 +177,8 @@ sudo chown -R $(whoami) ~/sat-discovery-platform
 
 - [ ] Homebrew 已安装（或跳过）
 - [ ] Node.js 已安装
-- [ ] npm 可用
-- [ ] npx 可用
+- [ ] npm Available
+- [ ] npx Available
 - [ ] 项目已克隆
 - [ ] 在正确分支
 - [ ] vercel.json 存在

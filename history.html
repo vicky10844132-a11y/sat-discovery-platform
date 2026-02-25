@@ -357,8 +357,8 @@
           <div class="empty-state">
             <div class="empty-state-icon">📭</div>
             <h2>暂无处理记录</h2>
-            <p>开始您的第一个处理任务吧！</p>
-            <a href="/algorithms.html" class="start-btn">浏览算法</a>
+            <p>开始您的第一个处理Tasking吧！</p>
+            <a href="/algorithms.html" class="start-btn">浏览Algorithms</a>
           </div>
         `;
         return;
@@ -422,7 +422,7 @@
       if (diff < 60000) return '刚刚';
       if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前';
       if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前';
-      if (diff < 604800000) return Math.floor(diff / 86400000) + '天前';
+      if (diff < 604800000) return Math.floor(diff / 86400000) + 'days前';
       
       return date.toLocaleDateString('zh-CN');
     }
@@ -544,7 +544,7 @@
         }
       ];
 
-      // 覆盖init函数
+      // Coverageinit函数
       init = async function() {
         // 显示用户信息
         document.getElementById('user-email').textContent = mockUser.email + ' (演示)';

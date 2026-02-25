@@ -49,7 +49,7 @@ npx vercel --prod
 - 部署到生产环境
 - 显示URL
 
-### 5. 清除浏览器缓存
+### 5. Clear浏览器缓存
 
 ```
 Ctrl + Shift + R (Windows/Linux)
@@ -127,9 +127,9 @@ vercel --prod
 ### 如果仍然看到 "Safe Content"
 
 1. 确认部署完成（30-60秒）
-2. 清除浏览器缓存（Ctrl+Shift+R）
+2. Clear浏览器缓存（Ctrl+Shift+R）
 3. 使用隐私模式访问
-4. 清除 Cloudflare 缓存（如果使用）
+4. Clear Cloudflare 缓存（如果使用）
 
 ---
 
@@ -143,7 +143,7 @@ vercel --prod
 **只需要**:
 - ✅ 运行 1 行命令
 - ✅ 等待 30 秒
-- ✅ 清除缓存
+- ✅ Clear缓存
 - ✅ 访问网站
 
 ---

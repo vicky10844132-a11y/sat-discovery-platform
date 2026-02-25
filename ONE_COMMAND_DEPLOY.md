@@ -90,17 +90,17 @@ npx vercel --prod
 
 ### 访问网站
 
-1. **Vercel URL**（立即可用）:
+1. **Vercel URL**（立即Available）:
    ```
    https://sat-discovery-platform.vercel.app
    ```
 
-2. **您的域名**（需要清除缓存）:
+2. **您的域名**（需要Clear缓存）:
    ```
    https://www.sat-index.online/
    ```
 
-### 清除缓存
+### Clear缓存
 
 按 `Ctrl + Shift + R` 强制刷新浏览器
 

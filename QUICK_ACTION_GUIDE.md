@@ -62,7 +62,7 @@ copilot/create-sat-discovery-foundation
 
 如果看到 404 或其他内容，说明还没部署成功。
 
-#### B. 清除浏览器缓存
+#### B. Clear浏览器缓存
 
 - **Windows/Linux**: `Ctrl + Shift + R`
 - **Mac**: `Cmd + Shift + R`
@@ -90,20 +90,20 @@ copilot/create-sat-discovery-foundation
 - [ ] 手动触发 Redeploy ✓
 - [ ] 等待部署完成（30-60秒）✓
 - [ ] 访问 `/DEPLOYMENT_VERSION.txt` 验证 ✓
-- [ ] 清除浏览器缓存 ✓
+- [ ] Clear浏览器缓存 ✓
 - [ ] 访问网站验证内容正常 ✓
 
 ---
 
 ## 🔧 如果仍然有问题
 
-### 选项1: 清除 Cloudflare 缓存
+### 选项1: Clear Cloudflare 缓存
 
 1. 访问: https://dash.cloudflare.com
 2. 选择域名 **sat-index.online**
 3. 点击 **Caching** → **Configuration**
 4. 点击 **Purge Everything**
-5. 确认清除
+5. 确认Clear
 6. 等待 1-2 分钟
 7. 重新访问网站
 
@@ -126,7 +126,7 @@ copilot/create-sat-discovery-foundation
 
 **Git 仓库**:
 - 分支: `copilot/create-sat-discovery-foundation`
-- 最新提交: `f0ab00d`
+- 最新Submit: `f0ab00d`
 - vercel.json: 空配置（无限制）
 
 **Vercel 应该设置为**:
@@ -155,7 +155,7 @@ copilot/create-sat-discovery-foundation
 1. **最常见原因**: Production Branch 设置错误
 2. **最快解决**: 改正设置 + Redeploy
 3. **验证方法**: 访问 `/DEPLOYMENT_VERSION.txt`
-4. **清除缓存**: 必须！(Ctrl+Shift+R)
+4. **Clear缓存**: 必须！(Ctrl+Shift+R)
 
 ---
 

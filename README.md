@@ -1,6 +1,6 @@
 # SAT-DISCOVERY Platform 🛰️
 
-**遥感数据处理平台** - 无存储算法处理 · 整合全球资源
+**遥感数据处理平台** - 无存储Algorithms处理 · 整合全球资源
 
 ## 🌐 在线演示
 
@@ -12,10 +12,10 @@
 
 ## 🎯 项目定位
 
-SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Service），类似于 Google Earth Engine 和 Sentinel Hub：
+SAT-DISCOVERY 是一个**无存储的Algorithms处理平台**（Processing-as-a-Service），类似于 Google Earth Engine 和 Sentinel Hub：
 
-- 📊 **整合数据源目录** - 40+ 全球遥感数据源
-- 🔧 **提供处理算法** - 35+ 专业算法  
+- 📊 **整合Data Providers目录** - 40+ 全球遥感Data Providers
+- 🔧 **提供处理Algorithms** - 35+ 专业Algorithms  
 - ☁️ **云端计算** - Serverless 架构
 - 💾 **不存储数据** - 只做计算，不存输入输出
 - ❤️ **公益免费** - 免费提供服务
@@ -24,12 +24,12 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 
 ```
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│  选择数据源  │  →  │  配置算法    │  →  │  提交任务   │
+│  选择Data Providers  │  →  │  配置Algorithms    │  →  │  SubmitTasking   │
 │ (STAC/URL)  │     │  (参数设置)  │     │  (云端处理) │
 └─────────────┘     └──────────────┘     └─────────────┘
                                                ↓
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│  下载结果   │  ←  │  临时链接    │  ←  │  算法执行   │
+│  下载结果   │  ←  │  临时链接    │  ←  │  Algorithms执行   │
 │ (24小时内)  │     │ (24小时有效) │     │  (Lambda)   │
 └─────────────┘     └──────────────┘     └─────────────┘
                                                ↓
@@ -39,10 +39,10 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 **核心特点**:
 - ❌ 不存储输入数据（从外部源调用）
 - ❌ 不存储输出数据（24小时后自动删除）
-- ✅ 只做算法处理（加工器）
+- ✅ 只做Algorithms处理（加工器）
 - ✅ 低成本运营（$0.002/次）
 
-## 📊 数据源目录 (40+)
+## 📊 Data Providers目录 (40+)
 
 查看完整目录: [📖 data_sources.html](./data_sources.html)
 
@@ -51,12 +51,12 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 - **Alaska Satellite Facility** - Sentinel-1 + ALOS PALSAR
 - **JAXA G-Portal** - ALOS / PALSAR数据
 
-### 商业 SAR 样本
+### Commercial SAR 样本
 - **Capella Space** - 开放数据集 (TB级, 0.5-1m)
 - **Umbra** - 样本数据 (GB级, 0.25-1m)
 - **ICEYE** - 样本数据 (GB级, ~1m)
 
-### 免费光学数据
+### 免费Optical数据
 - **ESA Copernicus** - Sentinel-2/3 (PB级, 10-60m)
 - **NASA/USGS Landsat** - Landsat 8/9 (PB级, 15-30m)
 - **NASA Earthdata** - MODIS, VIIRS等
@@ -71,7 +71,7 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 - **Microsoft Planetary Computer** - STAC API
 - **Google Earth Engine** - 1000+ 数据集（云端处理）
 
-## 🔧 算法目录 (35+)
+## 🔧 Algorithms目录 (35+)
 
 查看完整目录: [📖 algorithms.html](./algorithms.html)
 
@@ -134,7 +134,7 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 - **队列**: Redis (Bull) / AWS SQS
 - **临时存储**: S3 (24小时lifecycle) / GCS
 
-### 算法环境
+### Algorithms环境
 - **运行时**: Python 3.11 + GDAL 3.6
 - **核心库**: rasterio, numpy, scipy, scikit-image
 - **SAR**: pyroSAR, SNAP (可选)
@@ -158,11 +158,11 @@ SAT-DISCOVERY 是一个**无存储的算法处理平台**（Processing-as-a-Serv
 
 ## 🚀 快速开始
 
-### 1. 浏览数据源
-访问 [data_sources.html](./data_sources.html) 查看40+全球数据源
+### 1. 浏览Data Providers
+访问 [data_sources.html](./data_sources.html) 查看40+全球Data Providers
 
-### 2. 选择算法
-访问 [algorithms.html](./algorithms.html) 查看35+处理算法
+### 2. 选择Algorithms
+访问 [algorithms.html](./algorithms.html) 查看35+处理Algorithms
 
 ### 3. 本地部署
 ```bash
@@ -191,10 +191,10 @@ vercel --prod
 ```
 sat-discovery-platform/
 ├── index.html                   # 首页
-├── data_sources.html           # 数据源目录
-├── data_sources_catalog.json  # 数据源JSON
-├── algorithms.html             # 算法目录
-├── algorithms_catalog.json    # 算法JSON
+├── data_sources.html           # Data Providers目录
+├── data_sources_catalog.json  # Data ProvidersJSON
+├── algorithms.html             # Algorithms目录
+├── algorithms_catalog.json    # AlgorithmsJSON
 ├── app.html                    # Dashboard (旧版)
 ├── css/                        # 样式文件
 │   ├── theme.css              # 主题
@@ -218,8 +218,8 @@ sat-discovery-platform/
 ## 📚 文档索引
 
 ### 用户文档
-- [数据源目录](./data_sources.html) - 40+ 全球数据源
-- [算法目录](./algorithms.html) - 35+ 处理算法
+- [Data Providers目录](./data_sources.html) - 40+ 全球Data Providers
+- [Algorithms目录](./algorithms.html) - 35+ 处理Algorithms
 - [快速开始](./QUICKSTART.md) - 使用指南
 
 ### 开发文档
@@ -248,7 +248,7 @@ sat-discovery-platform/
 **使用条款**:
 - ✅ 平台服务 100% 免费
 - ✅ 面向全球用户开放
-- ✅ 公益性质，非商业
+- ✅ 公益性质，非Commercial
 - ❌ 源代码不公开
 - ⚖️ 保留所有权利
 
@@ -270,4 +270,4 @@ sat-discovery-platform/
 
 ---
 
-**SAT-DISCOVERY** - 无存储算法处理平台 · 只做计算，不存数据 · 公益免费
+**SAT-DISCOVERY** - 无存储Algorithms处理平台 · 只做计算，不存数据 · 公益免费

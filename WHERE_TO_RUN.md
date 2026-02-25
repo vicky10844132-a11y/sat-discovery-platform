@@ -16,7 +16,7 @@
 
 1. **打开 Git Bash**
    - 按 `Win` 键
-   - 搜索 "Git Bash"
+   - Search "Git Bash"
    - 按回车打开
 
 2. **进入项目目录**
@@ -33,7 +33,7 @@
 
 1. **打开 Terminal**
    - 按 `Cmd + Space`
-   - 搜索 "Terminal"
+   - Search "Terminal"
    - 按回车打开
 
 2. **进入项目目录**
@@ -168,7 +168,7 @@ npx vercel --prod
 ### Mac
 
 ```bash
-# 1. 打开 Terminal (Cmd + Space, 搜索 Terminal)
+# 1. 打开 Terminal (Cmd + Space, Search Terminal)
 
 # 2. 查看当前位置
 pwd

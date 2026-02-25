@@ -20,7 +20,7 @@ https://sat-discovery-platform.vercel.app/
 
 - [ ] 配置域名重定向
 - [ ] 添加Google Analytics
-- [ ] 提交到搜索引擎
+- [ ] Submit到Search引擎
 
 ### 本周推荐
 
@@ -155,7 +155,7 @@ sat-index.online → www.sat-index.online
 
 ### Google Search Console
 
-**提交网站**:
+**Submit网站**:
 1. 访问: https://search.google.com/search-console
 2. 点击 "添加资源"
 3. 输入: `https://www.sat-index.online/`
@@ -171,7 +171,7 @@ sat-index.online → www.sat-index.online
 2. 在域名注册商添加DNS记录
 3. 等待验证
 
-**提交Sitemap**:
+**SubmitSitemap**:
 ```
 https://www.sat-index.online/sitemap.xml
 ```
@@ -186,7 +186,7 @@ https://www.sat-index.online/sitemap.xml
 **或手动添加**:
 1. 添加网站: `www.sat-index.online`
 2. 验证所有权
-3. 提交sitemap
+3. Submitsitemap
 
 ---
 
@@ -292,7 +292,7 @@ https://www.sat-index.online/sitemap.xml
 **环境变量**（如需要）:
 1. Settings → Environment Variables
 2. 添加敏感配置
-3. 不要提交到Git
+3. 不要Submit到Git
 
 ---
 
@@ -331,7 +331,7 @@ https://www.sat-index.online/sitemap.xml
 
 ```html
 <title>SAT-INDEX - 全球卫星数据索引平台</title>
-<meta name="description" content="整合40+数据源，35+算法的遥感数据处理平台">
+<meta name="description" content="整合40+Data Providers，35+Algorithms的遥感数据处理平台">
 <meta property="og:title" content="SAT-INDEX">
 <meta property="og:description" content="全球卫星数据索引与处理平台">
 <meta property="og:url" content="https://www.sat-index.online/">
@@ -361,7 +361,7 @@ https://www.sat-index.online/sitemap.xml
 
 **每月检查**:
 - ✅ Analytics数据
-- ✅ 搜索引擎收录
+- ✅ Search引擎Ingested
 - ✅ 用户反馈
 
 ### 更新部署
@@ -428,7 +428,7 @@ git push → Vercel自动检测 → 自动构建 → 自动部署
 ### 推荐配置
 - [ ] 域名重定向
 - [ ] Google Analytics
-- [ ] 搜索引擎提交
+- [ ] Search引擎Submit
 - [ ] 监控告警
 
 ### 优化配置

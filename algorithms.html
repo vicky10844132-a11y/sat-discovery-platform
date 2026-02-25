@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>算法目录 - SAT-DISCOVERY 遥感处理平台</title>
+    <title>Algorithms目录 - SAT-DISCOVERY 遥感处理平台</title>
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/components.css">
@@ -297,8 +297,8 @@
         <nav>
             <ul>
                 <li><a href="/index.html">首页</a></li>
-                <li><a href="/data_sources.html">数据源</a></li>
-                <li><a href="/algorithms.html" class="active">算法目录</a></li>
+                <li><a href="/data_sources.html">Data Providers</a></li>
+                <li><a href="/algorithms.html" class="active">Algorithms目录</a></li>
                 <li><a href="/app.html">Dashboard</a></li>
             </ul>
         </nav>
@@ -306,8 +306,8 @@
 
     <main style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
         <div class="hero-section">
-            <h1>🔧 遥感算法处理平台</h1>
-            <p class="hero-subtitle">35+ 种专业遥感处理算法 · 云端计算 · 无需存储</p>
+            <h1>🔧 遥感Algorithms处理平台</h1>
+            <p class="hero-subtitle">35+ 种专业遥感处理Algorithms · 云端计算 · 无需存储</p>
             
             <div class="hero-features">
                 <div class="feature-badge">☁️ 云端处理</div>
@@ -320,11 +320,11 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number" id="totalAlgorithms">35+</div>
-                <div class="stat-label">处理算法</div>
+                <div class="stat-label">处理Algorithms</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">8</div>
-                <div class="stat-label">算法类别</div>
+                <div class="stat-label">Algorithms类别</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">< 5分钟</div>
@@ -337,7 +337,7 @@
         </div>
 
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="🔍 搜索算法名称、类型或应用场景...">
+            <input type="text" id="searchInput" placeholder="🔍 SearchAlgorithms名称、类型或Apply场景...">
         </div>
 
         <div id="algorithmsContent">
@@ -345,12 +345,12 @@
         </div>
 
         <div id="noResults" class="no-results" style="display: none;">
-            没有找到匹配的算法，请尝试其他关键词
+            没有找到匹配的Algorithms，请尝试其他关键词
         </div>
     </main>
 
     <footer style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.5); margin-top: 4rem;">
-        <p>SAT-DISCOVERY - 无存储算法处理平台</p>
+        <p>SAT-DISCOVERY - 无存储Algorithms处理平台</p>
         <p style="font-size: 0.9rem; margin-top: 0.5rem;">
             只做计算，不存数据 · 低成本运营 · MIT 开源许可
         </p>
@@ -371,7 +371,7 @@
             'utilities': '🛠️'
         };
 
-        // 加载算法目录
+        // 加载Algorithms目录
         async function loadCatalog() {
             try {
                 const response = await fetch('/algorithms_catalog.json');
@@ -380,7 +380,7 @@
             } catch (error) {
                 console.error('Failed to load catalog:', error);
                 document.getElementById('algorithmsContent').innerHTML = 
-                    '<p style="color: red; text-align: center;">加载算法目录失败，请刷新页面重试</p>';
+                    '<p style="color: red; text-align: center;">加载Algorithms目录失败，请刷新页面重试</p>';
             }
         }
 
@@ -420,7 +420,7 @@
             noResults.style.display = totalVisible === 0 ? 'block' : 'none';
         }
 
-        // 过滤算法
+        // FiltersAlgorithms
         function filterAlgorithms(algorithms) {
             if (!searchTerm) return algorithms;
 
@@ -435,7 +435,7 @@
             });
         }
 
-        // 渲染算法卡片
+        // 渲染Algorithms卡片
         function renderAlgorithmCard(algo) {
             const applications = algo.applications ? algo.applications.slice(0, 3) : [];
             const dataSources = algo.dataSources ? algo.dataSources.slice(0, 3) : [];
@@ -488,23 +488,23 @@
                     ` : ''}
 
                     <button class="try-button" onclick="event.stopPropagation(); tryAlgorithm('${algo.id}')">
-                        🚀 试用此算法
+                        🚀 试用此Algorithms
                     </button>
                 </div>
             `;
         }
 
-        // 显示算法详情
+        // 显示Algorithms详情
         function showAlgorithmDetail(algoId) {
-            alert(`算法详情界面开发中\n算法ID: ${algoId}\n\n即将支持：\n- 参数配置\n- 数据源选择\n- 在线处理\n- 结果下载`);
+            alert(`Algorithms详情界面开发中\nAlgorithmsID: ${algoId}\n\n即将支持：\n- 参数配置\n- Data Providers选择\n- 在线处理\n- 结果下载`);
         }
 
-        // 试用算法
+        // 试用Algorithms
         function tryAlgorithm(algoId) {
-            alert(`即将跳转到算法处理界面\n算法: ${algoId}\n\n功能开发中，敬请期待！`);
+            alert(`即将跳转到Algorithms处理界面\nAlgorithms: ${algoId}\n\n功能开发中，敬请期待！`);
         }
 
-        // 搜索功能
+        // Search功能
         document.getElementById('searchInput').addEventListener('input', (e) => {
             searchTerm = e.target.value;
             renderCatalog();

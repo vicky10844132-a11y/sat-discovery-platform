@@ -92,7 +92,7 @@ https://www.sat-index.online/DEPLOYMENT_VERSION.txt
 
 ## 🔧 如果问题仍然存在
 
-### 选项1: 清除缓存
+### 选项1: Clear缓存
 
 **浏览器缓存**:
 - Chrome/Edge: `Ctrl + Shift + R` (Windows) 或 `Cmd + Shift + R` (Mac)
@@ -104,14 +104,14 @@ https://www.sat-index.online/DEPLOYMENT_VERSION.txt
 - Firefox: `Ctrl + Shift + P`
 - Safari: `Cmd + Shift + N`
 
-### 选项2: 清除 Cloudflare 缓存
+### 选项2: Clear Cloudflare 缓存
 
 1. 访问 Cloudflare Dashboard: https://dash.cloudflare.com
 2. 选择域名 `sat-index.online`
 3. 点击左侧 **Caching**
 4. 点击 **Configuration**
 5. 点击 **Purge Everything**
-6. 确认清除
+6. 确认Clear
 
 等待 1-2 分钟后重新访问网站。
 
@@ -160,7 +160,7 @@ Vercel 检测到更新
 - [ ] 手动触发重新部署
 - [ ] 等待部署完成（30-60秒）
 - [ ] 访问 `/DEPLOYMENT_VERSION.txt` 验证
-- [ ] 清除浏览器缓存
+- [ ] Clear浏览器缓存
 - [ ] 访问网站验证内容正常
 
 ---

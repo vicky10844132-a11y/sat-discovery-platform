@@ -45,8 +45,8 @@ sat-index.online → www.sat-index.online
 **获取**: https://analytics.google.com  
 **添加到**: index.html
 
-### 3. 搜索引擎
-**提交到**: Google Search Console  
+### 3. Search引擎
+**Submit到**: Google Search Console  
 **URL**: sitemap.xml
 
 ## 验证工具

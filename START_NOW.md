@@ -69,7 +69,7 @@ https://vercel.com/dashboard
 → 等待30-60秒
 ```
 
-**第4步**: 清除Cloudflare缓存
+**第4步**: ClearCloudflare缓存
 ```
 https://dash.cloudflare.com
 → sat-index.online
@@ -77,7 +77,7 @@ https://dash.cloudflare.com
 → Purge Everything
 ```
 
-**第5步**: 清除浏览器缓存
+**第5步**: Clear浏览器缓存
 ```
 按: Ctrl + Shift + R
 ```

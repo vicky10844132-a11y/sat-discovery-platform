@@ -23,8 +23,8 @@ design-reference/
 ├── 02-color-palette.png     # 配色方案
 ├── 03-typography.png        # 字体规范
 ├── 04-components.png        # UI组件
-├── 05-data-sources.png      # 数据源页面
-├── 06-algorithms.png        # 算法页面
+├── 05-data-sources.png      # Data Providers页面
+├── 06-algorithms.png        # Algorithms页面
 ├── 07-login.png             # 登录页面
 └── 08-history.png           # 历史记录页面
 ```
@@ -287,9 +287,9 @@ transition: all 0.2s ease;
 
 ---
 
-## 提交设计的方式
+## Submit设计的方式
 
-### GitHub 仓库提交
+### GitHub 仓库Submit
 1. Fork 或直接编辑仓库
 2. 上传图片到 `design-reference/` 文件夹
 3. 在 Issue 或 PR 中说明设计要求

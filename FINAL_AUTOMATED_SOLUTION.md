@@ -19,7 +19,7 @@ npx vercel --prod
 
 ---
 
-## 📦 完整交付清单
+## 📦 完整Delivery清单
 
 ### 自动化脚本（3个）✅
 
@@ -136,7 +136,7 @@ chmod +x setup-auto-deploy.sh
    https://www.sat-index.online/
    ```
 
-3. **清除缓存**:
+3. **Clear缓存**:
    ```
    Ctrl + Shift + R
    ```
@@ -204,7 +204,7 @@ chmod +x setup-auto-deploy.sh
 - ❌ 修改设置
 - ❌ 点击按钮
 - ❌ 等待页面
-- ❌ 手动清除缓存
+- ❌ 手动Clear缓存
 
 **只需要**:
 - ✅ 运行1行命令

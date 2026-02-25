@@ -277,7 +277,7 @@ dig www.sat-index.online
 
 **解决方案**:
 1. 耐心等待（通常 1-6 小时）
-2. 清除本地 DNS 缓存：
+2. Clear本地 DNS 缓存：
    ```bash
    # Windows
    ipconfig /flushdns

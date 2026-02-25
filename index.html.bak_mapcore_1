@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-DISCOVERY - 卫星数据Algorithms处理平台</title>
+    <title>SAT-DISCOVERY - 卫星数据算法处理平台</title>
     <link rel="stylesheet" href="css/cyber-theme.css">
     <style>
         /* 导航栏 */
@@ -332,8 +332,8 @@
             <a href="/" class="nav-logo">🛰️ SAT-DISCOVERY</a>
             <ul class="nav-menu">
                 <li><a href="/">首页</a></li>
-                <li><a href="data_sources.html">Data Providers</a></li>
-                <li><a href="algorithms.html">Algorithms库</a></li>
+                <li><a href="data_sources.html">数据源</a></li>
+                <li><a href="algorithms.html">算法库</a></li>
                 <li><a href="login.html">登录</a></li>
             </ul>
         </div>
@@ -343,14 +343,14 @@
     <section class="hero">
         <div class="container">
             <h1>SAT-DISCOVERY</h1>
-            <p class="hero-subtitle text-glow">卫星数据Algorithms处理平台</p>
+            <p class="hero-subtitle text-glow">卫星数据算法处理平台</p>
             <p class="hero-description">
-                整合全球40+Data Providers，提供35+专业Algorithms。用户自主输入输出，平台只做Algorithms处理。
+                整合全球40+数据源，提供35+专业算法。用户自主输入输出，平台只做算法处理。
                 无需注册，邮箱登录即可查看历史记录。
             </p>
             <div class="hero-buttons">
-                <a href="data_sources.html" class="btn btn-primary">浏览Data Providers</a>
-                <a href="algorithms.html" class="btn">查看Algorithms</a>
+                <a href="data_sources.html" class="btn btn-primary">浏览数据源</a>
+                <a href="algorithms.html" class="btn">查看算法</a>
                 <a href="login.html" class="btn">邮箱登录</a>
             </div>
         </div>
@@ -376,10 +376,10 @@
                 
                 <div class="feature-card numbered-item" data-number="2">
                     <div class="feature-number">2</div>
-                    <h3>Algorithms集成平台</h3>
+                    <h3>算法集成平台</h3>
                     <p>
-                        整合全球Algorithms资源，包括NDVI、SAR处理、DEM分析、变化检测等35+专业Algorithms。
-                        一个平台，所有Algorithms。
+                        整合全球算法资源，包括NDVI、SAR处理、DEM分析、变化检测等35+专业算法。
+                        一个平台，所有算法。
                     </p>
                 </div>
                 
@@ -387,7 +387,7 @@
                     <div class="feature-number">3</div>
                     <h3>无密码登录</h3>
                     <p>
-                        无需注册，使用邮箱接收魔法链接即可登录。查看处理历史，管理Tasking记录。
+                        无需注册，使用邮箱接收魔法链接即可登录。查看处理历史，管理任务记录。
                         简单安全，保护隐私。
                     </p>
                 </div>
@@ -396,7 +396,7 @@
                     <div class="feature-number">4</div>
                     <h3>多源数据支持</h3>
                     <p>
-                        整合40+全球Data Providers，包括Sentinel、Landsat、MODIS、CommercialSAR等。
+                        整合40+全球数据源，包括Sentinel、Landsat、MODIS、商业SAR等。
                         统一访问接口。
                     </p>
                 </div>
@@ -433,11 +433,11 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <span class="stat-value">40+</span>
-                    <span class="stat-label">全球Data Providers</span>
+                    <span class="stat-label">全球数据源</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-value">35+</span>
-                    <span class="stat-label">专业Algorithms</span>
+                    <span class="stat-label">专业算法</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-value">100%</span>
@@ -461,13 +461,13 @@
             <div class="cta-panel">
                 <h2 class="text-glow">开始使用</h2>
                 <p>
-                    浏览Data Providers，选择Algorithms，开始处理。
+                    浏览数据源，选择算法，开始处理。
                     <br>
                     无需注册，邮箱登录即可查看历史。
                 </p>
                 <div style="display: flex; gap: 20px; justify-content: center;">
-                    <a href="data_sources.html" class="btn btn-primary">浏览Data Providers</a>
-                    <a href="algorithms.html" class="btn">查看Algorithms库</a>
+                    <a href="data_sources.html" class="btn btn-primary">浏览数据源</a>
+                    <a href="algorithms.html" class="btn">查看算法库</a>
                 </div>
             </div>
         </div>
@@ -478,8 +478,8 @@
         <div class="container">
             <div class="footer-logo">SAT-DISCOVERY</div>
             <div class="footer-links">
-                <a href="data_sources.html">Data Providers</a>
-                <a href="algorithms.html">Algorithms库</a>
+                <a href="data_sources.html">数据源</a>
+                <a href="algorithms.html">算法库</a>
                 <a href="login.html">登录</a>
                 <a href="history.html">历史记录</a>
             </div>
